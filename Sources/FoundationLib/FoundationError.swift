@@ -11,6 +11,10 @@ public enum FoundationError: Error {
     
     case nilValue
     
+    case outOfBounds
+    
     case invalidCoding
+    
+    case fileNotExist
     
 }

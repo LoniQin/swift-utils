@@ -11,12 +11,20 @@ public struct Localization {
     
     public var tableName: String
     
-    public init(tableName: String) {
+    public var bundle: Bundle
+    
+    public init(tableName: String, bundle: Bundle = .main) {
         self.tableName = tableName
+        self.bundle = bundle
     }
     
     public func string(for key: CustomStringConvertible) -> String {
-        return NSLocalizedString(key.description, tableName: tableName, comment: "")
+        return NSLocalizedString(
+            key.description,
+            tableName: tableName,
+            bundle: bundle,
+            comment: ""
+        )
     }
     
 }

@@ -74,7 +74,7 @@ final class FoundationLibTests: XCTestCase {
         components.removeLast()
         
         let basePath = components.joined(separator: "/")
-        let filePath = basePath + "/" + "values.json"
+        let filePath = basePath  / "values.json"
         struct User: Codable, Equatable {
             let name: String
         }
@@ -186,7 +186,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testClassForCoderName() {
-      //  NSArray.className().assert.equal("NSArray")
+      //NSArray.className().assert.equal("NSArray")
     }
     
     static var allTests = [
