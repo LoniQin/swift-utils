@@ -1,5 +1,5 @@
 //
-//  Double+Extension.swift
+//  Double.swift
 //
 //
 //  Created by lonnie on 2020/8/19.

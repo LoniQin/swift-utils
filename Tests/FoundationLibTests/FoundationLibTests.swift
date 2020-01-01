@@ -144,6 +144,22 @@ final class FoundationLibTests: XCTestCase {
         false.assert.false()
     }
     
+    func testDictonaryExtension() {
+        let dic = ["a": 1, "b": 2]
+        do {
+            let a: Int = try dic.get("a")
+            a.assert.equal(1)
+        } catch  {
+            XCTFail()
+        }
+        do {
+            let _ : Int = try dic.get("c")
+            XCTFail()
+        } catch {
+            
+        }
+        
+    }
     func testClassForCoderName() {
       //  NSArray.className().assert.equal("NSArray")
     }

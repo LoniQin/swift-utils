@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Float.swift
 //  
 //
 //  Created by lonnie on 2020/8/22.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension UInt: NumberConvertable {
+extension Float: NumberConvertable {
     
     public var int: Int { Int(self)  }
     
-    public var uint: UInt { self  }
+    public var uint: UInt { UInt(self)  }
     
     public var double: Double { Double(self) }
     
-    public var float: Float { Float(self) }
+    public var float: Float { self }
     
 }
