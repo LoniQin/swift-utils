@@ -9,27 +9,19 @@ import Foundation
 
 public protocol Unwrappable {
     
-    static var defaultValue: Self { get }
+    init()
     
 }
 
-extension Double: Unwrappable {
-    
-    public static var defaultValue: Double {  0 }
-    
-}
+extension Double: Unwrappable {}
 
-extension Int: Unwrappable {
-    
-    public static var defaultValue: Int { 0 }
-    
-}
+extension Int: Unwrappable {}
 
-extension String: Unwrappable {
-    
-    public static var defaultValue: String { "" }
-    
-}
+extension Float: Unwrappable {}
+
+extension UInt: Unwrappable {}
+
+extension String: Unwrappable {}
 
 extension Optional where Wrapped: Unwrappable {
     
@@ -38,7 +30,7 @@ extension Optional where Wrapped: Unwrappable {
         case .some(let string):
             return string
         default:
-            return Wrapped.defaultValue
+            return Wrapped()
         }
     }
     

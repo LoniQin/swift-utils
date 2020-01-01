@@ -25,6 +25,18 @@ public extension String {
     
 }
 
+extension String: NumberConvertable {
+    
+    public var int: Int { Int(self) ?? .init() }
+    
+    public var uint: UInt { UInt(self) ?? .init() }
+    
+    public var double: Double { Double(self) ?? .init() }
+    
+    public var float: Float { Float(self) ?? .init() }
+    
+}
+
 public func / (lhs: String, rhs: String) -> String {
     "\(lhs)/\(rhs)"
 }
