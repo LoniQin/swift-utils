@@ -19,3 +19,15 @@ public protocol DataStorageProtocol  {
     
 }
 
+public extension DataStorageProtocol {
+    
+    func get<T: ExpressibleByNilLiteral & Codable>(for key: CustomStringConvertible) -> T? {
+        do {
+            let value: T = try get(for: key)
+            return value
+        } catch  {
+            return nil
+        }
+    }
+    
+}
