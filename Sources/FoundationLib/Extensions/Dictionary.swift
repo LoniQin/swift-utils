@@ -15,4 +15,10 @@ public extension Dictionary {
         throw FoundationError.nilValue
     }
     
+    @discardableResult
+    func get<T: ExpressibleByNilLiteral>(_ key: Key) -> T {
+        if let value: T = self[key] as? T { return value }
+        return nil
+    }
+    
 }

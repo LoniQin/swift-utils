@@ -38,7 +38,7 @@ public extension Int {
 
 extension Int: NumberConvertable {
     
-    public var int: Int { self  }
+    public var int: Int { self }
     
     public var uint: UInt { UInt(self)  }
     
