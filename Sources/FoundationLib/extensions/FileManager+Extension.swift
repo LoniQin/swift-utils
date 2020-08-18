@@ -5,7 +5,7 @@
 //  Created by lonnie on 2020/8/19.
 //
 
-import UIKit
+import Foundation
 
 public extension FileManager {
     
@@ -14,4 +14,5 @@ public extension FileManager {
             try createDirectory(atPath: path, withIntermediateDirectories: withIntermediateDirectories, attributes: nil)
         }
     }
+    
 }

@@ -10,7 +10,7 @@ import Foundation
 public extension UserDefaults {
     
     func get<T>(_ key: CustomStringConvertible) -> T? {
-        return value(forKey: key.description) as? T
+        value(forKey: key.description) as? T
     }
     
     func set(_ any: Any, for key: CustomStringConvertible) {

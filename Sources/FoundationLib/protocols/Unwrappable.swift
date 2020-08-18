@@ -15,17 +15,19 @@ public protocol Unwrappable {
 
 extension Double: Unwrappable {
     
-    public static var defaultValue: Double {
-        return 0
-    }
+    public static var defaultValue: Double {  0 }
     
 }
 
 extension Int: Unwrappable {
     
-    public static var defaultValue: Int {
-        return 0
-    }
+    public static var defaultValue: Int { 0 }
+    
+}
+
+extension String: Unwrappable {
+    
+    public static var defaultValue: String { "" }
     
 }
 
