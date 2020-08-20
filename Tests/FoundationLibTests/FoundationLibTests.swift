@@ -1,5 +1,11 @@
 import XCTest
 @testable import FoundationLib
+fileprivate struct Item {
+    @Default(2) var intValue: Int?
+    @Default(3) var doubleValue: Double?
+    @Default("Hello") var stringValue: String?
+    @AssociatedProperty var associatedProperty: Int?
+}
 
 final class FoundationLibTests: XCTestCase {
     
@@ -26,11 +32,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testDefault() {
-        struct Item {
-            @Default(2) var intValue: Int?
-            @Default(3) var doubleValue: Double?
-            @Default("Hello") var stringValue: String?
-        }
+        
         var item = Item()
         XCTAssertEqual(item.intValue.unwrapped, 2)
         XCTAssertEqual(item.doubleValue.unwrapped, 3)
@@ -41,6 +43,10 @@ final class FoundationLibTests: XCTestCase {
         XCTAssertEqual(item.intValue.unwrapped, 4)
         XCTAssertEqual(item.doubleValue.unwrapped, 5)
         XCTAssertEqual(item.stringValue.unwrapped, "World")
+        XCTAssertEqual(item.associatedProperty, nil)
+        item.associatedProperty = 8
+        XCTAssertEqual(item.associatedProperty, 8)
+        
     }
     
     static var allTests = [
