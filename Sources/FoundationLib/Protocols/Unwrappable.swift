@@ -33,7 +33,7 @@ extension String: Unwrappable {
 
 extension Optional where Wrapped: Unwrappable {
     
-    var unwrapped: Wrapped {
+    public var unwrapped: Wrapped {
         switch self {
         case .some(let string):
             return string

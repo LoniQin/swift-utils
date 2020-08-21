@@ -10,7 +10,9 @@ import Foundation
 public struct Default<T> {
     
     private var defaultValue: T
+    
     var value: T?
+    
     public init(_ defaultValue: T) {
         self.defaultValue = defaultValue
     }
