@@ -7,17 +7,17 @@
 
 import Foundation
 
-fileprivate let jsonDecoder = JSONDecoder()
-
-fileprivate let jsonEncoder = JSONEncoder()
-
-
 class FileStorage: DataStorageProtocol {
     
+    fileprivate let jsonDecoder = JSONDecoder()
+
+    fileprivate let jsonEncoder = JSONEncoder()
     
-    var path: String
+    let path: String
     
     var dictionary = [String: Any]()
+    
+    private let lock = NSLock()
     
     init(path: String) throws {
         
@@ -26,8 +26,13 @@ class FileStorage: DataStorageProtocol {
     }
     
     func load() throws {
+        let locked = lock.try()
+        defer {
+            if locked { lock.unlock() }
+        }
+        
         let data = try Data(contentsOf: URL(fileURLWithPath: path))
-       
+        
         let dic = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
         
         if dic is [String: Any] {
@@ -38,6 +43,10 @@ class FileStorage: DataStorageProtocol {
     }
     
     func save() throws {
+        let locked = lock.try()
+        defer {
+            if locked { lock.unlock() }
+        }
         let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
         let bak_path = path + "_bak"
         if FileManager.default.fileExists(atPath: path) {
@@ -54,6 +63,10 @@ class FileStorage: DataStorageProtocol {
     }
     
     func get<T>(for key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
+        let locked = lock.try()
+        defer {
+            if locked { lock.unlock() }
+        }
         guard let base64Encoded = dictionary[key.description] as? String else {
             throw FoundationError.nilValue
         }
@@ -64,6 +77,10 @@ class FileStorage: DataStorageProtocol {
     }
     
     func set<T>(_ value: T?, for key: CustomStringConvertible) throws where T : Decodable, T : Encodable {
+        let locked = lock.try()
+        defer {
+            if locked { lock.unlock() }
+        }
         if let value = value {
             dictionary[key.description] = try jsonEncoder.encode(value).base64EncodedString()
         } else {
