@@ -9,11 +9,11 @@ import Foundation
 
 public extension NSObject {
     
-    public func setAssociatedValue(_ value: Any?, with key: inout String, _ option: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY) {
+    func setAssociatedValue(_ value: Any?, with key: inout String, _ option: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY) {
          objc_setAssociatedObject(self, &key, value, option)
      }
      
-    public func getAssociatedValue<T>(with key: inout String) -> T? {
+    func getAssociatedValue<T>(with key: inout String) -> T? {
          objc_getAssociatedObject(self, &key) as? T
     }
 }

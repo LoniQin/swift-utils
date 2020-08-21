@@ -7,14 +7,21 @@
 
 import Foundation
 
+fileprivate let jsonDecoder = JSONDecoder()
+
+fileprivate let jsonEncoder = JSONEncoder()
+
 public extension UserDefaults {
     
-    func get<T>(_ key: CustomStringConvertible) -> T? {
-        value(forKey: key.description) as? T
+    func get<T: Codable>(_ key: CustomStringConvertible) throws -> T {
+        guard let d = data(forKey: key.description) else { throw FoundationError.nilValue }
+        let value = try jsonDecoder.decode(T.self, from: d)
+        return value
     }
     
-    func set(_ any: Any, for key: CustomStringConvertible) {
-        set(any, forKey: key.description)
+    func set<T: Codable>(_ value: T?, for key: CustomStringConvertible) throws {
+        let data =  try jsonEncoder.encode(value)
+        set(data, forKey: key.description)
     }
     
 }
