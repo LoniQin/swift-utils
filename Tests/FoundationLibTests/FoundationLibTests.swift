@@ -9,17 +9,6 @@ fileprivate struct Item {
 
 final class FoundationLibTests: XCTestCase {
     
-    func testUserDefaults() {
-        do {
-            try UserDefaults.standard.set(1, for: 2)
-            XCTAssert(try UserDefaults.standard.get(2) == 1)
-            try UserDefaults.standard.set(5, for: "333")
-            XCTAssert(try UserDefaults.standard.get("333") == 5)
-        } catch let error {
-            objc_exception_throw(error)
-        }
-    }
-    
     func testUnwrappable() {
         var a: Int?
         var b: Double?
@@ -33,6 +22,70 @@ final class FoundationLibTests: XCTestCase {
         XCTAssertEqual(a.unwrapped, 1)
         XCTAssertEqual(b.unwrapped, 2)
         XCTAssertEqual(c.unwrapped, "3")
+    }
+    
+    func testMemoryCacheManager() {
+        
+        struct User: Codable, Equatable {
+            let name: String
+        }
+        do {
+            let storage = MemoryCacheStorage()
+            let user = User(name: "Lonnie")
+            try storage.load()
+            try storage.set(user, for: "user")
+            try storage.save()
+            XCTAssertEqual(try storage.get(for: "user"), user)
+        } catch let error {
+            objc_exception_throw(error)
+        }
+    }
+    
+    func testUserDefaults() {
+        
+        struct User: Codable, Equatable {
+            let name: String
+        }
+        
+        do {
+            let storage = UserDefaults.standard
+            let user = User(name: "Lonnie")
+            try storage.load()
+            try storage.set(user, for: "user")
+            try storage.save()
+            XCTAssertEqual(try storage.get(for: "user"), user)
+        } catch let error {
+            objc_exception_throw(error)
+        }
+        
+    }
+    
+    func testFileStorage() {
+        
+        var components = #file.components(separatedBy: "/")
+        components.removeLast()
+        
+        let basePath = components.joined(separator: "/")
+        let filePath = basePath + "/" + "values.json"
+        struct User: Codable, Equatable {
+            let name: String
+        }
+        
+        do {
+            let storage = try FileStorage(path: filePath)
+            let user = User(name: "Lonnie")
+            try storage.set(user, for: "user")
+            try storage.save()
+            XCTAssertEqual(try storage.get(for: "user"), user)
+            
+            let nextStorage = try FileStorage(path: filePath)
+            try nextStorage.load()
+            let nextUser: User = try nextStorage.get(for: "user")
+            XCTAssertEqual(user, nextUser)
+        } catch let error {
+            objc_exception_throw(error)
+        }
+        
     }
     
     func testDefault() {

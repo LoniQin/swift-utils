@@ -11,4 +11,6 @@ enum FoundationError: Error {
     
     case nilValue
     
+    case invalidCoding
+    
 }

@@ -15,4 +15,10 @@ public extension FileManager {
         }
     }
     
+    func createFileIfNotExist(_ path: String, data: Data = Data(), withIntermediateDirectories: Bool = false) throws {
+        if !FileManager.default.fileExists(atPath: path) {
+            createFile(atPath: path, contents: data, attributes: nil)
+        }
+    }
+    
 }
