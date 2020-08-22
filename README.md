@@ -2,6 +2,38 @@
 
 This library contains many powerful tools to work with Foundation Library.
 
+## Functions
+- [ ] Extensions
+    - [x] Int
+    - [x] UInt
+    - [x] Double
+    - [x] Float
+    - [x] String
+    - [ ] Data
+    - [x] NSObject
+    - [x] NSLock
+    - [x] DispatchQueue
+    - [x] UserDefaults
+    - [ ] NSAttributedString
+    - [ ] URLSession
+    - [ ] URLRequest
+- [ ] Property Wrappers
+    - [x] Default
+- [ ] Protocols
+    - [x] DataStorageProtocol
+    - [x] NumberConvertable
+    - [x] Unwrappable
+- [ ] Storage
+    - [x] FileStorage
+    - [x] MemoryCacheStorage
+    - [ ] NSCacheStorage
+    - [ ] UserDefaultsStorage
+    - [ ] KeyChainStorage
+    - [ ] StorageManager
+- [ ] Logger
+- [x] Test
+    - [x] Assert
+
 
 ## Unwrap an `Optional` safely and elegantly
 Swift `Optional` sometimes is very troublesome. We can handle them in an elegant way.
