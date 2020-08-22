@@ -31,8 +31,7 @@ This library contains many powerful tools to work with Foundation Library.
     - [ ] KeyChainStorage
     - [ ] StorageManager
 - [ ] Logger
-- [x] Test
-    - [x] Assert
+- [ ] Regex
 
 
 ## Unwrap an `Optional` safely and elegantly
