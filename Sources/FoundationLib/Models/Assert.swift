@@ -6,44 +6,45 @@
 //
 
 import Foundation
+#if canImport(XCTest)
 import XCTest
 
-struct Assert {
+public struct Assert {
     
-    func equal<T: Equatable>(_ lhs: T, _ rhs: T) {
+    public func equal<T: Equatable>(_ lhs: T, _ rhs: T) {
         XCTAssertEqual(lhs, rhs)
     }
     
-    func `true`(_ expression: Bool) {
+    public func `true`(_ expression: Bool) {
         XCTAssertTrue(expression)
     }
     
-    func `false`(_ expression: Bool) {
+    public func `false`(_ expression: Bool) {
         XCTAssertFalse(expression)
     }
     
-    func notNil(_ expression: Any?, message: String = "") {
+    public func notNil(_ expression: Any?, message: String = "") {
         XCTAssertNotNil(expression, message)
     }
     
 }
 
 
-struct EquatibleAssert<T: Equatable> {
+public struct EquatibleAssert<T: Equatable> {
     
-    let value: T
+    public let value: T
     
-    let assert = Assert()
+    public let assert = Assert()
     
-    func equal(_ another: T) {
+    public func equal(_ another: T) {
         assert.equal(value, another)
     }
 }
 
-fileprivate let assert = Assert()
-
-extension Equatable {
+public extension Equatable {
     
     var assert: EquatibleAssert<Self> { EquatibleAssert(value: self) }
 
 }
+
+#endif
