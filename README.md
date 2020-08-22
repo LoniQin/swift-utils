@@ -9,10 +9,14 @@ This library contains many powerful tools to work with Foundation Library.
     - [x] Double
     - [x] Float
     - [x] String
+    - [ ] Data
     - [x] NSObject
     - [x] NSLock
     - [x] DispatchQueue
     - [x] UserDefaults
+    - [ ] NSAttributedString
+    - [ ] URLSession
+    - [ ] URLRequest
 - [ ] Property Wrappers
     - [x] Default
 - [ ] Protocols
@@ -22,6 +26,10 @@ This library contains many powerful tools to work with Foundation Library.
 - [ ] Storage
     - [x] FileStorage
     - [x] MemoryCacheStorage
+    - [ ] NSCacheStorage
+    - [ ] UserDefaultsStorage
+    - [ ] KeyChainStorage
+    - [ ] StorageManager
 - [x] Test
     - [x] Assert
 
