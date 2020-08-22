@@ -2,7 +2,7 @@
 
 This library contains many powerful tools to work with Foundation Library.
 
-## Functions
+## Modules
 - [ ] Extensions
     - [x] Int
     - [x] UInt
