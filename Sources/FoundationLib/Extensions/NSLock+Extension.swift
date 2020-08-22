@@ -7,6 +7,7 @@
 
 import Foundation
 public extension NSLock {
+    
     func tryLock<T>(_ block: () throws -> T) throws -> T {
         let succeeded = self.try()
         defer {
@@ -14,4 +15,5 @@ public extension NSLock {
         }
         return try block()
     }
+    
 }

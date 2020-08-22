@@ -19,7 +19,7 @@ public extension String {
         if self.hasSuffix(string) {
             return self
         } else {
-            return self + string
+            return self.appending(string)
         }
     }
     
