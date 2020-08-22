@@ -30,6 +30,7 @@ This library contains many powerful tools to work with Foundation Library.
     - [ ] UserDefaultsStorage
     - [ ] KeyChainStorage
     - [ ] StorageManager
+- [ ] Logger
 - [x] Test
     - [x] Assert
 
