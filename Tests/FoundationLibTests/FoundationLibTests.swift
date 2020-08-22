@@ -131,6 +131,11 @@ final class FoundationLibTests: XCTestCase {
         1000.0.times(1000).assert.equal(1000000)
     }
     
+    func testClassForCoderName() {
+        let obj = NSObject()
+        obj.className().assert.equal("NSObject")
+    }
+    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)
