@@ -131,6 +131,12 @@ final class FoundationLibTests: XCTestCase {
         1000.0.times(1000).assert.equal(1000000)
     }
     
+    func testAssert() {
+        1.assert.equal(1)
+        true.assert.true()
+        false.assert.false()
+    }
+    
     func testClassForCoderName() {
         NSArray.className().assert.equal("NSArray")
     }

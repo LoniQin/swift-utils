@@ -26,4 +26,8 @@ public extension NSObject {
         }
     }
     
+    static func className() -> String {
+        classForCoder().description()
+    }
+    
 }
