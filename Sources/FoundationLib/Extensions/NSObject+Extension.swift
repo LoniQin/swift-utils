@@ -17,10 +17,6 @@ public extension NSObject {
          objc_getAssociatedObject(self, key) as? T
     }
     
-    func className() -> String {
-        return classForCoder.description()
-    }
-    
     func `try`<T>(block: () throws -> T) -> T? {
         do {
             return try block()

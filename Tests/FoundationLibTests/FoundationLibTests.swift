@@ -132,8 +132,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testClassForCoderName() {
-        let obj = NSObject()
-        obj.className().assert.equal("NSObject")
+        NSArray.className().assert.equal("NSArray")
     }
     
     static var allTests = [
