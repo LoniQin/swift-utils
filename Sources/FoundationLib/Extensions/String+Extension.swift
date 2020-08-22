@@ -28,3 +28,11 @@ public extension String {
 public func / (lhs: String, rhs: String) -> String {
     "\(lhs)/\(rhs)"
 }
+
+public func - (lhs: String, rhs: String) -> String {
+    "\(lhs)-\(rhs)"
+}
+
+public func * (lhs: String, rhs: Int) -> String {
+    Array(repeating: lhs, count: rhs).joined()
+}

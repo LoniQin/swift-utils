@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public extension NSLock {
     
     func tryLock<T>(_ block: () throws -> T) throws -> T {

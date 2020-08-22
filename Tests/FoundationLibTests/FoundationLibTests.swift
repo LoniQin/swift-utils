@@ -1,27 +1,35 @@
 import XCTest
 @testable import FoundationLib
+
 fileprivate struct Item {
+    
     @Default(2) var intValue: Int?
+    
     @Default(3) var doubleValue: Double?
+    
     @Default("Hello") var stringValue: String?
+    
     @AssociatedProperty var associatedProperty: Int?
+    
 }
 
 final class FoundationLibTests: XCTestCase {
+    
+    let assert = Assert()
     
     func testUnwrappable() {
         var a: Int?
         var b: Double?
         var c: String?
-        XCTAssertEqual(a.unwrapped, 0)
-        XCTAssertEqual(b.unwrapped, 0)
-        XCTAssertEqual(c.unwrapped, "")
+        assert.equal(a.unwrapped, 0)
+        assert.equal(b.unwrapped, 0)
+        assert.equal(c.unwrapped, "")
         a = 1
         b = 2
         c = "3"
-        XCTAssertEqual(a.unwrapped, 1)
-        XCTAssertEqual(b.unwrapped, 2)
-        XCTAssertEqual(c.unwrapped, "3")
+        assert.equal(a.unwrapped, 1)
+        assert.equal(b.unwrapped, 2)
+        assert.equal(c.unwrapped, "3")
     }
     
     func testMemoryCacheManager() {
@@ -35,7 +43,7 @@ final class FoundationLibTests: XCTestCase {
             try storage.load()
             try storage.set(user, for: "user")
             try storage.save()
-            XCTAssertEqual(try storage.get(for: "user"), user)
+            assert.equal(try storage.get(for: "user"), user)
         } catch let error {
             objc_exception_throw(error)
         }
@@ -53,7 +61,7 @@ final class FoundationLibTests: XCTestCase {
             try storage.load()
             try storage.set(user, for: "user")
             try storage.save()
-            XCTAssertEqual(try storage.get(for: "user"), user)
+            assert.equal(try storage.get(for: "user"), user)
         } catch let error {
             objc_exception_throw(error)
         }
@@ -76,12 +84,12 @@ final class FoundationLibTests: XCTestCase {
             let user = User(name: "Lonnie")
             try storage.set(user, for: "user")
             try storage.save()
-            XCTAssertEqual(try storage.get(for: "user"), user)
+            assert.equal(try storage.get(for: "user"), user)
             
             let nextStorage = try FileStorage(path: filePath)
             try nextStorage.load()
             let nextUser: User = try nextStorage.get(for: "user")
-            XCTAssertEqual(user, nextUser)
+            assert.equal(user, nextUser)
         } catch let error {
             objc_exception_throw(error)
         }
@@ -91,18 +99,18 @@ final class FoundationLibTests: XCTestCase {
     func testDefault() {
         
         var item = Item()
-        XCTAssertEqual(item.intValue.unwrapped, 2)
-        XCTAssertEqual(item.doubleValue.unwrapped, 3)
-        XCTAssertEqual(item.stringValue.unwrapped, "Hello")
+        assert.equal(item.intValue.unwrapped, 2)
+        assert.equal(item.doubleValue.unwrapped, 3)
+        assert.equal(item.stringValue.unwrapped, "Hello")
         item.intValue = 4
         item.doubleValue = 5
         item.stringValue = "World"
-        XCTAssertEqual(item.intValue.unwrapped, 4)
-        XCTAssertEqual(item.doubleValue.unwrapped, 5)
-        XCTAssertEqual(item.stringValue.unwrapped, "World")
-        XCTAssertEqual(item.associatedProperty, nil)
+        assert.equal(item.intValue.unwrapped, 4)
+        assert.equal(item.doubleValue.unwrapped, 5)
+        assert.equal(item.stringValue.unwrapped, "World")
+        assert.equal(item.associatedProperty, nil)
         item.associatedProperty = 8
-        XCTAssertEqual(item.associatedProperty, 8)
+        assert.equal(item.associatedProperty, 8)
         
     }
     
@@ -118,6 +126,20 @@ final class FoundationLibTests: XCTestCase {
             })
             XCTAssert(4999950000 == bigValue)
         }
+    }
+    
+    func testStringExtensions() {
+        let str = "hello world"
+        str.appendingSuffix(";").assert.equal("hello world;")
+        str.appendingPrefix("Lonnie:").assert.equal("Lonnie:hello world")
+        assert.equal(str.appendingSuffix(";"), "hello world;")
+        assert.equal(str.appendingSuffix("world"), "hello world")
+        assert.equal(str.appendingPrefix("hello"), "hello world")
+    }
+    
+    func testDouble() {
+        1.0.km.assert.equal(1000)
+        1000.0.times(1000).assert.equal(1000000)
     }
     
     static var allTests = [
