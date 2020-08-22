@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum FoundationError: Error {
+public enum FoundationError: Error {
     
     case nilValue
     

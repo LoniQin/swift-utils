@@ -110,8 +110,6 @@ public struct ComparableAssert<T: Comparable> {
     
 }
 
-
-
 public extension Equatable {
     
     var assert: EquatableAssert<Self> { EquatableAssert(value: self) }
