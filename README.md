@@ -32,6 +32,7 @@ This library contains many powerful tools to work with Foundation Library.
     - [ ] StorageManager
 - [ ] Logger
 - [ ] Regex
+- [ ] Database
 
 
 ## Unwrap an `Optional` safely and elegantly
