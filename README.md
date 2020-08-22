@@ -2,7 +2,7 @@
 
 This library contains many powerful tools to work with Foundation Library.
 
-## Functions
+## Modules
 - [ ] Extensions
     - [x] Int
     - [x] UInt
@@ -31,8 +31,8 @@ This library contains many powerful tools to work with Foundation Library.
     - [ ] KeyChainStorage
     - [ ] StorageManager
 - [ ] Logger
-- [x] Test
-    - [x] Assert
+- [ ] Regex
+- [ ] Database
 
 
 ## Unwrap an `Optional` safely and elegantly
