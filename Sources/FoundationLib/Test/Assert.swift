@@ -69,19 +69,58 @@ public struct EquatableAssert<T: Equatable> {
 extension EquatableAssert where T == Bool {
     
     public func `true`() {
-        assert.equal(value, true)
+        assert.true(value)
     }
     
     public func `false`() {
-        assert.equal(value, false)
+       assert.false(value)
+    }
+    
+}
+
+public struct ComparableAssert<T: Comparable> {
+    
+    public let value: T
+    
+    public let assert = Assert()
+    
+    public func equal(_ another: T) {
+        assert.equal(value, another)
+    }
+    
+    public func notEqual(_ another: T) {
+        assert.notEqual(value, another)
+    }
+    
+    public func greaterThan(_ another: T) {
+        assert.greaterThan(value, another)
+    }
+    
+    public func greaterThanOrEqual(_ another: T) {
+        assert.greaterThanOrEqual(value, another)
+    }
+    
+    public func lessThan(_ another: T) {
+        assert.lessThan(value, another)
+    }
+    
+    public func lessThanOrEqual(_ another: T) {
+        assert.lessThanOrEqual(value, another)
     }
     
 }
 
 
+
 public extension Equatable {
     
     var assert: EquatableAssert<Self> { EquatableAssert(value: self) }
+
+}
+
+public extension Comparable {
+    
+    var assert: ComparableAssert<Self> { ComparableAssert(value: self) }
 
 }
 

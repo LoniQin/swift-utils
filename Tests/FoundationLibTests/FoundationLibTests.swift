@@ -135,6 +135,13 @@ final class FoundationLibTests: XCTestCase {
         1.assert.equal(1)
         true.assert.true()
         false.assert.false()
+        1.assert.greaterThan(0)
+        2.assert.lessThan(3)
+        2.assert.lessThanOrEqual(2)
+        3.assert.greaterThan(1)
+        4.assert.greaterThanOrEqual(4)
+        true.assert.true()
+        false.assert.false()
     }
     
     func testClassForCoderName() {
