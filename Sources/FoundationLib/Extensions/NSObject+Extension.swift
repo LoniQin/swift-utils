@@ -17,4 +17,13 @@ public extension NSObject {
          objc_getAssociatedObject(self, key) as? T
     }
     
+    func `try`<T>(block: () throws -> T) -> T? {
+        do {
+            return try block()
+        } catch let error {
+            objc_exception_throw(error)
+            return nil
+        }
+    }
+    
 }

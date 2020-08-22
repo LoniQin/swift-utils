@@ -106,6 +106,20 @@ final class FoundationLibTests: XCTestCase {
         
     }
     
+    func testDispatchQueueExtension() {
+        self.try {
+            let value = try DispatchQueue.sync { 2 + 3 + 5 }
+            XCTAssertEqual(value, 10)
+            
+            let bigValue = try DispatchQueue.sync(on: .global(), block: { () -> Int in
+                var sum = 0
+                for i in 0..<100000 { sum += i }
+                return sum
+            })
+            XCTAssert(4999950000 == bigValue)
+        }
+    }
+    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)
