@@ -135,6 +135,9 @@ final class FoundationLibTests: XCTestCase {
         assert.equal(str.appendingSuffix(";"), "hello world;")
         assert.equal(str.appendingSuffix("world"), "hello world")
         assert.equal(str.appendingPrefix("hello"), "hello world")
+        ("user" / "login").assert.equal("user/login")
+        ("111" * 3).assert.equal("111111111")
+        ("111" - "222").assert.equal("111-222")
     }
     
     func testDouble() {
