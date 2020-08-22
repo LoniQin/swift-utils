@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public extension DispatchQueue {
     
     static func sync<T>(
