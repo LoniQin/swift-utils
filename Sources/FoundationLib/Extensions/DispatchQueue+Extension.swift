@@ -10,8 +10,7 @@ import Foundation
 public extension DispatchQueue {
     
     static func sync<T>(
-        on: DispatchQueue = .main,
-        block: () throws -> T) throws -> T {
+        onMain block: () throws -> T) throws -> T {
         if Thread.isMainThread {
             return try block()
         } else {
