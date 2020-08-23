@@ -9,15 +9,15 @@ import Foundation
 
 public extension FileManager {
     
-    func filePath(in directory: SearchPathDirectory, path: String) throws -> String {
+    func filePath(_ subPath: String, directory: SearchPathDirectory, domainMask: FileManager.SearchPathDomainMask = .userDomainMask) throws -> String {
         guard let base = NSSearchPathForDirectoriesInDomains(directory, .userDomainMask, true).first else {
             throw FoundationError.fileNotExist
         }
-        return base / path
+        return base / subPath
     }
     
     func createDirectoryIfNotExist(in directory: SearchPathDirectory, path: String, withIntermediateDirectories: Bool = true) throws {
-        try createDirectoryIfNotExist(filePath(in: directory, path: path), withIntermediateDirectories: withIntermediateDirectories)
+        try createDirectoryIfNotExist(filePath(path, directory: directory), withIntermediateDirectories: withIntermediateDirectories)
     }
     
     func createDirectoryIfNotExist(_ path: String, withIntermediateDirectories: Bool = false, attributes: [FileAttributeKey : Any]? = nil) throws {

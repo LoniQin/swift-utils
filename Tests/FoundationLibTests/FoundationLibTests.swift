@@ -32,6 +32,28 @@ final class FoundationLibTests: XCTestCase {
         assert.equal(c.unwrapped, "3")
     }
     
+    func testDipatchQueue() {
+        do {
+            try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
+            DispatchQueue.global().async {
+                try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
+            }
+        } catch {
+            
+        }
+    }
+    
+    func testNumberConvertable() {
+        2.int.assert.equal(2)
+        2.uint.assert.equal(2)
+        2.double.assert.equal(2)
+        2.float.assert.equal(2)
+        2.0.int.assert.equal(2)
+        2.0.uint.assert.equal(2)
+        2.0.double.assert.equal(2.0)
+        2.0.float.assert.equal(2.0)
+    }
+    
     func testMemoryCacheManager() {
         
         struct User: Codable, Equatable {

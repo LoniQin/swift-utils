@@ -9,9 +9,9 @@ import Foundation
 
 public struct Localization {
     
-    public var tableName: String
+    public let tableName: String
     
-    public var bundle: Bundle
+    public let bundle: Bundle
     
     public init(tableName: String, bundle: Bundle = .main) {
         self.tableName = tableName
