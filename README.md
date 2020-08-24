@@ -33,6 +33,8 @@ This library contains many powerful tools to work with Foundation Library.
 - [ ] Logger
 - [ ] Regex
 - [ ] Database
+- [ ] Networking
+- [ ] Crypto
 
 
 ## Unwrap an `Optional` safely and elegantly
