@@ -15,7 +15,7 @@ extension NSObject: Buildable {
     
 }
 
-public class Builder<T: Buildable> {
+open class Builder<T: Buildable> {
     
     var value: T
     
