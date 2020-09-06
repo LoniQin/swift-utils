@@ -8,10 +8,34 @@
 import Foundation
 public class DataStoreManager: DataStorageStrategy {
     
+    enum Strategy {
+        case file(path: String)
+        case memory
+        case userDefaults(suiteName: String)
+        case nsCache
+    }
+    
     let storage: DataStorageStrategy
     
     init(storage: DataStorageStrategy) {
         self.storage = storage
+    }
+    
+    init(strategy: Strategy) throws {
+        switch strategy {
+        case .file(let path):
+            self.storage = try FileStorage(path: path)
+        case .memory:
+            self.storage = MemoryCacheStorage()
+        case .userDefaults(let suiteName):
+            if let defaults = UserDefaults(suiteName: suiteName) {
+                self.storage = defaults
+            } else {
+                throw FoundationError.nilValue
+            }
+        case .nsCache:
+            self.storage = NSCache<AnyObject, AnyObject>() as! DataStorageStrategy
+        }
     }
     
     public func get<T>(for key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {

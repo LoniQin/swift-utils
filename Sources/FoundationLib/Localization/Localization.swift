@@ -8,7 +8,7 @@
 import Foundation
 
 public struct Localization {
-    
+
     public let tableName: String
     
     public let bundle: Bundle
@@ -19,7 +19,7 @@ public struct Localization {
     }
     
     public func string(for key: CustomStringConvertible) -> String {
-        return NSLocalizedString(
+        NSLocalizedString(
             key.description,
             tableName: tableName,
             bundle: bundle,
