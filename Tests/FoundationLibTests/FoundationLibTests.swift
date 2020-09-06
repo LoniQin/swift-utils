@@ -242,10 +242,10 @@ final class FoundationLibTests: XCTestCase {
         let buider1 = a.builder
         let buider2 = a.builder
         XCTAssert(buider1 === buider2)
-        a.builder.build { (a) in
-            a.a = 2
-            a.b = 3
-            a.c = "hello"
+        a.builder.build {
+            $0.a = 2
+            $0.b = 3
+            $0.c = "hello"
         }
         a.a.assert.equal(2)
         a.b.assert.equal(3)

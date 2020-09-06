@@ -23,8 +23,10 @@ public class Builder<T: Buildable> {
         self.value = value
     }
     
-    public func build(block: (T) -> Void) {
+    @discardableResult
+    public func build(block: (T) -> Void) -> Self {
         block(value)
+        return self
     }
     
 }
@@ -32,6 +34,7 @@ public class Builder<T: Buildable> {
 fileprivate var builderKey = "builderKey"
 
 public extension Buildable {
+    
     var builder: Builder<Self> {
         if let obj = objc_getAssociatedObject(self, &builderKey) as? Builder<Self> {
             return obj
@@ -40,4 +43,5 @@ public extension Buildable {
         objc_setAssociatedObject(self, &builderKey, builder, .OBJC_ASSOCIATION_RETAIN)
         return builder
     }
+    
 }
