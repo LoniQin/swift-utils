@@ -230,9 +230,27 @@ final class FoundationLibTests: XCTestCase {
             
         }
     }
-
-    func testClassForCoderName() {
-      //NSArray.className().assert.equal("NSArray")
+    
+    func testBuider() {
+        class A: Buildable {
+            var a = 1
+            var b = 2
+            var c = "ccc"
+        }
+        
+        let a = A()
+        let buider1 = a.builder
+        let buider2 = a.builder
+        XCTAssert(buider1 === buider2)
+        a.builder.build { (a) in
+            a.a = 2
+            a.b = 3
+            a.c = "hello"
+        }
+        a.a.assert.equal(2)
+        a.b.assert.equal(3)
+        a.c.assert.equal("hello")
+        
     }
     
     static var allTests = [
