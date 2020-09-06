@@ -209,6 +209,27 @@ final class FoundationLibTests: XCTestCase {
             
         }
     }
+    
+    func testNSCacheStorage() {
+        let storage = NSCacheStorage.default
+        
+        do {
+            try storage.set(1, for: "key")
+            let value: Int = try storage.get(for: "key")
+            value.assert.equal(1)
+        } catch {
+            XCTFail()
+        }
+        
+        do {
+            let obj: Int? = nil
+            try storage.set(obj, for: "key")
+            let _: Int = try storage.get(for: "key")
+            XCTFail()
+        } catch {
+            
+        }
+    }
 
     func testClassForCoderName() {
       //NSArray.className().assert.equal("NSArray")
