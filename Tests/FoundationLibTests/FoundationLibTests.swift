@@ -3,13 +3,13 @@ import XCTest
 
 fileprivate struct Item {
     
-    @Default(2) var intValue: Int?
+    @Default(2) var intValue: Int!
     
-    @Default(3) var doubleValue: Double?
+    @Default(3) var doubleValue: Double!
     
-    @Default("Hello") var stringValue: String?
+    @Default("Hello") var stringValue: String!
     
-    @AssociatedProperty var associatedProperty: Int?
+    @AssociatedProperty var associatedProperty: Int!
     
 }
 

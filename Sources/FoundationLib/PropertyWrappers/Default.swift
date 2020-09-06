@@ -17,7 +17,7 @@ public struct Default<T> {
         self.defaultValue = defaultValue
     }
  
-    public var wrappedValue: T? {
+    public var wrappedValue: T {
         get { return value ?? defaultValue }
         set { value = newValue }
     }
