@@ -30,4 +30,8 @@ public extension NSObject {
         classForCoder().description()
     }
     
+    func then<T>(_ value: T) -> T {
+        return value
+    }
+    
 }

@@ -11,7 +11,7 @@ fileprivate let jsonDecoder = JSONDecoder()
 
 fileprivate let jsonEncoder = JSONEncoder()
 
-extension UserDefaults: DataStorageProtocol {
+extension UserDefaults: DataStorageStrategy {
     
     public func load() throws {
         synchronize()

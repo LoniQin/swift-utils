@@ -35,9 +35,12 @@ final class FoundationLibTests: XCTestCase {
     func testDipatchQueue() {
         do {
             try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
+            /*
             DispatchQueue.global().async {
                 try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
+                return 0
             }
+            */
         } catch {
             
         }
@@ -206,7 +209,7 @@ final class FoundationLibTests: XCTestCase {
             
         }
     }
-    
+
     func testClassForCoderName() {
       //NSArray.className().assert.equal("NSArray")
     }

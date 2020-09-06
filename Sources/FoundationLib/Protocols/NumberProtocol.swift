@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public protocol NumberConvertable {
     
     var int: Int { get }

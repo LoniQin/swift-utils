@@ -1,5 +1,5 @@
 //
-//  DataStorageProtocol.swift
+//  DataStorageStrategy.swift
 //  
 //
 //  Created by lonnie on 2020/8/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol DataStorageProtocol  {
+public protocol DataStorageStrategy  {
     
     func get<T: Codable>(for key: CustomStringConvertible) throws -> T
     
@@ -19,7 +19,7 @@ public protocol DataStorageProtocol  {
     
 }
 
-public extension DataStorageProtocol {
+public extension DataStorageStrategy {
     
     func get<T: ExpressibleByNilLiteral & Codable>(for key: CustomStringConvertible) -> T? {
         do {

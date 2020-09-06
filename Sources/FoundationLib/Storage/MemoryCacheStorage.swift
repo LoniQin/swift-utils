@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class MemoryCacheStorage: DataStorageProtocol {
+public class MemoryCacheStorage: DataStorageStrategy {
     
     public static let `default` = MemoryCacheStorage()
     

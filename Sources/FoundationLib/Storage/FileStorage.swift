@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class FileStorage: DataStorageProtocol {
+public class FileStorage: DataStorageStrategy {
     
     fileprivate let jsonDecoder = JSONDecoder()
 
