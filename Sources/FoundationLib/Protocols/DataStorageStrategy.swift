@@ -9,7 +9,7 @@ import Foundation
 
 public protocol DataStorageStrategy  {
     
-    func get<T: Codable>(for key: CustomStringConvertible) throws -> T
+    func get<T: Codable>(_ key: CustomStringConvertible) throws -> T
     
     func set<T: Codable>(_ value: T?, for key: CustomStringConvertible) throws
     
@@ -21,9 +21,9 @@ public protocol DataStorageStrategy  {
 
 public extension DataStorageStrategy {
     
-    func get<T: ExpressibleByNilLiteral & Codable>(for key: CustomStringConvertible) -> T? {
+    func get<T: ExpressibleByNilLiteral & Codable>(_ key: CustomStringConvertible) -> T? {
         do {
-            let value: T = try get(for: key)
+            let value: T = try get(key)
             return value
         } catch  {
             return nil

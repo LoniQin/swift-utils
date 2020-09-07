@@ -34,12 +34,12 @@ public class DataStoreManager: DataStorageStrategy {
                 throw FoundationError.nilValue
             }
         case .nsCache:
-            self.storage = NSCache<AnyObject, AnyObject>() as! DataStorageStrategy
+            self.storage = NSCacheStorage()
         }
     }
     
-    public func get<T>(for key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
-        try storage.get(for: key)
+    public func get<T>(_ key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
+        try storage.get(key)
     }
     public func set<T>(_ value: T?, for key: CustomStringConvertible) throws where T : Decodable, T : Encodable {
         try storage.set(value, for: key)

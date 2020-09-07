@@ -15,6 +15,10 @@ fileprivate struct Item {
 
 final class FoundationLibTests: XCTestCase {
     
+    struct User: Codable, Equatable {
+        let name: String
+    }
+    
     let assert = Assert()
     
     func testUnwrappable() {
@@ -59,16 +63,14 @@ final class FoundationLibTests: XCTestCase {
     
     func testMemoryCacheManager() {
         
-        struct User: Codable, Equatable {
-            let name: String
-        }
+        
         do {
             let storage = MemoryCacheStorage()
             let user = User(name: "Lonnie")
             try storage.load()
             try storage.set(user, for: "user")
             try storage.save()
-            assert.equal(try storage.get(for: "user"), user)
+            assert.equal(try storage.get("user"), user)
         } catch let error {
             objc_exception_throw(error)
         }
@@ -86,7 +88,7 @@ final class FoundationLibTests: XCTestCase {
             try storage.load()
             try storage.set(user, for: "user")
             try storage.save()
-            assert.equal(try storage.get(for: "user"), user)
+            assert.equal(try storage.get("user"), user)
         } catch let error {
             objc_exception_throw(error)
         }
@@ -109,11 +111,11 @@ final class FoundationLibTests: XCTestCase {
             let user = User(name: "Lonnie")
             try storage.set(user, for: "user")
             try storage.save()
-            assert.equal(try storage.get(for: "user"), user)
+            assert.equal(try storage.get("user"), user)
             
             let nextStorage = try FileStorage(path: filePath)
             try nextStorage.load()
-            let nextUser: User = try nextStorage.get(for: "user")
+            let nextUser: User = try nextStorage.get("user")
             assert.equal(user, nextUser)
         } catch let error {
             objc_exception_throw(error)
@@ -215,7 +217,7 @@ final class FoundationLibTests: XCTestCase {
         
         do {
             try storage.set(1, for: "key")
-            let value: Int = try storage.get(for: "key")
+            let value: Int = try storage.get("key")
             value.assert.equal(1)
         } catch {
             XCTFail()
@@ -224,7 +226,7 @@ final class FoundationLibTests: XCTestCase {
         do {
             let obj: Int? = nil
             try storage.set(obj, for: "key")
-            let _: Int = try storage.get(for: "key")
+            let _: Int = try storage.get("key")
             XCTFail()
         } catch {
             
@@ -268,6 +270,24 @@ final class FoundationLibTests: XCTestCase {
         let text = "Open website http://www.google.com"
         let result = Regex.scan(text: text)
         result.assert.equal([.url: ["http://www.google.com"]])
+    }
+    
+    func testStorageManager() {
+        let storageManager = DataStoreManager(storage: UserDefaults.standard)
+        do {
+            try storageManager.load()
+            let a = User(name: "Tom")
+            try storageManager.set(a, for: "user")
+            try a.assert.equal(storageManager.get("user"))
+            try storageManager.save()
+            XCTAssert(try DataStoreManager(strategy: .memory).storage is MemoryCacheStorage)
+            XCTAssert(try DataStoreManager(strategy: .userDefaults(suiteName: "hello")).storage is UserDefaults)
+            XCTAssert(try DataStoreManager(strategy: .nsCache).storage is NSCacheStorage)
+            XCTAssert(try DataStoreManager(strategy: .file(path: "a.json")).storage is FileStorage)
+            
+        } catch let error {
+            XCTFail(error.localizedDescription)
+        }
     }
     
     static var allTests = [

@@ -15,7 +15,7 @@ public class MemoryCacheStorage: DataStorageStrategy {
     
     private var dictionary: [String: Any] = [:]
     
-    public func get<T>(for key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
+    public func get<T>(_ key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
         try lock.tryLock { [unowned self] in
             guard let value = self.dictionary[key.description] as? T else {
                 throw FoundationError.nilValue

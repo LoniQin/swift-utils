@@ -13,7 +13,7 @@ public class NSCacheStorage: DataStorageStrategy {
     
     private var cache = NSCache<NSString, AnyObject>()
     
-    public func get<T>(for key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
+    public func get<T>(_ key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
         if let value = cache.object(forKey: key.description as NSString) as? T { return value }
         throw FoundationError.nilValue
     }

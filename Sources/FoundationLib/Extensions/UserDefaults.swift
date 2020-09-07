@@ -21,7 +21,7 @@ extension UserDefaults: DataStorageStrategy {
         synchronize()
     }
     
-    public func get<T: Codable>(for key: CustomStringConvertible) throws -> T {
+    public func get<T: Codable>(_ key: CustomStringConvertible) throws -> T {
         guard let d = data(forKey: key.description) else { throw FoundationError.nilValue }
         let value = try jsonDecoder.decode(T.self, from: d)
         return value

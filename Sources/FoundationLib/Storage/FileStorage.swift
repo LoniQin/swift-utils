@@ -58,7 +58,7 @@ public class FileStorage: DataStorageStrategy {
         }
     }
     
-    public func get<T>(for key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
+    public func get<T>(_ key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
         try lock.tryLock { [unowned self] in
             guard let base64Encoded = self.dictionary[key.description] as? String else {
                 throw FoundationError.nilValue
