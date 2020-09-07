@@ -232,7 +232,10 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testBuider() {
-        class A: Buildable {
+        class A: NSObject, Buildable {
+            
+            typealias BuilderClass = Builder<A>
+            
             var a = 1
             var b = 2
             var c = "ccc"
