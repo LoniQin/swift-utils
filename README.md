@@ -41,12 +41,12 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 - [ ] Storage
     - [x] FileStorage
     - [x] MemoryCacheStorage
-    - [ ] NSCacheStorage
-    - [ ] UserDefaultsStorage
+    - [x] NSCacheStorage
+    - [x] UserDefaultsStorage
     - [ ] KeyChainStorage
-    - [ ] StorageManager
+    - [x] StorageManager
 - [ ] Logger
-- [ ] Regex
+- [x] Regex
 - [ ] Database
 - [ ] Networking
 - [ ] Crypto
