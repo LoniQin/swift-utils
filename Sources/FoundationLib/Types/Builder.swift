@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol Buildable {
+public protocol Buildable: NSObjectProtocol {
     
 }
 
@@ -17,7 +17,7 @@ extension NSObject: Buildable {
 
 open class Builder<T: Buildable> {
     
-    var value: T
+    weak var value: T?
     
     public init(_ value: T) {
         self.value = value
@@ -25,7 +25,9 @@ open class Builder<T: Buildable> {
     
     @discardableResult
     public func build(block: (T) -> Void) -> Self {
-        block(value)
+        if let value = value {
+            block(value)
+        }
         return self
     }
     
