@@ -39,12 +39,6 @@ final class FoundationLibTests: XCTestCase {
     func testDipatchQueue() {
         do {
             try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
-            /*
-            DispatchQueue.global().async {
-                try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
-                return 0
-            }
-            */
         } catch {
             
         }
@@ -177,7 +171,7 @@ final class FoundationLibTests: XCTestCase {
             let a: Int = try dic.get("a")
             a.assert.equal(1)
             let b: Int? = dic.get("b")
-            print(b)
+            b.assert.equal(2)
         } catch  {
             XCTFail()
         }

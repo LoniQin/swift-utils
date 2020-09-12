@@ -8,20 +8,20 @@
 import Foundation
 public class DataStoreManager: DataStorageStrategy {
     
-    enum Strategy {
+    public enum Strategy {
         case file(path: String)
         case memory
         case userDefaults(suiteName: String)
         case nsCache
     }
     
-    let storage: DataStorageStrategy
+    public let storage: DataStorageStrategy
     
-    init(storage: DataStorageStrategy) {
+    public init(storage: DataStorageStrategy) {
         self.storage = storage
     }
     
-    init(strategy: Strategy) throws {
+    public init(strategy: Strategy) throws {
         switch strategy {
         case .file(let path):
             self.storage = try FileStorage(path: path)
