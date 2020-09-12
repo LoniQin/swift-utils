@@ -1,13 +1,13 @@
 //
-//  Requestable.swift
+//  File.swift
 //  
 //
-//  Created by lonnie on 2020/9/5.
+//  Created by lonnie on 2020/9/12.
 //
 
 import Foundation
 
-public protocol Requestable {
+public protocol Networking {
     
     /// Send request
     /// - Parameters:

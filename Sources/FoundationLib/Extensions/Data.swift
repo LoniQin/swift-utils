@@ -1,14 +1,13 @@
 //
-//  Data+Extension.swift
-//  Crypto
+//  Data.swift
+//  
 //
-//  Created by lonnie on 2020/8/14.
-//  Copyright © 2020 lonnie. All rights reserved.
+//  Created by lonnie on 2020/9/12.
 //
 
 import Foundation
 
-public extension Data {
+extension Data {
     
     init(hex: String) throws {
         self.init()
@@ -56,14 +55,6 @@ public extension Data {
         }
     }
     
-    init(random count: Int) {
-        var items = [UInt8](repeating: 0, count: count)
-        arc4random_buf(&items, items.count)
-        self.init(items)
-    }
-    
-
-    
     func string(_ encoding: Encoding) throws -> String {
         var value: String?
         switch encoding {
@@ -82,40 +73,10 @@ public extension Data {
         return item
     }
     
-    func process(_ options: ProcessOptions) throws -> Data {
-        switch options.method {
-        case .encrypt(let algorithm):
-            return try symmetryCrypt(algorithm, .encrypt, options)
-        case .decrypt(let algorithm):
-            return try symmetryCrypt(algorithm, .decrypt, options)
-        case .digest(let digest):
-            return digest.process(self)
-        case .hmac(let algorithm):
-            guard let key: DataConvertable = options[.key]  else { throw CryptoError.invalidKey }
-            return try HMAC(algorithm, key: key.toData()).process(self)
-        case .changeEncoding:
-            return self
-        }
+    init(random count: Int) {
+        var items = [UInt8](repeating: 0, count: count)
+        arc4random_buf(&items, items.count)
+        self.init(items)
     }
     
-    func symmetryCrypt(_ algorithm: SymmetricCipher.Algorithm, _ operation: SymmetricCipher.Operation, _ options: ProcessOptions) throws -> Data {
-        let mode: SymmetricCipher.Mode = options[.mode] ?? .cbc
-        let padding: SymmetricCipher.Padding = options[.padding] ?? .pkcs7
-        guard let key: DataConvertable = options[.key] else { throw CryptoError.invalidKey }
-        var iv: DataConvertable!
-        if let theIV: DataConvertable = options[.iv] {
-            iv = theIV
-        } else {
-            iv = Data()
-        }
-        let cipher = try SymmetricCipher(
-            algorithm,
-            key: key.toData(),
-            iv: iv.toData(),
-            padding: padding,
-            mode: mode
-        )
-        return try cipher.process(operation, self)
-    }
-
 }

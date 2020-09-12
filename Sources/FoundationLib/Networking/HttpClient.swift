@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public class HttpClient: Requestable {
+public class HttpClient: Networking {
     
     public static let `default` = HttpClient()
     
