@@ -24,7 +24,7 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
     - [x] Double
     - [x] Float
     - [x] String
-    - [ ] Data
+    - [x] Data
     - [x] NSObject
     - [x] NSLock
     - [x] DispatchQueue
@@ -43,13 +43,16 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
     - [x] MemoryCacheStorage
     - [x] NSCacheStorage
     - [x] UserDefaultsStorage
-    - [ ] KeyChainStorage
     - [x] StorageManager
-- [ ] Logger
+    - [ ] KeyChainStorage
+
 - [x] Regex
-- [ ] Database
 - [x] Networking
 - [x] Crypto
+- [ ] Localization
+- [ ] Logger
+- [ ] Database
+- [ ] Data Compression
 
 
 ## Unwrap an `Optional` safely and elegantly
