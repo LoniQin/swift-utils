@@ -48,8 +48,8 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 - [ ] Logger
 - [x] Regex
 - [ ] Database
-- [ ] Networking
-- [ ] Crypto
+- [x] Networking
+- [x] Crypto
 
 
 ## Unwrap an `Optional` safely and elegantly
