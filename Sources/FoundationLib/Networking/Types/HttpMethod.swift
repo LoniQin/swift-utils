@@ -17,5 +17,8 @@ public enum HttpMethod: String {
     case put
     // DELETE method
     case delete
+    // PATCH method
+    case patch
+    
     
 }

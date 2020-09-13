@@ -270,7 +270,7 @@ public extension SymmetricCipher.Algorithm {
         }
     }
     
-    func generateRandomKey(size: Int? = nil) throws -> Data {
+    func randomKey(size: Int? = nil) throws -> Data {
         var actualSize = 0
         if let size = size {
             guard isValidKeySize(size) else { throw CCError.keySizeError }
@@ -286,7 +286,7 @@ public extension SymmetricCipher.Algorithm {
         return Data(random: actualSize)
     }
     
-    func generateRandomIV() -> Data {
+    func randomIV() -> Data {
         return Data(random: blockSize)
     }
     
