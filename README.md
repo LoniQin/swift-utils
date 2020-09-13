@@ -49,7 +49,7 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 - [x] Regex
 - [x] Networking
 - [x] Crypto
-- [ ] Localization
-- [ ] Logger
+- [x] Localization
+- [x] Logger
 - [ ] Database
 - [ ] Data Compression
