@@ -19,6 +19,6 @@ public enum Level: String {
 
 protocol Logging {
     
-    func log(_ level: Level, message: Any...)
+    func log(_ level: Level, _ messages: Any...) throws
     
 }

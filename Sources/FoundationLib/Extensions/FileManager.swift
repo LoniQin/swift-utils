@@ -26,9 +26,9 @@ public extension FileManager {
         }
     }
     
-    func createFileIfNotExist(_ path: String, data: Data = Data()) throws {
+    func createFileIfNotExist(_ path: String, data: Data = Data(), attributes: [FileAttributeKey : Any]? = nil) throws {
         if !fileExists(atPath: path) {
-            createFile(atPath: path, contents: data, attributes: nil)
+            createFile(atPath: path, contents: data, attributes: attributes)
         }
     }
     

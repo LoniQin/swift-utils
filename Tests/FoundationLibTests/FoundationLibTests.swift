@@ -1,6 +1,13 @@
 import XCTest
 @testable import FoundationLib
 
+func dataPath() -> String {
+    var comp = #file.components(separatedBy: "/")
+    comp.removeLast()
+    comp.append("data")
+    return comp.joined(separator: "/")
+}
+
 fileprivate struct Item {
     
     @Default(2) var intValue: Int!
@@ -18,6 +25,8 @@ final class FoundationLibTests: XCTestCase {
     struct User: Codable, Equatable {
         let name: String
     }
+    
+    
     
     let assert = Assert()
     
@@ -282,6 +291,13 @@ final class FoundationLibTests: XCTestCase {
         } catch let error {
             XCTFail(error.localizedDescription)
         }
+    }
+    
+    func testFileLogger() throws {
+        let logger = try FileLogger(dataPath() / "file.log")
+        try logger.log(.verbose, "A")
+        try logger.log(.verbose, "B")
+        try logger.log(.verbose, "C")
     }
     
     static var allTests = [
