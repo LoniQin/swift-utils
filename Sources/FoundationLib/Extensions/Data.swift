@@ -25,7 +25,7 @@ private func htoi(_ value: UInt8) throws -> UInt8 {
     }
 }
 
-extension Data {
+public extension Data {
     
     init(hex: String) throws {
         self.init()
