@@ -47,8 +47,8 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
     - [ ] KeyChainStorage
 
 - [x] Regex
-- [x] Networking
-- [x] Crypto
+- [x] [Networking](https://github.com/LoniQin/swift-foundation-lib/blob/master/docs/networking.md)
+- [x] [Crypto](https://github.com/LoniQin/swift-foundation-lib/blob/master/docs/crypto.md)
 - [x] Localization
 - [x] Logger
 - [ ] Database
