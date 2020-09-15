@@ -1,6 +1,6 @@
 # FoundationLib
 
-This library contains many powerful tools to work with Foundation Library.
+This Library provides many common tools for building App.
 
 ## Installation
 
