@@ -31,8 +31,6 @@ do {
 Or:
 
 ```swift
-import Crypto
-
 do {
     let plainText = "I am fine"
     var key = "1111111111111111"
@@ -59,8 +57,6 @@ do {
 ### Iterate possible combinations
 Now I iterate combinations of algorithms and modes with following code:
 ```swift
-import Crypto
-
 do {
     let plainText = "Hello world"
     print("Plain text: \(plainText)")
@@ -337,8 +333,6 @@ Cipher text: 9de4f17afe83fa720ae781
 There are some exceptions: RC4 algorithm only supports RC4 Cipher Mode, other algorithms can’t use RC4 mode. And ECB mode and CBC mode don’t support NoPadding.
 ### Check whether an algorithm supports certain mode and padding
 ```swift
-import Crypto
-
 print(SymmetricCipher.Algorithm.aes.isValid(mode: .ctr, padding: .pkcs7))
 // prints true
 print(SymmetricCipher.Algorithm.rc4.isValid(mode: .ctr, padding: .none))
@@ -347,8 +341,6 @@ print(SymmetricCipher.Algorithm.rc4.isValid(mode: .ctr, padding: .none))
 ### Key size and IV size
 When we use Symmetric Cipher, it's important to know the valid key size and iv size.
 ```swift
-import Crypto
-
 // Get possible key sizes of AES algorithm
 print(SymmetricCipher.Algorithm.aes.keySizes())
 // prints [16, 24, 32]
@@ -367,8 +359,6 @@ print(SymmetricCipher.Algorithm.aes.isValidKeySize(40))
 
 ### How to use
 ```swift
-import Crypto
-
 do {
     let plainText = "Hello world"
     let data = try plainText.data(.utf8)
@@ -400,8 +390,6 @@ do {
 ### Iterate all algorithms
 
 ```swift
-import Crypto
-
 let plainText = "hello world"
 print("Plain text: \(plainText)")
 for digest in Digest.allCases {
@@ -435,8 +423,6 @@ sha512:309ecc489c12d6eb4cc40f50c902f2b4d0ed77ee511a7c7a9bcd3ca86d4cd86f989dd35bc
 ### How to use
 
 ```swift
-import Crypto
-
 do {
     let hmac = try HMAC(.sha256, key: "11111111111111111111".data(.hex))
     print("Result: \(try hmac.process(try "Hello world".data(.utf8)).string(.hex))")
@@ -447,8 +433,6 @@ do {
 
 Or
 ```swift
-import Crypto
-
 let plainText = "I am fine"
 let key = "11111111111111111111"
 do {
@@ -460,8 +444,6 @@ do {
 ```
 ### Iterate all algorithms
 ```swift
-import Crypto
-
 do {
     for algorithm in HMAC.Algorithm.allCases {
         print(try "Hello world".process(.hmac(algorithm, key: "11111111111111111111")))
