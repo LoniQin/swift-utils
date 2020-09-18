@@ -300,6 +300,26 @@ final class FoundationLibTests: XCTestCase {
         try logger.log(.verbose, "C")
     }
     
+    func testArrayBuilder() {
+        var array = Array {
+            1
+            2
+            3
+            4
+            5
+        }
+        array.assert.equal([1, 2, 3, 4, 5])
+        
+        array.append {
+            1
+            2
+            3
+            4
+            5
+        }
+        array.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    }
+    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)
