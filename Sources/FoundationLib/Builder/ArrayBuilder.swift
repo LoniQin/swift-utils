@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@_functionBuilder struct ArrayBuilder {
+@_functionBuilder public struct ArrayBuilder {
     static func buildBlock<T>(_ items: T...) -> [T] {
         items
     }
