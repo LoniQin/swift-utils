@@ -10,14 +10,6 @@ import Compression
 @available(iOS 9.0, OSX 10.11, *)
 final class CompressorTests: XCTestCase {
     
-    override func setUp() {
-        
-    }
-    
-    override func tearDown() {
-        
-    }
-    
     func testCompressorAlgorithm() {
         Compressor.Algorithm.lz4.compressionAlgorithm().assert.equal(COMPRESSION_LZ4)
         Compressor.Algorithm.zlib.compressionAlgorithm().assert.equal(COMPRESSION_ZLIB)
