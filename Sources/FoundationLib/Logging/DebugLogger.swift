@@ -6,12 +6,12 @@
 //
 
 import Foundation
-public class DebugLogger: Logging {
+public struct DebugLogger: Logging {
     
-    public let `default` = DebugLogger()
+    public static let `default` = DebugLogger()
     
     public func log(_ level: Level, _ messages: Any...) throws {
-        debugPrint(messages)
+        debugPrint(messages.map { "\($0)" }.joined(separator: " "))
     }
     
 }
