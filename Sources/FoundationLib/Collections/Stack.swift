@@ -6,7 +6,18 @@
 //
 
 import Foundation
-public struct Stack<T> {
+
+public protocol StackProtocol {
+    
+    associatedtype T
+    
+    mutating func push(_ item: T)
+    
+    mutating func pop() throws -> T
+    
+}
+
+public struct Stack<T>: StackProtocol {
     
     public var items: [T] = []
     
@@ -18,6 +29,7 @@ public struct Stack<T> {
         items.append(item)
     }
     
+    @discardableResult
     public mutating func pop() throws -> T {
         guard let last = items.popLast() else {
             throw FoundationError.nilValue

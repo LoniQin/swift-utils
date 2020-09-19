@@ -29,6 +29,20 @@ final class CollectionTests: XCTestCase {
         stack.assert.equal(newStack)
     }
     
+    func testStackPerformance() throws {
+        measure {
+            self.try {
+                var stack = Stack<Int>()
+                for i in 0..<1000000 {
+                    stack.push(i)
+                }
+                while !stack.isEmpty {
+                    try stack.pop()
+                }
+            }
+        }
+    }
+    
 }
 
 extension CollectionTests {
