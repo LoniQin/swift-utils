@@ -31,4 +31,12 @@ public extension Array {
         return value
     }
     
+    init(@ArrayBuilder _ builder: () -> Self) {
+        self = builder()
+    }
+    
+    mutating func append(@ArrayBuilder _ builder: () -> Self) {
+        self.append(contentsOf: builder())
+    }
+    
 }
