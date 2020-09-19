@@ -13,7 +13,7 @@ public class Node<T> {
     
     public var next: Node<T>?
     
-    public init(_ value: T, next: Node<T>? = nil) {
+    public init(_ value: T, _ next: Node<T>? = nil) {
         self.value = value
         self.next = next
     }

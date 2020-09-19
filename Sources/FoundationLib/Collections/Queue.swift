@@ -40,5 +40,11 @@ public class Queue<T> {
         count -= 1
         return value
     }
+    
+    deinit {
+        while first != nil {
+            first = first?.next
+        }
+    }
 
 }

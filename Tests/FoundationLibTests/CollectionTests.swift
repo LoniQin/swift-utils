@@ -26,8 +26,10 @@ final class CollectionTests: XCTestCase {
                 for i in 0..<1000000 {
                     stack.push(i)
                 }
+                var i = 1000000 - 1
                 while !stack.isEmpty {
-                    try stack.pop()
+                    try i.assert.equal(stack.pop())
+                    i -= 1
                 }
             }
         }
@@ -54,6 +56,17 @@ final class CollectionTests: XCTestCase {
                 }
                 while !queue.isEmpty {
                     try queue.dequeue()
+                }
+            }
+        }
+    }
+    
+    func testBag() throws {
+        let bag = Bag<Int>()
+        measure {
+            self.try {
+                for i in 0..<1000000 {
+                    bag.add(i)
                 }
             }
         }

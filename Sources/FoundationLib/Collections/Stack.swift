@@ -18,9 +18,7 @@ public class Stack<T> {
     var count: Int = 0
     
     public func push(_ item: T) {
-        let oldFirst = first
-        first = Node(item)
-        first?.next = oldFirst
+        first = Node(item, first)
         count += 1
     }
     
@@ -39,6 +37,12 @@ public class Stack<T> {
             throw FoundationError.nilValue
         }
         return value
+    }
+    
+    deinit {
+        while first != nil {
+            first = first?.next
+        }
     }
     
 }
