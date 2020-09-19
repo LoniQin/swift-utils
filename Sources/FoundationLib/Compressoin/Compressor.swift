@@ -4,18 +4,70 @@
 //
 //  Created by lonnie on 2020/9/18.
 //
-
+#if canImport(Compression)
 import Compression
 import Foundation
 
-struct Compressor {
+@available(iOS 9.0, OSX 10.11, *)
+public struct Compressor {
     
-    @available(iOS 9.0, *)
-    func streamingCompression(operation: compression_stream_operation,
-                                     sourceFileHandle: FileHandle,
-                                     destinationFileHandle: FileHandle,
-                                     algorithm: compression_algorithm,
-                                     progressUpdateFunction: (Int64) -> Void) {
+    public enum Operation: UInt32, CaseIterable {
+        
+        case encode = 0
+        
+        case decode = 1
+        
+        func compressionStreamOperation() -> compression_stream_operation {
+            return compression_stream_operation(rawValue)
+        }
+        
+    }
+    
+    public enum Algorithm: UInt32, CaseIterable {
+        
+        case lz4 = 256
+
+        case zlib = 517
+        
+        case lzma = 774
+        
+        case lz4Raw = 257
+        
+        case lzfse = 2049
+        
+        func compressionAlgorithm() -> compression_algorithm {
+            return compression_algorithm(rawValue)
+        }
+        
+    }
+    
+    public let operation: Operation
+    
+    public let algorithm: Algorithm
+    
+    public let sourceFileHandle: FileHandle
+    
+    public let destinationFileHandle: FileHandle
+    
+    public let progress: (Int64) -> Void
+    
+    public init(
+        operation: Operation,
+        algorithm: Algorithm,
+        sourcePath: String,
+        destinationPath: String,
+        progress: @escaping (Int64) -> Void = {_ in }
+    ) throws {
+        self.operation = operation
+        self.algorithm = algorithm
+        self.sourceFileHandle = try FileHandle(forUpdating: URL(fileURLWithPath: sourcePath))
+        try FileManager.default.createFileIfNotExist(destinationPath)
+        self.destinationFileHandle = try FileHandle(forWritingTo: URL(fileURLWithPath: destinationPath))
+        self.progress = progress
+    }
+    
+    
+    func process() throws {
         
         let bufferSize = 32_768
         let destinationBufferPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)
@@ -25,14 +77,19 @@ struct Compressor {
         
         // Create the compression_stream and throw an error if failed
         var stream = compression_stream()
-        var status = compression_stream_init(&stream, operation, algorithm)
-        guard status != COMPRESSION_STATUS_ERROR else {
-            fatalError("Unable to initialize the compression stream.")
-        }
+        
         defer {
             compression_stream_destroy(&stream)
         }
         
+        var status = compression_stream_init(
+            &stream,
+            operation.compressionStreamOperation(),
+            algorithm.compressionAlgorithm()
+        )
+        guard status != COMPRESSION_STATUS_ERROR else {
+            throw CompressionError.failToInitCompressionStream
+        }
         // Stream setup after compression_stream_init
         // It is indeed important to do it after, since compression_stream_init will zero all fields in stream
         stream.src_size = 0
@@ -84,59 +141,18 @@ struct Compressor {
                 // Reset the stream to receive the next batch of output.
                 stream.dst_ptr = destinationBufferPointer
                 stream.dst_size = bufferSize
-                progressUpdateFunction(Int64(sourceFileHandle.offsetInFile))
+                progress(Int64(sourceFileHandle.offsetInFile))
             case COMPRESSION_STATUS_ERROR:
-                print("COMPRESSION_STATUS_ERROR.")
-                return
-                
+                throw CompressionError.failToCompress
             default:
                 break
             }
             
         } while status == COMPRESSION_STATUS_OK
-        
         sourceFileHandle.closeFile()
         destinationFileHandle.closeFile()
     }
 
-}
-
-public extension compression_algorithm {
-    var name: String {
-        switch self {
-        case COMPRESSION_LZ4:
-            return "lz4"
-        case COMPRESSION_ZLIB:
-            return "zlib"
-        case COMPRESSION_LZMA:
-            return "lzma"
-        case COMPRESSION_LZ4_RAW:
-            return "lz4_raw"
-        case COMPRESSION_LZFSE:
-            return "lzfse"
-        default:
-            fatalError("Unknown compression algorithm.")
-        }
-    }
-    
-    var pathExtension: String {
-        return "." + name
-    }
-    
-    init?(name: String) {
-        switch name.lowercased() {
-        case "lz4":
-            self = COMPRESSION_LZ4
-        case "zlib":
-            self = COMPRESSION_ZLIB
-        case "lzma":
-            self = COMPRESSION_LZMA
-        case "lzfse":
-            self = COMPRESSION_LZFSE
-        default:
-            return nil
-        }
-    }
 }
 
 public extension compression_stream {
@@ -144,3 +160,5 @@ public extension compression_stream {
         self = UnsafeMutablePointer<compression_stream>.allocate(capacity: 1).pointee
     }
 }
+
+#endif
