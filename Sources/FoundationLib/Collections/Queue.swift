@@ -30,6 +30,7 @@ public class Queue<T> {
         count += 1
     }
     
+    @discardableResult
     public func dequeue() throws -> T {
         guard let value = first?.value else {
             throw FoundationError.nilValue

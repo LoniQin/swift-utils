@@ -7,43 +7,39 @@
 
 import Foundation
 
-public protocol StackProtocol {
+public class Stack<T> {
     
-    associatedtype T
-    
-    mutating func push(_ item: T)
-    
-    mutating func pop() throws -> T
-    
-}
-
-public struct Stack<T>: StackProtocol {
-    
-    public var items: [T] = []
+    private var first: Node<T>?
     
     var isEmpty: Bool {
-        items.isEmpty
+        first == nil
     }
     
-    public mutating func push(_ item: T) {
-        items.append(item)
+    var count: Int = 0
+    
+    public func push(_ item: T) {
+        let oldFirst = first
+        first = Node(item)
+        first?.next = oldFirst
+        count += 1
     }
     
     @discardableResult
-    public mutating func pop() throws -> T {
-        guard let last = items.popLast() else {
+    public func pop() throws -> T {
+        guard let value = first?.value else {
             throw FoundationError.nilValue
         }
-        return last
+        first = first?.next
+        count -= 1
+        return value
+    }
+    
+    public func peek() throws -> T {
+        guard let value = first?.value else {
+            throw FoundationError.nilValue
+        }
+        return value
     }
     
 }
 
-
-extension Stack: Codable where T: Codable {
-    
-}
-
-extension Stack: Equatable where T: Equatable {
-    
-}
