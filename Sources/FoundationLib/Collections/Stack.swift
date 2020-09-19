@@ -43,3 +43,14 @@ public class Stack<T>: Countable, NodeStorage {
     
 }
 
+public extension Stack {
+    
+    func push(@ArrayBuilder _ builder: () -> [T]) {
+        let items = builder()
+        for item in items {
+            self.push(item)
+        }
+        
+    }
+    
+}

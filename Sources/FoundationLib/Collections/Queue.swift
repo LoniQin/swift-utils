@@ -44,3 +44,16 @@ public class Queue<T>: Countable, NodeStorage {
     }
 
 }
+
+
+public extension Queue {
+    
+    func enqueue(@ArrayBuilder _ builder: () -> [T]) {
+        
+        for item in builder() {
+            enqueue(item)
+        }
+        
+    }
+    
+}

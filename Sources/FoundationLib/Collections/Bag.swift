@@ -24,3 +24,15 @@ public class Bag<T>: Countable, NodeStorage {
     }
     
 }
+
+public extension Bag {
+    
+    func add(@ArrayBuilder _ builder: () -> [T]) {
+        
+        for item in builder() {
+            add(item)
+        }
+        
+    }
+    
+}
