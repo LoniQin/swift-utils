@@ -43,6 +43,32 @@ final class CollectionTests: XCTestCase {
         }
     }
     
+    func testQueue() throws {
+        let queue = Queue<Int>()
+        for i in 0..<100 {
+            queue.enqueue(i)
+        }
+        var value = 0
+        while !queue.isEmpty {
+            try value.assert.equal(queue.dequeue())
+            value += 1
+        }
+    }
+    
+    func testQueuePerformance() throws {
+        try DebugLogger.default.measure {
+            self.try {
+                let queue = Queue<Int>()
+                for i in 0..<1000000 {
+                    queue.enqueue(i)
+                }
+                while !queue.isEmpty {
+                    try queue.dequeue()
+                }
+            }
+        }
+    }
+    
 }
 
 extension CollectionTests {
