@@ -1,12 +1,7 @@
 import XCTest
 @testable import FoundationLib
 
-func dataPath() -> String {
-    var comp = #file.components(separatedBy: "/")
-    comp.removeLast()
-    comp.append("data")
-    return comp.joined(separator: "/")
-}
+
 
 fileprivate struct Item {
     
@@ -25,9 +20,7 @@ final class FoundationLibTests: XCTestCase {
     struct User: Codable, Equatable {
         let name: String
     }
-    
-    
-    
+
     let assert = Assert()
     
     func testUnwrappable() {
@@ -311,11 +304,11 @@ final class FoundationLibTests: XCTestCase {
         array.assert.equal([1, 2, 3, 4, 5])
         
         array.append {
-            1
-            2
-            3
-            4
-            5
+            6
+            7
+            8
+            9
+            10
         }
         array.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
