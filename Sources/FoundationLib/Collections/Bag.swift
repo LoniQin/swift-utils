@@ -6,15 +6,11 @@
 //
 
 import Foundation
-public class Bag<T> {
+public class Bag<T>: Countable, NodeStorage {
     
-    private var first: Node<T>?
+    fileprivate(set) public var first: Node<T>?
     
-    public var count: Int = 0
-    
-    public var isEmpty: Bool {
-        return first == nil
-    }
+    fileprivate(set) public var count: Int = 0
     
     public func add(_ value: T) {
         first = Node(value, first)

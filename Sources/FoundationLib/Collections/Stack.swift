@@ -7,15 +7,11 @@
 
 import Foundation
 
-public class Stack<T> {
+public class Stack<T>: Countable, NodeStorage {
     
-    private var first: Node<T>?
+    fileprivate(set) public var first: Node<T>?
     
-    var isEmpty: Bool {
-        first == nil
-    }
-    
-    var count: Int = 0
+    fileprivate(set) public var count: Int = 0
     
     public func push(_ item: T) {
         first = Node(item, first)

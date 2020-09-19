@@ -23,6 +23,10 @@ public extension String {
         }
     }
     
+    func interpolation(_ arguments: CVarArg...) -> String {
+        String(format: self, arguments)
+    }
+    
 }
 
 extension String: NumberConvertable {
