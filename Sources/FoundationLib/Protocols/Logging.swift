@@ -22,3 +22,24 @@ protocol Logging {
     func log(_ level: Level, _ messages: Any...) throws
     
 }
+
+extension Logging {
+    
+    @discardableResult
+    func measure(executeCount: Int = 1, printLog: Bool = true, _ block: () -> Void) throws -> TimeInterval {
+        let date = Date()
+        for _ in 0..<executeCount {
+            block()
+        }
+        let time = Date().timeIntervalSince(date)
+        if printLog {
+            do {
+                try log(.verbose, "Elapsed time: \(time)s")
+            } catch {
+                return time
+            }
+        }
+        return time
+    }
+
+}

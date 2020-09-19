@@ -24,7 +24,7 @@ public struct FileLogger: Logging {
     }
     
     public func log(_ level: Level, _ messages: Any...) throws {
-        let desc = level.rawValue + ":" + messages.map { String(describing: $0) }.joined(separator: " ") + "\n"
+        let desc = messages.map { String(describing: $0) }.joined(separator: " ") + "\n"
         try handle.write(desc.data(.utf8))
     }
     
