@@ -18,6 +18,11 @@ final class CompressorTests: XCTestCase {
         Compressor.Algorithm.lzfse.compressionAlgorithm().assert.equal(COMPRESSION_LZFSE)
     }
     
+    func testCompresorOperation() {
+        Compressor.Operation.encode.compressionStreamOperation().assert.equal(COMPRESSION_STREAM_ENCODE)
+        Compressor.Operation.decode.compressionStreamOperation().assert.equal(COMPRESSION_STREAM_DECODE)
+    }
+    
     func testCompression() {
         do {
             try Array {
