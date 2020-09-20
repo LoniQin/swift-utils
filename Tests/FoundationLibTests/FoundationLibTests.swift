@@ -1,8 +1,6 @@
 import XCTest
 @testable import FoundationLib
 
-
-
 fileprivate struct Item {
     
     @Default(2) var intValue: Int!
@@ -311,6 +309,25 @@ final class FoundationLibTests: XCTestCase {
             10
         }
         array.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    }
+    
+    func testJSONObject() {
+        var jsonObject = JSONObject([
+            "a": 1,
+            "b": 2.2,
+            "c": "hello"
+        ])
+        jsonObject.a.assert.equal(1)
+        jsonObject.a = 5
+        jsonObject.a.assert.equal(5)
+        jsonObject.b.assert.equal(2.2)
+        jsonObject.c.assert.equal("hello")
+        jsonObject.x = 5
+        jsonObject.x.assert.equal(5)
+        jsonObject.y = 10.1
+        jsonObject.y.assert.equal(10.1)
+        jsonObject.title = "Hello world"
+        jsonObject.title.assert.equal("Hello world")
     }
     
     static var allTests = [

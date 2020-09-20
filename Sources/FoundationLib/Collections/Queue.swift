@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Queue.swift
 //  
 //
 //  Created by lonnie on 2020/9/20.
@@ -7,17 +7,13 @@
 
 import Foundation
 
-public class Queue<T> {
+public class Queue<T>: Countable, NodeStorage {
     
-    private var first: Node<T>?
+    fileprivate(set) public var first: Node<T>?
     
-    private var last: Node<T>?
+    fileprivate(set) public var last: Node<T>?
     
     fileprivate(set) public var count: Int = 0
-    
-    public var isEmpty: Bool {
-        first == nil
-    }
     
     public func enqueue(_ item: T) {
         let oldLast = last
@@ -47,4 +43,15 @@ public class Queue<T> {
         }
     }
 
+}
+
+
+public extension Queue {
+    
+    func enqueue(@ArrayBuilder _ builder: () -> [T]) {
+        for item in builder() {
+            enqueue(item)
+        }
+    }
+    
 }

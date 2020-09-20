@@ -11,12 +11,16 @@ final class CollectionTests: XCTestCase {
    
     func testStack() throws {
         let stack = Stack<Int>()
-        stack.push(3)
-        stack.push(4)
-        stack.push(5)
+        stack.push {
+            3
+            4
+            5
+        }
+        stack.array().assert.equal([5, 4, 3])
         try stack.pop().assert.equal(5)
         try stack.pop().assert.equal(4)
         try stack.pop().assert.equal(3)
+        
     }
 
     func testStackPerformance() throws {
@@ -40,6 +44,7 @@ final class CollectionTests: XCTestCase {
         for i in 0..<1000 {
             queue.enqueue(i)
         }
+        queue.array().assert.equal((0..<1000).map{ $0 })
         var value = 0
         while !queue.isEmpty {
             try value.assert.equal(queue.dequeue())
@@ -61,9 +66,30 @@ final class CollectionTests: XCTestCase {
         }
     }
     
+    func testArrayPerformance() throws {
+        try DebugLogger.default.measure {
+            self.try {
+                var array = Array<Int>()
+                for i in 0..<1000000 {
+                    array.append(i)
+                }
+                while !array.isEmpty {
+                    array.popLast()
+                }
+            }
+        }
+    }
+    
     func testBag() throws {
         let bag = Bag<Int>()
-        measure {
+        bag.add {
+            1
+            3
+            5
+        }
+        bag.array().assert.equal([5, 3, 1])
+        try DebugLogger.default.measure {
+            let bag = Bag<Int>()
             self.try {
                 for i in 0..<1000000 {
                     bag.add(i)
