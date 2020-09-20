@@ -328,6 +328,8 @@ final class FoundationLibTests: XCTestCase {
         jsonObject.y.assert.equal(10.1)
         jsonObject.title = "Hello world"
         jsonObject.title.assert.equal("Hello world")
+        jsonObject.x = "888"
+        jsonObject.x.assert.equal("888")
     }
     
     static var allTests = [

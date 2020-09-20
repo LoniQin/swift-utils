@@ -4,7 +4,6 @@
 //
 //  Created by lonnie on 2020/9/20.
 //
-
 import Foundation
 @dynamicMemberLookup
 public struct JSONObject: DataConvertable {
@@ -14,9 +13,10 @@ public struct JSONObject: DataConvertable {
     public init(_ value: [String: Any] = [:]) {
         self.value = value
     }
+    
     public subscript(dynamicMember member: String) -> String? {
         get {
-            value[member] as? String
+            get(member)
         }
         set {
             value[member] = newValue
@@ -25,7 +25,7 @@ public struct JSONObject: DataConvertable {
     
     public subscript(dynamicMember member: String) -> Int? {
         get {
-            value[member] as? Int
+            get(member)
         }
         set {
             value[member] = newValue
@@ -34,7 +34,7 @@ public struct JSONObject: DataConvertable {
     
     public subscript(dynamicMember member: String) -> Double? {
         get {
-            value[member] as? Double
+            get(member)
         }
         set {
             value[member] = newValue
@@ -43,11 +43,24 @@ public struct JSONObject: DataConvertable {
     
     public subscript(dynamicMember member: String) -> Float? {
         get {
-            value[member] as? Float
+            get(member)
         }
         set {
             value[member] = newValue
         }
+    }
+    
+    public subscript(dynamicMember member: String) -> Any? {
+        get {
+            get(member)
+        }
+        set {
+            value[member] = newValue
+        }
+    }
+    
+    func get<T>(_ member: String) -> T? {
+        value[member] as? T
     }
     
     public func toData() throws -> Data {
