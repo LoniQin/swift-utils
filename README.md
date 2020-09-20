@@ -18,23 +18,10 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 
 
 ## Modules
-- [ ] Extensions
-    - [x] Int
-    - [x] UInt
-    - [x] Double
-    - [x] Float
-    - [x] String
-    - [x] Data
-    - [x] NSObject
-    - [x] NSLock
-    - [x] DispatchQueue
-    - [x] UserDefaults
-    - [ ] NSAttributedString
-    - [ ] URLSession
-    - [ ] URLRequest
-- [ ] Property Wrappers
+- [x] Extensions
+- [x] Property Wrappers
     - [x] Default
-- [ ] Protocols
+- [x] Protocols
     - [x] DataStorageProtocol
     - [x] NumberConvertable
     - [x] Unwrappable

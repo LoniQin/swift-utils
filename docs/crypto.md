@@ -3,9 +3,7 @@
 - [x] Symmetric Cipher
 - [x] Digest
 - [x] HMAC
-- [x] Convenience methods
 - [ ] Asymmetric Cipher
-- [ ] Data Compression
 
 ## Symmetric Cipher
 
