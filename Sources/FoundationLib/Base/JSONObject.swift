@@ -8,13 +8,12 @@
 import Foundation
 @dynamicMemberLookup
 public struct JSONObject: DataConvertable {
-    
+
     public var value = [String: Any]()
     
     public init(_ value: [String: Any] = [:]) {
         self.value = value
     }
-    
     public subscript(dynamicMember member: String) -> String? {
         get {
             value[member] as? String
