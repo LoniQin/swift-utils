@@ -9,9 +9,9 @@ import Foundation
 
 public class Queue<T>: Countable, NodeStorage {
     
-    public var first: Node<T>?
+    fileprivate(set) public var first: Node<T>?
     
-    var last: Node<T>?
+    fileprivate(set) public var last: Node<T>?
     
     fileprivate(set) public var count: Int = 0
     
@@ -49,11 +49,9 @@ public class Queue<T>: Countable, NodeStorage {
 public extension Queue {
     
     func enqueue(@ArrayBuilder _ builder: () -> [T]) {
-        
         for item in builder() {
             enqueue(item)
         }
-        
     }
     
 }

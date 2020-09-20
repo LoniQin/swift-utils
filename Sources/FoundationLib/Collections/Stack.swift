@@ -4,7 +4,6 @@
 //
 //  Created by lonnie on 2020/9/20.
 //
-
 import Foundation
 
 public class Stack<T>: Countable, NodeStorage {
@@ -50,7 +49,6 @@ public extension Stack {
         for item in items {
             self.push(item)
         }
-        
     }
     
 }

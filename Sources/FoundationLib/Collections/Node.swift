@@ -18,16 +18,6 @@ public class Node<T> {
         self.next = next
     }
     
-    func toArray() -> [T] {
-        var node: Node? = self
-        var array = [T]()
-        while node != nil {
-            array.append(node!.value)
-            node = node?.next
-        }
-        return array
-    }
-    
 }
 
 public protocol NodeStorage {

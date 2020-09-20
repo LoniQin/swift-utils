@@ -66,6 +66,20 @@ final class CollectionTests: XCTestCase {
         }
     }
     
+    func testArrayPerformance() throws {
+        try DebugLogger.default.measure {
+            self.try {
+                var array = Array<Int>()
+                for i in 0..<1000000 {
+                    array.append(i)
+                }
+                while !array.isEmpty {
+                    array.popLast()
+                }
+            }
+        }
+    }
+    
     func testBag() throws {
         let bag = Bag<Int>()
         bag.add {
