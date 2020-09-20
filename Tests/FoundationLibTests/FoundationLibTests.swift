@@ -1,8 +1,6 @@
 import XCTest
 @testable import FoundationLib
 
-
-
 fileprivate struct Item {
     
     @Default(2) var intValue: Int!
