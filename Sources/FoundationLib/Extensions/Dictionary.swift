@@ -21,4 +21,11 @@ public extension Dictionary {
         return nil
     }
     
+    init(@ArrayBuilder _ builder: ()->[(Key, Value)]) {
+        self.init()
+        for item in builder() {
+            self[item.0] = item.1
+        }
+    }
+    
 }

@@ -311,6 +311,16 @@ final class FoundationLibTests: XCTestCase {
         array.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     }
     
+    func testDictionaryWithArrayBuilder() {
+        let dic = Dictionary {
+            ("A", 1)
+            ("B", 2)
+            ("C", 3)
+            ("D", 4)
+        }
+        dic.assert.equal(["A": 1, "B": 2, "C": 3, "D": 4])
+    }
+    
     func testJSONObject() {
         var jsonObject = JSONObject([
             "a": 1,
@@ -328,6 +338,8 @@ final class FoundationLibTests: XCTestCase {
         jsonObject.y.assert.equal(10.1)
         jsonObject.title = "Hello world"
         jsonObject.title.assert.equal("Hello world")
+        jsonObject.x = "888"
+        jsonObject.x.assert.equal("888")
     }
     
     static var allTests = [
