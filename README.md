@@ -6,7 +6,7 @@ This Library provides many common tools for building App.
 
 ### Swift Package Manager
 
-Once you have your Swift package set up, you add this code to your Package.swift.
+Once you have your Swift Package set up, you add this code to your Package.swift.
 
 ```swift
 dependencies: [
