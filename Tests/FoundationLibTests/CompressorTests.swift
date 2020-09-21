@@ -14,7 +14,6 @@ final class CompressorTests: XCTestCase {
         Compressor.Algorithm.lz4.compressionAlgorithm().assert.equal(COMPRESSION_LZ4)
         Compressor.Algorithm.zlib.compressionAlgorithm().assert.equal(COMPRESSION_ZLIB)
         Compressor.Algorithm.lzma.compressionAlgorithm().assert.equal(COMPRESSION_LZMA)
-        Compressor.Algorithm.lz4Raw.compressionAlgorithm().assert.equal(COMPRESSION_LZ4_RAW)
         Compressor.Algorithm.lzfse.compressionAlgorithm().assert.equal(COMPRESSION_LZFSE)
     }
     

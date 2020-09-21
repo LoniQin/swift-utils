@@ -17,15 +17,3 @@ extension Double: NumberConvertable {
     public var float: Float { Float(self) }
     
 }
-
-public extension Double {
-    
-    var km: Double { times(1000) }
-    
-    var percent: Double { times(0.01) }
-    
-    func times(_ double: Double) -> Double {
-        self * double
-    }
-    
-}

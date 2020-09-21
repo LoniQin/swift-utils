@@ -8,19 +8,11 @@
 public extension String {
     
     func appendingPrefix(_ string: String) -> String {
-        if self.hasPrefix(string) {
-            return self
-        } else {
-            return string + self
-        }
+        hasPrefix(string) ? self : string.appending(self)
     }
 
     func appendingSuffix(_ string: String) -> String {
-        if self.hasSuffix(string) {
-            return self
-        } else {
-            return self.appending(string)
-        }
+        hasSuffix(string) ? self : self.appending(string)
     }
     
     func interpolation(_ arguments: CVarArg...) -> String {
@@ -51,4 +43,8 @@ public func - (lhs: String, rhs: String) -> String {
 
 public func * (lhs: String, rhs: Int) -> String {
     Array(repeating: lhs, count: rhs).joined()
+}
+
+public func * (lhs: Int, rhs: String) -> String {
+    rhs * lhs
 }

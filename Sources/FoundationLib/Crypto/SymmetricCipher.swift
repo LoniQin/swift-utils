@@ -62,12 +62,7 @@ public struct SymmetricCipher {
         case cfb8 = 10
         
         func needsIV() -> Bool {
-            switch self {
-            case .ecb:
-                return false
-            default:
-                return true
-            }
+            self != .ecb
         }
     }
 

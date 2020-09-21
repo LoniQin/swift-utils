@@ -20,8 +20,7 @@ public extension NSObject {
     func `try`<T>(block: () throws -> T) -> T? {
         do {
             return try block()
-        } catch let error {
-            objc_exception_throw(error)
+        } catch {
             return nil
         }
     }

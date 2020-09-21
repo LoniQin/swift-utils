@@ -31,8 +31,6 @@ public struct Compressor {
         
         case lzma = 774
         
-        case lz4Raw = 257
-        
         case lzfse = 2049
         
         func compressionAlgorithm() -> compression_algorithm {

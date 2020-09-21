@@ -47,6 +47,9 @@ public struct Assert {
         XCTAssertNotNil(expression, message)
     }
     
+    func fail(_ error: Error) {
+        XCTFail(error.localizedDescription)
+    }
 }
 
 

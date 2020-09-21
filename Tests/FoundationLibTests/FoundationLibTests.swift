@@ -66,7 +66,7 @@ final class FoundationLibTests: XCTestCase {
             try storage.save()
             assert.equal(try storage.get("user"), user)
         } catch let error {
-            objc_exception_throw(error)
+            assert.fail(error)
         }
     }
     
@@ -84,7 +84,7 @@ final class FoundationLibTests: XCTestCase {
             try storage.save()
             assert.equal(try storage.get("user"), user)
         } catch let error {
-            objc_exception_throw(error)
+            assert.fail(error)
         }
         
     }
@@ -112,7 +112,7 @@ final class FoundationLibTests: XCTestCase {
             let nextUser: User = try nextStorage.get("user")
             assert.equal(user, nextUser)
         } catch let error {
-            objc_exception_throw(error)
+            assert.fail(error)
         }
         
     }
@@ -145,11 +145,6 @@ final class FoundationLibTests: XCTestCase {
         ("user" / "login").assert.equal("user/login")
         ("111" * 3).assert.equal("111111111")
         ("111" - "222").assert.equal("111-222")
-    }
-    
-    func testDouble() {
-        1.0.km.assert.equal(1000)
-        1000.0.times(1000).assert.equal(1000000)
     }
     
     func testAssert() {
