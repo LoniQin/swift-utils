@@ -6,7 +6,7 @@ This Library provides many common tools for building App.
 
 ### Swift Package Manager
 
-Once you have your Swift package set up, you add this code to your Package.swift.
+Once you have your Swift Package set up, you add this code to your Package.swift.
 
 ```swift
 dependencies: [
@@ -20,19 +20,8 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 ## Modules
 - [x] Extensions
 - [x] Property Wrappers
-    - [x] Default
 - [x] Protocols
-    - [x] DataStorageProtocol
-    - [x] NumberConvertable
-    - [x] Unwrappable
-- [ ] Storage
-    - [x] FileStorage
-    - [x] MemoryCacheStorage
-    - [x] NSCacheStorage
-    - [x] UserDefaultsStorage
-    - [x] StorageManager
-    - [ ] KeyChainStorage
-
+- [x] Storage
 - [x] Regex
 - [x] [Networking](https://github.com/LoniQin/swift-foundation-lib/blob/master/docs/networking.md)
 - [x] [Crypto](https://github.com/LoniQin/swift-foundation-lib/blob/master/docs/crypto.md)
