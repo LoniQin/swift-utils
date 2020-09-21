@@ -26,7 +26,7 @@ protocol Logging {
 extension Logging {
     
     @discardableResult
-    func measure(name: String = #function, executeCount: Int = 1, printLog: Bool = true, _ block: () -> Void) throws -> TimeInterval {
+    func measure(name: String = #function, desc: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () -> Void) throws -> TimeInterval {
         let date = Date()
         for _ in 0..<executeCount {
             block()
@@ -34,7 +34,8 @@ extension Logging {
         let time = Date().timeIntervalSince(date)
         if printLog {
             do {
-                try log(.verbose, "\(name): \(time)s")
+                let value = [name, desc].filter{ !$0.isEmpty }.joined(separator: "-")
+                try log(.verbose, "\(value): \(time)s")
             } catch {
                 return time
             }

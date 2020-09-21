@@ -24,16 +24,18 @@ final class CollectionTests: XCTestCase {
     }
 
     func testStackPerformance() throws {
-        try DebugLogger.default.measure {
+        let stack = Stack<Int>()
+        try DebugLogger.default.measure(desc: "Append item in stack") {
             self.try {
-                let stack = Stack<Int>()
                 for i in 0..<1000000 {
                     stack.push(i)
                 }
-                var i = 1000000 - 1
+            }
+        }
+        try DebugLogger.default.measure(desc: "Remove item in stack") {
+            self.try {
                 while !stack.isEmpty {
-                    try i.assert.equal(stack.pop())
-                    i -= 1
+                    try stack.pop()
                 }
             }
         }
@@ -53,12 +55,16 @@ final class CollectionTests: XCTestCase {
     }
     
     func testQueuePerformance() throws {
-        try DebugLogger.default.measure {
+        let queue = Queue<Int>()
+        try DebugLogger.default.measure(desc: "Append item in queue") {
             self.try {
-                let queue = Queue<Int>()
                 for i in 0..<1000000 {
                     queue.enqueue(i)
                 }
+            }
+        }
+        try DebugLogger.default.measure(desc: "Remove item in queue") {
+            self.try {
                 while !queue.isEmpty {
                     try queue.dequeue()
                 }
@@ -67,12 +73,16 @@ final class CollectionTests: XCTestCase {
     }
     
     func testArrayPerformance() throws {
-        try DebugLogger.default.measure {
+        var array = Array<Int>()
+        try DebugLogger.default.measure(desc: "Append item in array") {
             self.try {
-                var array = Array<Int>()
                 for i in 0..<1000000 {
                     array.append(i)
                 }
+            }
+        }
+        try DebugLogger.default.measure(desc: "Remove item in array") {
+            self.try {
                 while !array.isEmpty {
                     array.popLast()
                 }
@@ -88,7 +98,7 @@ final class CollectionTests: XCTestCase {
             5
         }
         bag.array().assert.equal([5, 3, 1])
-        try DebugLogger.default.measure {
+        try DebugLogger.default.measure(desc: "Append item in bag") {
             let bag = Bag<Int>()
             self.try {
                 for i in 0..<1000000 {
