@@ -1,4 +1,4 @@
-# Functions
+# Features
 - [x] Http Client
 - [ ] UDP Client
 - [ ] WebSocket Client
