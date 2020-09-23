@@ -7,7 +7,7 @@
 
 ## Symmetric Cipher
 
-### How to use
+### Usage
 
 ```swift
 do {
@@ -355,7 +355,7 @@ print(SymmetricCipher.Algorithm.aes.isValidKeySize(40))
 
 ## Digest
 
-### How to use
+### Usage
 ```swift
 do {
     let plainText = "Hello world"
@@ -418,7 +418,7 @@ sha512:309ecc489c12d6eb4cc40f50c902f2b4d0ed77ee511a7c7a9bcd3ca86d4cd86f989dd35bc
 
 ## HMAC
 
-### How to use
+### Usage
 
 ```swift
 do {
