@@ -1,4 +1,4 @@
-# Functions
+# Features
 
 - [x] Symmetric Cipher
 - [x] Digest
