@@ -6,20 +6,35 @@
 //
 
 import Foundation
-public class Bag<T>: Countable, NodeStorage {
+public class Bag<T>: Countable, Sequence {
     
-    fileprivate(set) public var first: Node<T>?
+    public typealias Element = T
+    
+    public typealias Iterator = ListNode<T>.Iterater
+    
+    fileprivate(set) public var first: ListNode<T> = .leaf
     
     fileprivate(set) public var count: Int = 0
     
     public func add(_ value: T) {
-        first = Node(value, first)
+        first = .value(value, first)
         count += 1
+    }
+   
+    public __consuming func makeIterator() -> Iterator {
+        ListNode.Iterater(node: first)
     }
     
     deinit {
-        while first != nil {
-            first = first?.next
+        var flag = true
+        while flag {
+            switch first {
+            case .leaf:
+                first = .leaf
+                flag = false
+            case .value(_, let node):
+                first = node
+            }
         }
     }
     

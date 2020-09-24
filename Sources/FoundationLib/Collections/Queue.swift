@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Queue<T>: Countable, NodeStorage {
+public class Queue<T>: Countable {
     
     fileprivate(set) public var first: Node<T>?
     

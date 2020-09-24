@@ -6,37 +6,54 @@
 //
 import Foundation
 
-public class Stack<T>: Countable, NodeStorage {
+public class Stack<T>: Countable, Sequence {
     
-    fileprivate(set) public var first: Node<T>?
+    
+    
+    public typealias Element = T
+    
+    public typealias Iterator = ListNode<T>.Iterater
+    
+    fileprivate(set) public var first: ListNode<T> = .leaf
     
     fileprivate(set) public var count: Int = 0
     
     public func push(_ item: T) {
-        first = Node(item, first)
+        first = .value(item, first)
         count += 1
     }
     
     @discardableResult
     public func pop() throws -> T {
-        guard let value = first?.value else {
+        guard case .value(let val, let next) = first else {
             throw FoundationError.nilValue
         }
-        first = first?.next
+        first = next
         count -= 1
-        return value
+        return val
+    }
+    
+    public __consuming func makeIterator() -> ListNode<T>.Iterater {
+        ListNode.Iterater(node: first)
     }
     
     public func peek() throws -> T {
-        guard let value = first?.value else {
+        guard case .value(let val, _) = first else {
             throw FoundationError.nilValue
         }
-        return value
+        return val
     }
     
     deinit {
-        while first != nil {
-            first = first?.next
+        var flag = true
+        while flag {
+            switch first {
+            case .leaf:
+                first = .leaf
+                flag = false
+            case .value(_, let node):
+                first = node
+            }
         }
     }
     
