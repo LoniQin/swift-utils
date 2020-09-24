@@ -7,6 +7,32 @@
 
 import Foundation
 
+public indirect enum ListNode<T> {
+    
+    public typealias Element = T
+    
+    public struct Iterater: IteratorProtocol {
+        
+        public var node: ListNode
+        
+        mutating public func next() -> T? {
+            switch node {
+            case .leaf:
+                return nil
+            case .value(let val, let next):
+                self.node = next
+                return val
+            }
+        }
+    }
+    
+    case leaf
+    
+    case value(T, ListNode)
+     
+}
+
+
 public class Node<T> {
     
     public var value: T
@@ -16,28 +42,6 @@ public class Node<T> {
     public init(_ value: T, _ next: Node<T>? = nil) {
         self.value = value
         self.next = next
-    }
-    
-}
-
-public protocol NodeStorage {
-    
-    associatedtype T
-    
-    var first: Node<T>? { get }
-    
-}
-
-public extension NodeStorage {
-    
-    func array() -> [T] {
-        var node: Node? = first
-        var items = [T]()
-        while node != nil {
-            items.append(node!.value)
-            node = node?.next
-        }
-        return items
     }
     
 }
