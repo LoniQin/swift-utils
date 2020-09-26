@@ -352,12 +352,6 @@ final class FoundationLibTests: XCTestCase {
         a.c.assert.equal(4)
     }
     
-    func testKeyPath() {
-        var value = Item()
-        let path = \Item.intValue
-        value[keyPath: path] = 5
-    }
-    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)
