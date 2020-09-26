@@ -56,4 +56,10 @@ open class Builder<T: Buildable>: NSObject, BuilderClassProtocol {
         self.value = value
     }
     
+    @discardableResult
+    func set<V>(_ keyPath: ReferenceWritableKeyPath<T, V>, _ value: V) -> Self {
+        self.value?[keyPath: keyPath] = value
+        return self
+    }
+    
 }
