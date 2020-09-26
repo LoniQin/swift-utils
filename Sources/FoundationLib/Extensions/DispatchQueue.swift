@@ -11,11 +11,7 @@ public extension DispatchQueue {
     
     static func sync<T>(
         onMain block: () throws -> T) throws -> T {
-        if Thread.isMainThread {
-            return try block()
-        } else {
-            return try DispatchQueue.main.sync(execute: block)
-        }
+        Thread.isMainThread ? try block() : try DispatchQueue.main.sync(execute: block)
     }
     
     func after(_ delay: TimeInterval, block closure: @escaping () -> Void) {
