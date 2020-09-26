@@ -27,6 +27,12 @@ extension BuilderClassProtocol {
         return self
     }
     
+    @discardableResult
+    public func set<V>(_ keyPath: ReferenceWritableKeyPath<T, V>, _ value: V) -> Self {
+        self.value?[keyPath: keyPath] = value
+        return self
+    }
+    
 }
 
 public protocol Buildable: NSObjectProtocol {
@@ -54,12 +60,6 @@ open class Builder<T: Buildable>: NSObject, BuilderClassProtocol {
     
     required public init(_ value: T) {
         self.value = value
-    }
-    
-    @discardableResult
-    func set<V>(_ keyPath: ReferenceWritableKeyPath<T, V>, _ value: V) -> Self {
-        self.value?[keyPath: keyPath] = value
-        return self
     }
     
 }
