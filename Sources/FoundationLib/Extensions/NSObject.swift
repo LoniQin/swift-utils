@@ -29,6 +29,11 @@ public extension NSObject {
         classForCoder().description()
     }
     
+    func with<T>(_ keyPath: ReferenceWritableKeyPath<NSObject, T>, _ value: T) -> Self {
+        self[keyPath: keyPath] = value
+        return self
+    }
+    
     func then<T>(_ value: T) -> T {
         return value
     }

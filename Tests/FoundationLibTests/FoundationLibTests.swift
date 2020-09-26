@@ -12,7 +12,6 @@ fileprivate struct Item {
     @AssociatedProperty var associatedProperty: Int!
     
 }
-
 final class FoundationLibTests: XCTestCase {
     
     struct User: Codable, Equatable {
@@ -335,6 +334,12 @@ final class FoundationLibTests: XCTestCase {
         jsonObject.title.assert.equal("Hello world")
         jsonObject.x = "888"
         jsonObject.x.assert.equal("888")
+    }
+    
+    func testKeyPath() {
+        var value = Item()
+        let path = \Item.intValue
+        value[keyPath: path] = 5
     }
     
     static var allTests = [

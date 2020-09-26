@@ -38,6 +38,14 @@ final class CollectionTests: XCTestCase {
                 }
             }
         }
+        try DebugLogger.default.measure(desc: "Iterate item in stack") {
+            self.try {
+                for _ in stack {
+                    
+                }
+            }
+        }
+        
         try DebugLogger.default.measure(desc: "Remove item in stack") {
             self.try {
                 while !stack.isEmpty {

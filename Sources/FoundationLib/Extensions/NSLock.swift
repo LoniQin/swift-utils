@@ -9,8 +9,8 @@ import Foundation
 
 public extension NSLock {
     
-    func tryLock<T>(_ time: TimeInterval = 0, _ block: () throws -> T) throws -> T {
-        let succeeded = self.lock(before: time == 0 ? .distantFuture:  .init(timeIntervalSinceNow: time))
+    func tryLock<T>(_ time: TimeInterval = .greatestFiniteMagnitude, _ block: () throws -> T) throws -> T {
+        let succeeded = self.lock(before: .init(timeIntervalSinceNow: time))
         defer {
             if succeeded { unlock() }
         }
