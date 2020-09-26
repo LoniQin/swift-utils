@@ -13,14 +13,10 @@ public extension Int {
         var s = [Int]()
         var n = self
         while n > 0 {
-            s.append(n % 2)
-            n = n / 2
+            s.append(n & 1)
+            n >>= 1
         }
-        var text = ""
-        while let value = s.popLast() {
-            text.append(value.description)
-        }
-        return text
+        return s.reversed().map { $0.description }.joined()
     }
     
     @discardableResult
