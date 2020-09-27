@@ -8,7 +8,7 @@
 import Foundation
 public struct FileLogger: Logging {
     
-    var path: String
+    public var path: String
     
     private var handle: FileHandle
     

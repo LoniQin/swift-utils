@@ -17,13 +17,13 @@ public enum Level: String {
     
 }
 
-protocol Logging {
+public protocol Logging {
     
     func log(_ level: Level, _ messages: Any...) throws
     
 }
 
-extension Logging {
+public extension Logging {
     
     @discardableResult
     func measure(name: String = #function, desc: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () -> Void) throws -> TimeInterval {
