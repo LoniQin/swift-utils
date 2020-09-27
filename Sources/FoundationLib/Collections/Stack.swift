@@ -8,8 +8,6 @@ import Foundation
 
 public class Stack<T>: Countable, Sequence {
     
-    
-    
     public typealias Element = T
     
     public typealias Iterator = ListNode<T>.Iterater

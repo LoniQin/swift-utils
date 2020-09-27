@@ -6,7 +6,7 @@
 //
 
 import Foundation
-enum CompressionError: Error {
+public enum CompressionError: Error {
     case failToInitCompressionStream
     case failToCompress
 }

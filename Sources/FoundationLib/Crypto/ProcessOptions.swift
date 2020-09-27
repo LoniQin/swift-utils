@@ -44,11 +44,11 @@ public struct ProcessOptions {
     
     public let parameters: [Option: Any]
     
-    subscript<T>(option: Option) -> T? {
+    public subscript<T>(option: Option) -> T? {
         return parameters[option] as? T
     }
     
-    init(_ method: Method, _ parameters: [Option: Any] = [:]) {
+    public init(_ method: Method, _ parameters: [Option: Any] = [:]) {
         self.method = method
         self.parameters = parameters
     }

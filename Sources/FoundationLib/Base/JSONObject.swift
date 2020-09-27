@@ -59,7 +59,7 @@ public struct JSONObject: DataConvertable {
         }
     }
     
-    func get<T>(_ member: String) -> T? {
+    public func get<T>(_ member: String) -> T? {
         value[member] as? T
     }
     

@@ -65,7 +65,7 @@ public struct Compressor {
     }
     
     
-    func process() throws {
+    public func process() throws {
         
         let bufferSize = 32_768
         let destinationBufferPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: bufferSize)

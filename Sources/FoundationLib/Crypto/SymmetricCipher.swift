@@ -61,7 +61,7 @@ public struct SymmetricCipher {
         
         case cfb8 = 10
         
-        func needsIV() -> Bool {
+        public func needsIV() -> Bool {
             self != .ecb
         }
     }
@@ -84,7 +84,7 @@ public struct SymmetricCipher {
         self.mode = mode
     }
     
-    var isValid: Bool {
+    public var isValid: Bool {
         if mode.needsIV() && iv.count != algorithm.blockSize { return false }
         if !algorithm.isValidKeySize(key.count) { return false }
         if !algorithm.isValid(mode: mode, padding: padding) { return false }
@@ -177,7 +177,7 @@ public struct SymmetricCipher {
 
 public extension SymmetricCipher.Algorithm {
     
-    struct KeySize {
+    public struct KeySize {
         
         public static let aes128 = 16
         

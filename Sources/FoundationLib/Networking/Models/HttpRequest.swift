@@ -30,7 +30,7 @@ public struct HttpRequest: RequestConvertable {
     ///   - query: query params
     ///   - body: Body params
     ///   - header: Header params
-    init(domain: StringConvetable,
+    public init(domain: StringConvetable,
          paths: [StringConvetable] = [],
          method: HttpMethod = .get,
          query: [String: String] = [:],
