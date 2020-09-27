@@ -16,7 +16,7 @@ public struct HttpRequest: RequestConvertable {
     
     public let method: HttpMethod
     
-    public let query: [String: String]
+    public let query: StringConvetable
     
     public let body: DataConvertable?
     
@@ -33,7 +33,7 @@ public struct HttpRequest: RequestConvertable {
     public init(domain: StringConvetable,
          paths: [StringConvetable] = [],
          method: HttpMethod = .get,
-         query: [String: String] = [:],
+         query: StringConvetable = "",
          body: DataConvertable? = nil,
          header: HttpHeaderConvertable = [:]) {
         self.domain = domain
@@ -45,11 +45,7 @@ public struct HttpRequest: RequestConvertable {
     }
     
     public func toURLRequest() throws -> URLRequest {
-        var queryPart = ""
-        if !query.isEmpty {
-            queryPart = query.sorted(by: {$0.key < $1.key})
-                .map({"\($0.key)=\($0.value)"}).joined(separator: "&")
-        }
+        let queryPart = query.toString()
         var urlString = ([domain]+paths).map({$0.toString()}).joined(separator: "/")
         if !queryPart.isEmpty {
             urlString.append("?\(queryPart)")

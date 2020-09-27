@@ -29,7 +29,7 @@ extension String: DataConvertable {
     
 }
 
-extension Dictionary: DataConvertable where Key: Codable, Value: Codable {
+extension Dictionary: DataConvertable where Key == String, Value: Any {
     
     public func toData() throws -> Data {
         try JSONSerialization.data(withJSONObject: self, options: .prettyPrinted)
