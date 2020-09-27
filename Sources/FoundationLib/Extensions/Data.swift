@@ -11,7 +11,7 @@ let charA = UInt8(UnicodeScalar("a").value)
 let char0 = UInt8(UnicodeScalar("0").value)
 
 private func itoh(_ value: UInt8) -> UInt8 {
-    return (value > 9) ? (charA + value - 10) : (char0 + value)
+    (value > 9) ? (charA + value - 10) : (char0 + value)
 }
 
 private func htoi(_ value: UInt8) throws -> UInt8 {
