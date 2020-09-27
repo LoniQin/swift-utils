@@ -7,10 +7,10 @@
 
 import Foundation
 @dynamicCallable
-public struct DictionaryGenerator {
+public struct DictionaryGenerator<Value> {
 
-    public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) -> [String: Any] {
-        var dic = [String : Any]()
+    public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Value>) -> [String: Value] {
+        var dic = [String : Value]()
         for item in args {
             dic[item.0] = item.1
         }

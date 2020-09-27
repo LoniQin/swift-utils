@@ -6,10 +6,12 @@
 //
 
 import Foundation
-enum Http {
+public enum Http {
     
-    static let query = QueryGenerator()
+    public static let query = QueryGenerator()
     
-    static let json = DictionaryGenerator()
+    public static let json = DictionaryGenerator<Codable>()
+    
+    public static let header = DictionaryGenerator<String>()
     
 }

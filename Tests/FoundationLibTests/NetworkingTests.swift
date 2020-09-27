@@ -22,4 +22,17 @@ final class NetworkingTests: XCTestCase {
             "\(dictionary[key]!)".assert.equal(value)
         }
     }
+    
+    func testHttpRequest() throws {
+        let request = HttpRequest(
+            domain: "http://www.example.com",
+            paths: ["user", "login"],
+            method: .post,
+            query: Http.query(id: 1, name: "Jack"),
+            body: Http.json(id: 1, name: "Jack"),
+            header: Http.header(phone: "1", password: "2")
+        )
+        let req = try request.toURLRequest()
+        req.allHTTPHeaderFields?.assert.equal(["phone": "1", "password": "2"])
+    }
 }

@@ -15,7 +15,7 @@ public protocol HttpHeaderConvertable {
 extension Dictionary: HttpHeaderConvertable where Key == String, Value == String {
     
     public func toHttpHeader() -> [String : String] {
-        return self
+        self
     }
     
 }
