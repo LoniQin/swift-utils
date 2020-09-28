@@ -76,6 +76,13 @@ final class CollectionTests: XCTestCase {
                 }
             }
         }
+        try DebugLogger.default.measure(desc: "Iterate queue") {
+            self.try {
+                for _ in queue {
+                    
+                }
+            }
+        }
         try DebugLogger.default.measure(desc: "Remove item in queue") {
             self.try {
                 while !queue.isEmpty {

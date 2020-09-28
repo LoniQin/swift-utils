@@ -44,4 +44,16 @@ public class Node<T> {
         self.next = next
     }
     
+    public struct Iterater: IteratorProtocol {
+        
+        public var node: Node?
+        
+        mutating public func next() -> T? {
+            defer {
+                node = node?.next
+            }
+            return node?.value
+        }
+    }
+    
 }

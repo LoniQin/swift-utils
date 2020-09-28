@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public class Stack<T>: Countable, Sequence {
+public class Stack<T>: Sequence, Countable {
     
     public typealias Element = T
     

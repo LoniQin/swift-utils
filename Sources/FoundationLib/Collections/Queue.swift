@@ -7,7 +7,11 @@
 
 import Foundation
 
-public class Queue<T>: Countable {
+public class Queue<T>: Sequence, Countable {
+    
+    public typealias Element = T
+    
+    public typealias Iterator = Node<T>.Iterater
     
     fileprivate(set) public var first: Node<T>?
     
@@ -35,6 +39,10 @@ public class Queue<T>: Countable {
         if isEmpty { last = nil }
         count -= 1
         return value
+    }
+    
+    public __consuming func makeIterator() -> Node<T>.Iterater {
+        Node.Iterater(node: first)
     }
     
     deinit {
