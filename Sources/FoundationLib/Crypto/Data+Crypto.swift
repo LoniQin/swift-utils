@@ -30,7 +30,12 @@ public extension Data {
         let mode: SymmetricCipher.Mode = options[.mode] ?? .cbc
         let padding: SymmetricCipher.Padding = options[.padding] ?? .pkcs7
         guard let key: DataConvertable = options[.key] else { throw CryptoError.invalidKey }
-        let iv: DataConvertable = options[.iv] ?? Data()
+        var iv: DataConvertable!
+        if let theIV: DataConvertable = options[.iv] {
+            iv = theIV
+        } else {
+            iv = Data()
+        }
         let cipher = try SymmetricCipher(
             algorithm,
             key: key.toData(),
