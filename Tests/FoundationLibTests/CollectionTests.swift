@@ -97,7 +97,7 @@ final class CollectionTests: XCTestCase {
         
         try DebugLogger.default.measure(desc: "Iterate item in array") {
             self.try {
-                for i in array {
+                for _ in array {
                     
                 }
             }
@@ -105,7 +105,7 @@ final class CollectionTests: XCTestCase {
         try DebugLogger.default.measure(desc: "Remove item in array") {
             self.try {
                 while !array.isEmpty {
-                    array.popLast()
+                    _ = array.popLast()
                 }
             }
         }

@@ -54,70 +54,45 @@ final class FoundationLibTests: XCTestCase {
         2.0.float.assert.equal(2.0)
     }
     
-    func testMemoryCacheManager() {
-        
-        
-        do {
-            let storage = MemoryCacheStorage()
-            let user = User(name: "Lonnie")
-            try storage.load()
-            try storage.set(user, for: "user")
-            try storage.save()
-            assert.equal(try storage.get("user"), user)
-        } catch let error {
-            assert.fail(error)
-        }
+    func testMemoryCacheManager() throws {
+        let storage = MemoryCacheStorage()
+        let user = User(name: "Lonnie")
+        try storage.load()
+        try storage.set(user, for: "user")
+        try storage.save()
+        assert.equal(try storage.get("user"), user)
     }
     
-    func testUserDefaults() {
+    func testUserDefaults() throws {
         
         struct User: Codable, Equatable {
             let name: String
         }
-        
-        do {
-            let storage = UserDefaults.standard
-            let user = User(name: "Lonnie")
-            try storage.load()
-            try storage.set(user, for: "user")
-            try storage.save()
-            assert.equal(try storage.get("user"), user)
-        } catch let error {
-            assert.fail(error)
-        }
-        
+        let storage = UserDefaults.standard
+        let user = User(name: "Lonnie")
+        try storage.load()
+        try storage.set(user, for: "user")
+        try storage.save()
+        assert.equal(try storage.get("user"), user)
     }
     
-    func testFileStorage() {
-        
-        var components = #file.components(separatedBy: "/")
-        components.removeLast()
-        
-        let basePath = components.joined(separator: "/")
-        let filePath = basePath  / "values.json"
+    func testFileStorage() throws {
+        let filePath = dataPath()  / "values.json"
         struct User: Codable, Equatable {
             let name: String
         }
-        
-        do {
-            let storage = try FileStorage(path: filePath)
-            let user = User(name: "Lonnie")
-            try storage.set(user, for: "user")
-            try storage.save()
-            assert.equal(try storage.get("user"), user)
-            
-            let nextStorage = try FileStorage(path: filePath)
-            try nextStorage.load()
-            let nextUser: User = try nextStorage.get("user")
-            assert.equal(user, nextUser)
-        } catch let error {
-            assert.fail(error)
-        }
-        
+        let storage = try FileStorage(path: filePath)
+        let user = User(name: "Lonnie")
+        try storage.set(user, for: "user")
+        try storage.save()
+        assert.equal(try storage.get("user"), user)
+        let nextStorage = try FileStorage(path: filePath)
+        try nextStorage.load()
+        let nextUser: User = try nextStorage.get("user")
+        assert.equal(user, nextUser)
     }
     
     func testDefault() {
-        
         var item = Item()
         assert.equal(item.intValue.unwrapped, 2)
         assert.equal(item.doubleValue.unwrapped, 3)
@@ -202,7 +177,6 @@ final class FoundationLibTests: XCTestCase {
     
     func testNSCacheStorage() {
         let storage = NSCacheStorage.default
-        
         do {
             try storage.set(1, for: "key")
             let value: Int = try storage.get("key")
@@ -230,7 +204,6 @@ final class FoundationLibTests: XCTestCase {
             var b = 2
             var c = "ccc"
         }
-        
         let a = A()
         let buider1 = a.builder
         let buider2 = a.builder
