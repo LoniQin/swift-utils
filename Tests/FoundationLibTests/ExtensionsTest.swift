@@ -17,8 +17,7 @@ final class ExtensionsTest: XCTestCase {
     
     func testNSOBjectExtension() {
         
-        let a = A()
-        a.then {
+        let a = A().then {
             $0.doubleValue = 2
             $0.intValue = 3
             $0.stringValue = "a"
