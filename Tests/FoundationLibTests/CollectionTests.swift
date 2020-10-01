@@ -26,6 +26,13 @@ final class CollectionTests: XCTestCase {
         try stack.pop().assert.equal(5)
         try stack.pop().assert.equal(4)
         try stack.pop().assert.equal(3)
+        do {
+            let stack = Stack<Int>()
+            try stack.pop()
+            XCTFail()
+        } catch {
+            
+        }
         
     }
 

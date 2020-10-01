@@ -7,15 +7,16 @@
 
 import XCTest
 @testable import FoundationLib
+fileprivate class A: NSObject {
+    var intValue: Int = 0
+    var doubleValue: Double = 0.0
+    var stringValue: String = ""
+}
 import CommonCrypto
 final class ExtensionsTest: XCTestCase {
     
     func testNSOBjectExtension() {
-        class A: NSObject {
-            var intValue: Int = 0
-            var doubleValue: Double = 0.0
-            var stringValue: String = ""
-        }
+        
         let a = A()
         a.then {
             $0.doubleValue = 2
@@ -41,6 +42,23 @@ final class ExtensionsTest: XCTestCase {
         a.intValue.assert.equal(7)
         a.doubleValue.assert.equal(6)
         a.stringValue.assert.equal("c")
+        UIView.className().assert.equal("UIView")
+    }
+    
+    func testInt() {
+        let a = 1
+        a.int.assert.equal(1)
+        a.float.assert.equal(1)
+        a.double.assert.equal(1)
+        a.uint.assert.equal(1)
+    }
+    
+    func testString() {
+        let a = "29833"
+        a.int.assert.equal(29833)
+        a.float.assert.equal(29833)
+        a.double.assert.equal(29833)
+        a.uint.assert.equal(29833)
     }
     
     static var allTests = [
