@@ -310,8 +310,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testKeyPathConfigurable() {
-        let obj = NSObject()
-        class A: KeyPathConfigurable {
+        class A: Configurable {
             var a = 1
             var b = ""
             var c = 3

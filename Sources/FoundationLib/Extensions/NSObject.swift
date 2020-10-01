@@ -31,26 +31,4 @@ public extension NSObject {
     
 }
 
-extension NSObject: Then {}
-
-protocol Then {}
-
-extension Then {
-    
-    @discardableResult
-    public func then(_ block: @escaping (Self) -> Void) -> Self {
-        block(self)
-        return self
-    }
-    
-    public func `do`(_ block: @escaping (Self) -> Void) {
-        block(self)
-    }
-    
-    @discardableResult
-    public func `with`(_ block: @escaping (Self) -> Void) -> Self {
-        block(self)
-        return self
-    }
-    
-}
+extension NSObject: Configurable {}

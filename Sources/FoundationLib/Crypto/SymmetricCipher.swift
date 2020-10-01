@@ -177,7 +177,7 @@ public struct SymmetricCipher {
 
 public extension SymmetricCipher.Algorithm {
     
-    public struct KeySize {
+    struct KeySize {
         
         public static let aes128 = 16
         
