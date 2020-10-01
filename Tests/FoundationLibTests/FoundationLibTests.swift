@@ -289,7 +289,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testJSONObject() {
-        var jsonObject = JSONObject([
+        let jsonObject = JSONObject([
             "a": 1,
             "b": 2.2,
             "c": "hello"
@@ -307,6 +307,10 @@ final class FoundationLibTests: XCTestCase {
         jsonObject.title.assert.equal("Hello world")
         jsonObject.x = "888"
         jsonObject.x.assert.equal("888")
+        jsonObject(e: 7, f: 8, g: 9)
+        jsonObject.e.assert.equal(7)
+        jsonObject.f.assert.equal(8)
+        jsonObject.g.assert.equal(9)
     }
     
     func testKeyPathConfigurable() {

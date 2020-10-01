@@ -5,13 +5,20 @@
 //  Created by lonnie on 2020/9/20.
 //
 import Foundation
+@dynamicCallable
 @dynamicMemberLookup
-public struct JSONObject: DataConvertable {
-
+public class JSONObject: DataConvertable {
+    
     public var value = [String: Any]()
     
     public init(_ value: [String: Any] = [:]) {
         self.value = value
+    }
+    
+    public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) {
+        for item in args {
+            value[item.0] = item.1
+        }
     }
     
     public subscript(dynamicMember member: String) -> String? {
