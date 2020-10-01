@@ -311,8 +311,6 @@ final class FoundationLibTests: XCTestCase {
     
     func testKeyPathConfigurable() {
         let obj = NSObject()
-        obj.then(1).assert.equal(1)
-        
         class A: KeyPathConfigurable {
             var a = 1
             var b = ""

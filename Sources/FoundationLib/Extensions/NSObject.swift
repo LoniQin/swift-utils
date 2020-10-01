@@ -29,8 +29,28 @@ public extension NSObject {
         classForCoder().description()
     }
     
-    func then<T>(_ value: T) -> T {
-        return value
+}
+
+extension NSObject: Then {}
+
+protocol Then {}
+
+extension Then {
+    
+    @discardableResult
+    public func then(_ block: @escaping (Self) -> Void) -> Self {
+        block(self)
+        return self
+    }
+    
+    public func `do`(_ block: @escaping (Self) -> Void) {
+        block(self)
+    }
+    
+    @discardableResult
+    public func `with`(_ block: @escaping (Self) -> Void) -> Self {
+        block(self)
+        return self
     }
     
 }
