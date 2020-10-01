@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 public protocol DataStorageStrategy  {
     
     func get<T: Codable>(_ key: CustomStringConvertible) throws -> T

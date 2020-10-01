@@ -101,7 +101,6 @@ final class CollectionTests: XCTestCase {
                 }
             }
         }
-        
         try DebugLogger.default.measure(desc: "Iterate item in array") {
             self.try {
                 for _ in array {
@@ -127,6 +126,12 @@ final class CollectionTests: XCTestCase {
                 }
             }
         }
+        try DebugLogger.default.measure(desc: "Iterate item in bag") {
+              self.try {
+                  for _ in bag {
+                  }
+              }
+          }
     }
     
 }
