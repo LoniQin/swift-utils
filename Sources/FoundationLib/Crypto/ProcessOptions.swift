@@ -6,6 +6,7 @@
 //
 import Compression
 import Foundation
+@dynamicMemberLookup
 public struct ProcessOptions {
     
     public enum Option: String {
@@ -42,17 +43,32 @@ public struct ProcessOptions {
     
     public let method: Method
     
-    public let parameters: [Option: Any]
+    public var parameters: [Option: Any]
     
     public subscript<T>(option: Option) -> T? {
-        return parameters[option] as? T
+        get {
+            parameters[option] as? T
+        }
+        set {
+            parameters[option] = newValue
+        }
+    }
+    
+    public subscript<T>(dynamicMember member: String) -> T? where T: Any {
+        get {
+            guard let option = Option(rawValue: member) else { return nil }
+            return parameters[option] as? T
+        }
+        set {
+            guard let option = Option(rawValue: member) else { return }
+            parameters[option] = newValue
+        }
     }
     
     public init(_ method: Method, _ parameters: [Option: Any] = [:]) {
         self.method = method
         self.parameters = parameters
     }
-    
     
     public static let md5 = ProcessOptions(.digest(.md5))
     

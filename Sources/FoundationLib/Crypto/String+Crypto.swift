@@ -10,19 +10,19 @@ import Foundation
 public extension String {
     
     func data(_ encoding: FoundationLib.Encoding) throws -> Data {
-        var d: Data?
+        var _data: Data?
         switch encoding {
         case .base64:
-            d = Data(base64Encoded: self)
+            _data = Data(base64Encoded: self)
         case .ascii:
-            d = data(using: .ascii)
+            _data = data(using: .ascii)
         case .utf8:
-            d = data(using: .utf8)
+            _data = data(using: .utf8)
         case .hex:
-            d = try Data(hex: self)
+            _data = try Data(hex: self)
         }
-        guard let value = d else { throw CryptoError.codingError }
-        return value
+        guard let data = _data else { throw CryptoError.codingError }
+        return data
     }
     
     func digest(_ algorithm: Digest) throws -> String {

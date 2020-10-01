@@ -207,6 +207,18 @@ final class NetworkingTests: XCTestCase {
         }
     }
     
+    func testProcessOptions() {
+        var options = ProcessOptions(.hmac(.sha1))
+        options[.key].assert.equal(Optional<Data>.none)
+        var data = Data(random: 16)
+        options[.key] = data
+        options[.key].assert.equal(data)
+        options.key.assert.equal(data)
+        data = Data(random: 16)
+        options.key = data
+        options.key.assert.equal(data)
+    }
+    
     #if canImport(UIKit)
     
     func testDownloadImage() {

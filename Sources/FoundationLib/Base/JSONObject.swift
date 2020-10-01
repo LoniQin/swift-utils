@@ -21,7 +21,7 @@ public class JSONObject: DataConvertable {
         }
     }
     
-    public subscript(dynamicMember member: String) -> String? {
+    public subscript<T>(dynamicMember member: String) -> T? where T: Any {
         get {
             get(member)
         }
@@ -29,43 +29,7 @@ public class JSONObject: DataConvertable {
             value[member] = newValue
         }
     }
-    
-    public subscript(dynamicMember member: String) -> Int? {
-        get {
-            get(member)
-        }
-        set {
-            value[member] = newValue
-        }
-    }
-    
-    public subscript(dynamicMember member: String) -> Double? {
-        get {
-            get(member)
-        }
-        set {
-            value[member] = newValue
-        }
-    }
-    
-    public subscript(dynamicMember member: String) -> Float? {
-        get {
-            get(member)
-        }
-        set {
-            value[member] = newValue
-        }
-    }
-    
-    public subscript(dynamicMember member: String) -> Any? {
-        get {
-            get(member)
-        }
-        set {
-            value[member] = newValue
-        }
-    }
-    
+   
     public func get<T>(_ member: String) -> T? {
         value[member] as? T
     }

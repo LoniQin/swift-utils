@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@dynamicMemberLookup
 public protocol DataStorageStrategy  {
     
     func get<T: Codable>(_ key: CustomStringConvertible) throws -> T
@@ -26,6 +27,15 @@ public extension DataStorageStrategy {
             return value
         } catch  {
             return nil
+        }
+    }
+    
+    subscript<T>(dynamicMember member: String)-> T? where T: Codable {
+        get {
+            try? get(member)
+        }
+        set {
+           try? set(newValue, for: member)
         }
     }
     
