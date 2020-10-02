@@ -52,65 +52,81 @@ public struct Assert {
     }
 }
 
-
-public struct EquatableAssert<T: Equatable> {
+protocol AssertProtocol {
     
-    public let value: T
+    associatedtype Element
     
-    public let assert = Assert()
+    var value: Element { get }
     
-    public func equal(_ another: T) {
-        assert.equal(value, another)
-    }
-    
-    public func notEqual(_ another: T) {
-        assert.notEqual(value, another)
-    }
+    var assert: Assert { get }
     
 }
 
-extension EquatableAssert where T == Bool {
+extension AssertProtocol {
     
-    public func `true`() {
+    func notNil() {
+        assert.notNil(value)
+    }
+    
+    func fail(_ error: Error) {
+        assert.fail(error)
+    }
+}
+extension AssertProtocol where Element: Equatable {
+    func equal(_ another: Element) {
+        assert.equal(value, another)
+    }
+    
+    func notEqual(_ another: Element) {
+        assert.notEqual(value, another)
+    }
+}
+
+extension AssertProtocol where Element == Bool {
+    
+    func `true`() {
         assert.true(value)
     }
     
-    public func `false`() {
+    func `false`() {
        assert.false(value)
     }
     
 }
 
-public struct ComparableAssert<T: Comparable> {
+extension AssertProtocol where Element: Comparable {
+    func greaterThan(_ another: Element) {
+        assert.greaterThan(value, another)
+    }
+    
+    func greaterThanOrEqual(_ another: Element) {
+        assert.greaterThanOrEqual(value, another)
+    }
+    
+    func lessThan(_ another: Element) {
+        assert.lessThan(value, another)
+    }
+    
+    func lessThanOrEqual(_ another: Element) {
+        assert.lessThanOrEqual(value, another)
+    }
+}
+
+
+public struct EquatableAssert<T: Equatable>: AssertProtocol {
     
     public let value: T
     
     public let assert = Assert()
+
+}
+
+public struct ComparableAssert<T: Comparable>: AssertProtocol {
     
-    public func equal(_ another: T) {
-        assert.equal(value, another)
-    }
+    public let value: T
     
-    public func notEqual(_ another: T) {
-        assert.notEqual(value, another)
-    }
-    
-    public func greaterThan(_ another: T) {
-        assert.greaterThan(value, another)
-    }
-    
-    public func greaterThanOrEqual(_ another: T) {
-        assert.greaterThanOrEqual(value, another)
-    }
-    
-    public func lessThan(_ another: T) {
-        assert.lessThan(value, another)
-    }
-    
-    public func lessThanOrEqual(_ another: T) {
-        assert.lessThanOrEqual(value, another)
-    }
-    
+    public let assert = Assert()
+
 }
 
 public extension Equatable {
