@@ -17,7 +17,7 @@ public extension Configurable {
         block(self)
         return self
     }
-    
+
     @discardableResult
     func `do`<T>(_ block: @escaping (Self) -> T) -> T {
         block(self)

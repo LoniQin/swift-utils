@@ -1,7 +1,6 @@
 import XCTest
 @testable import FoundationLib
 
-
 final class FoundationLibTests: XCTestCase {
     
     struct Item {
@@ -13,6 +12,8 @@ final class FoundationLibTests: XCTestCase {
         @Default("Hello") var stringValue: String!
         
         @AssociatedProperty var associatedProperty: Int!
+        
+        @AssociatedProperty var associatedProperty2: String!
         
     }
     
@@ -106,6 +107,11 @@ final class FoundationLibTests: XCTestCase {
         item.associatedProperty.assert.equal(nil)
         item.associatedProperty = 8
         item.associatedProperty.assert.equal(8)
+        item.associatedProperty2.assert.equal(nil)
+        item.associatedProperty2 = "Hello"
+        item.associatedProperty2.assert.equal("Hello")
+        item.associatedProperty2 = "Hello world"
+        item.associatedProperty2.assert.equal("Hello world")
         
     }
     
@@ -326,6 +332,18 @@ final class FoundationLibTests: XCTestCase {
         a.a.assert.equal(2)
         a.b.assert.equal("b")
         a.c.assert.equal(4)
+    }
+    
+    func testLocalization() {
+        if let bundle = Bundle(path: dataPath() / "test.bundle") {
+            let localization = Localization(tableName: "test", bundle: bundle)
+            localization.string(for: "a").assert.equal("1")
+            localization.string(for: "b").assert.equal("2")
+            localization.string(for: "c").assert.equal("3")
+            localization.a.assert.equal("1")
+            localization.b.assert.equal("2")
+            localization.c.assert.equal("3")
+        }
     }
     
     static var allTests = [

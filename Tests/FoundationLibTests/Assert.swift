@@ -73,6 +73,7 @@ extension AssertProtocol {
     }
 }
 extension AssertProtocol where Element: Equatable {
+    
     func equal(_ another: Element) {
         assert.equal(value, another)
     }
@@ -80,6 +81,7 @@ extension AssertProtocol where Element: Equatable {
     func notEqual(_ another: Element) {
         assert.notEqual(value, another)
     }
+    
 }
 
 extension AssertProtocol where Element == Bool {

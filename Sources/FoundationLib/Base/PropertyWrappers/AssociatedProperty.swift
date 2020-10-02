@@ -15,7 +15,7 @@ public struct AssociatedProperty<T> {
     
     var policy: objc_AssociationPolicy
     
-    public init(policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY) {
+    public init(policy: objc_AssociationPolicy = .OBJC_ASSOCIATION_COPY_NONATOMIC) {
         self.policy = policy
     }
  

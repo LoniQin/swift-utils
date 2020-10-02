@@ -23,12 +23,7 @@ final class CompressorTests: XCTestCase {
     }
     
     func testCompression() throws {
-        try Array {
-            Compressor.Algorithm.lz4
-            Compressor.Algorithm.lzfse
-            Compressor.Algorithm.lzma
-            Compressor.Algorithm.zlib
-        }.forEach { algorithm in
+        try Compressor.Algorithm.allCases.forEach { algorithm in
             let postfix = "\(algorithm)"
             let path = dataPath()
             let fileName = "file.log"
