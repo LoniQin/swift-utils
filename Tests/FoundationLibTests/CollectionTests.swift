@@ -23,8 +23,11 @@ final class CollectionTests: XCTestCase {
             4
             5
         }
+        try stack.peek().assert.equal(5)
         try stack.pop().assert.equal(5)
+        try stack.peek().assert.equal(4)
         try stack.pop().assert.equal(4)
+        try stack.peek().assert.equal(3)
         try stack.pop().assert.equal(3)
         do {
             let stack = Stack<Int>()
@@ -72,6 +75,14 @@ final class CollectionTests: XCTestCase {
             try value.assert.equal(queue.dequeue())
             value += 1
         }
+        queue.enqueue {
+            1
+            2
+            3
+            4
+            5
+        }
+        Array(queue).assert.equal([1, 2, 3, 4, 5])
     }
     
     func testQueuePerformance() throws {

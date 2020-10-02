@@ -21,6 +21,14 @@ public protocol DataStorageStrategy  {
 
 public extension DataStorageStrategy {
     
+    func load() throws {
+        
+    }
+    
+    func save() throws {
+        
+    }
+    
     func get<T: ExpressibleByNilLiteral & Codable>(_ key: CustomStringConvertible) -> T? {
         do {
             let value: T = try get(key)

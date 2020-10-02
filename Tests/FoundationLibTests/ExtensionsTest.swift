@@ -58,6 +58,8 @@ final class ExtensionsTest: XCTestCase {
         a.float.assert.equal(29833)
         a.double.assert.equal(29833)
         a.uint.assert.equal(29833)
+        ("a" / "b").assert.equal("a/b")
+        ("a" - "b").assert.equal("a-b")
     }
     
     static var allTests = [

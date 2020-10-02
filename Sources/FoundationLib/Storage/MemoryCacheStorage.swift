@@ -30,12 +30,4 @@ public class MemoryCacheStorage: DataStorageStrategy {
         }
     }
     
-    public func load() throws {
-        
-    }
-    
-    public func save() throws {
-        
-    }
-    
 }

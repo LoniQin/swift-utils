@@ -26,12 +26,4 @@ public class NSCacheStorage: DataStorageStrategy {
         }
     }
     
-    public func load() throws {
-        
-    }
-    
-    public func save() throws {
-        
-    }
-    
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+@dynamicMemberLookup
 public struct Localization {
 
     public let tableName: String
@@ -25,6 +25,10 @@ public struct Localization {
             bundle: bundle,
             comment: ""
         )
+    }
+    
+    public subscript(dynamicMember member: String) -> String {
+        string(for: member)
     }
     
 }

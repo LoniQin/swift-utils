@@ -1,38 +1,38 @@
 import XCTest
 @testable import FoundationLib
 
-fileprivate struct Item {
-    
-    @Default(2) var intValue: Int!
-    
-    @Default(3) var doubleValue: Double!
-    
-    @Default("Hello") var stringValue: String!
-    
-    @AssociatedProperty var associatedProperty: Int!
-    
-}
+
 final class FoundationLibTests: XCTestCase {
+    
+    struct Item {
+        
+        @Default(2) var intValue: Int!
+        
+        @Default(3) var doubleValue: Double!
+        
+        @Default("Hello") var stringValue: String!
+        
+        @AssociatedProperty var associatedProperty: Int!
+        
+    }
     
     struct User: Codable, Equatable {
         let name: String
     }
-
-    let assert = Assert()
     
     func testUnwrappable() {
         var a: Int?
         var b: Double?
         var c: String?
-        assert.equal(a.unwrapped, 0)
-        assert.equal(b.unwrapped, 0)
-        assert.equal(c.unwrapped, "")
+        a.unwrapped.assert.equal(0)
+        b.unwrapped.assert.equal(0)
+        c.unwrapped.assert.equal("")
         a = 1
         b = 2
         c = "3"
-        assert.equal(a.unwrapped, 1)
-        assert.equal(b.unwrapped, 2)
-        assert.equal(c.unwrapped, "3")
+        a.assert.equal(1)
+        b.assert.equal(2)
+        c.assert.equal("3")
     }
     
     func testDipatchQueue() {
@@ -60,7 +60,7 @@ final class FoundationLibTests: XCTestCase {
         try storage.load()
         try storage.set(user, for: "user")
         try storage.save()
-        assert.equal(try storage.get("user"), user)
+        try user.assert.equal(storage.get("user"))
     }
     
     func testUserDefaults() throws {
@@ -73,7 +73,7 @@ final class FoundationLibTests: XCTestCase {
         try storage.load()
         try storage.set(user, for: "user")
         try storage.save()
-        assert.equal(try storage.get("user"), user)
+        try user.assert.equal(storage.get("user"))
     }
     
     func testFileStorage() throws {
@@ -85,27 +85,27 @@ final class FoundationLibTests: XCTestCase {
         let user = User(name: "Lonnie")
         try storage.set(user, for: "user")
         try storage.save()
-        assert.equal(try storage.get("user"), user)
+        try user.assert.equal(storage.get("user"))
         let nextStorage = try FileStorage(path: filePath)
         try nextStorage.load()
         let nextUser: User = try nextStorage.get("user")
-        assert.equal(user, nextUser)
+        user.assert.equal(nextUser)
     }
     
     func testDefault() {
         var item = Item()
-        assert.equal(item.intValue.unwrapped, 2)
-        assert.equal(item.doubleValue.unwrapped, 3)
-        assert.equal(item.stringValue.unwrapped, "Hello")
+        item.intValue.unwrapped.assert.equal(2)
+        item.doubleValue.unwrapped.assert.equal(3)
+        item.stringValue.unwrapped.assert.equal("Hello")
         item.intValue = 4
         item.doubleValue = 5
         item.stringValue = "World"
-        assert.equal(item.intValue.unwrapped, 4)
-        assert.equal(item.doubleValue.unwrapped, 5)
-        assert.equal(item.stringValue.unwrapped, "World")
-        assert.equal(item.associatedProperty, nil)
+        item.intValue.unwrapped.assert.equal(4)
+        item.doubleValue.unwrapped.assert.equal(5)
+        item.stringValue.unwrapped.assert.equal("World")
+        item.associatedProperty.assert.equal(nil)
         item.associatedProperty = 8
-        assert.equal(item.associatedProperty, 8)
+        item.associatedProperty.assert.equal(8)
         
     }
     
@@ -113,9 +113,9 @@ final class FoundationLibTests: XCTestCase {
         let str = "hello world"
         str.appendingSuffix(";").assert.equal("hello world;")
         str.appendingPrefix("Lonnie:").assert.equal("Lonnie:hello world")
-        assert.equal(str.appendingSuffix(";"), "hello world;")
-        assert.equal(str.appendingSuffix("world"), "hello world")
-        assert.equal(str.appendingPrefix("hello"), "hello world")
+        str.appendingSuffix(";").assert.equal("hello world;")
+        str.appendingSuffix("world").assert.equal("hello world")
+        str.appendingPrefix("hello").assert.equal("hello world")
         ("user" / "login").assert.equal("user/login")
         ("111" * 3).assert.equal("111111111")
         ("111" - "222").assert.equal("111-222")
@@ -311,6 +311,8 @@ final class FoundationLibTests: XCTestCase {
         jsonObject.e.assert.equal(7)
         jsonObject.f.assert.equal(8)
         jsonObject.g.assert.equal(9)
+        jsonObject.1 = "ASDF"
+        jsonObject.1.assert.equal("ASDF")
     }
     
     func testKeyPathConfigurable() {

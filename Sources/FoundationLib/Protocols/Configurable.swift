@@ -11,20 +11,15 @@ public protocol Configurable {
 }
 
 public extension Configurable {
-    
-    @discardableResult
-    func set<T>(_ keyPath: ReferenceWritableKeyPath<Self, T>, _ value: T) -> Self {
-        self[keyPath: keyPath] = value
-        return self
-    }
-    
+
     @discardableResult
     func then(_ block: @escaping (Self) -> Void) -> Self {
         block(self)
         return self
     }
     
-    func `do`(_ block: @escaping (Self) -> Void) {
+    @discardableResult
+    func `do`<T>(_ block: @escaping (Self) -> T) -> T {
         block(self)
     }
     
