@@ -72,10 +72,17 @@ public class FileStorage: DataStorage {
     
     public func get<T>(_ key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
         try lock.tryLock { [unowned self] in
-            guard let base64Encoded = self.dictionary[key.description] as? String else {
+            guard let value = self.dictionary[key.description] else {
                 throw FoundationError.nilValue
             }
-            guard let data = Data(base64Encoded: base64Encoded) else {
+            if T.self == Int.self || T.self == Double.self || T.self == Float.self || T.self == String.self  {
+                if let value =  value as? T { return value }
+                throw FoundationError.nilValue
+            }
+            guard let base64EncodedString = value as? String else {
+                throw FoundationError.nilValue
+            }
+            guard let data = Data(base64Encoded: base64EncodedString) else {
                 throw FoundationError.invalidCoding
             }
             return try self.jsonDecoder.decode(T.self, from: data)
@@ -85,7 +92,11 @@ public class FileStorage: DataStorage {
     public func set<T>(_ value: T?, for key: CustomStringConvertible) throws where T : Decodable, T : Encodable {
         try lock.tryLock { [unowned self] in
             if let value = value {
-                self.dictionary[key.description] = try jsonEncoder.encode(value).base64EncodedString()
+                if T.self == Int.self || T.self == Double.self || T.self == Float.self || T.self == String.self {
+                    self.dictionary[key.description] = value
+                } else {
+                    self.dictionary[key.description] = try jsonEncoder.encode(value).base64EncodedString()
+                }
             } else {
                 self.dictionary.removeValue(forKey: key.description)
             }
