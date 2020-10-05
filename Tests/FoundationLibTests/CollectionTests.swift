@@ -43,7 +43,7 @@ final class CollectionTests: XCTestCase {
         let stack = Stack<Int>()
         try DebugLogger.default.measure(desc: "Append item in stack") {
             self.try {
-                for i in 0..<1000000 {
+                for i in 0..<1.million {
                     stack.push(i)
                 }
             }
@@ -89,7 +89,7 @@ final class CollectionTests: XCTestCase {
         let queue = Queue<Int>()
         try DebugLogger.default.measure(desc: "Append item in queue") {
             self.try {
-                for i in 0..<1000000 {
+                for i in 0..<1.million {
                     queue.enqueue(i)
                 }
             }
@@ -114,7 +114,7 @@ final class CollectionTests: XCTestCase {
         var array = Array<Int>()
         try DebugLogger.default.measure(desc: "Append item in array") {
             self.try {
-                for i in 0..<1000000 {
+                for i in 0..<1.million {
                     array.append(i)
                 }
             }
@@ -139,7 +139,7 @@ final class CollectionTests: XCTestCase {
         let bag = Bag<Int>()
         try DebugLogger.default.measure(desc: "Append item in bag") {
             self.try {
-                for i in 0..<1000000 {
+                for i in 0..<1.million {
                     bag.add(i)
                 }
             }
