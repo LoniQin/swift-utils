@@ -346,6 +346,17 @@ final class FoundationLibTests: XCTestCase {
         }
     }
     
+    func testDynamicObject() {
+        let dog = DynamicObject.new(name: "Lily", age: 12)
+        dog.name.assert.equal("Lily")
+        dog.age.assert.equal(12)
+        dog.increaseAge = {
+            dog.age += 1
+        }
+        dog.increaseAge()
+        dog.age.assert.equal(13)
+    }
+    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)
