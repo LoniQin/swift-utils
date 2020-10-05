@@ -12,11 +12,11 @@ import Compression
 final class NetworkingTests: XCTestCase {
     
     func testQueryParam() {
-        Http.query(id: 888, phone: "11111111111", password: "123456").assert.equal("id=888&phone=11111111111&password=123456")
+        HTTP.query(id: 888, phone: "11111111111", password: "123456").assert.equal("id=888&phone=11111111111&password=123456")
     }
     
     func testJSONParam() {
-        let dictionary: [String : Any] = Http.json(id: 888, phone: "12345678901", password: "123456")
+        let dictionary: [String : Any] = HTTP.json(id: 888, phone: "12345678901", password: "123456")
         let dic = ["id": "888", "phone": "12345678901", "password": "123456"]
         for (key, value) in dic {
             "\(dictionary[key]!)".assert.equal(value)
@@ -28,9 +28,9 @@ final class NetworkingTests: XCTestCase {
             domain: "http://www.example.com",
             paths: ["user", "login"],
             method: .post,
-            query: Http.query(id: 1, name: "Jack"),
-            body: Http.json(id: 1, name: "Jack"),
-            header: Http.header(phone: "1", password: "2")
+            query: HTTP.query(id: 1, name: "Jack"),
+            body: HTTP.json(id: 1, name: "Jack"),
+            header: HTTP.header(phone: "1", password: "2")
         )
         let req = try request.toURLRequest()
         req.url?.absoluteString.assert.equal("http://www.example.com/user/login?id=1&name=Jack")
@@ -41,8 +41,8 @@ final class NetworkingTests: XCTestCase {
             domain: "https://www.example.com",
             paths: ["user", "login"],
             method: .get,
-            query: Http.query(phone: "123456", password: "123456"),
-            header: Http.header(A: "1")
+            query: HTTP.query(phone: "123456", password: "123456"),
+            header: HTTP.header(A: "1")
         )
         do {
             let urlRequest = try request.toURLRequest()

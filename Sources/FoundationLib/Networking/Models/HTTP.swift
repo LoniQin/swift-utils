@@ -1,12 +1,12 @@
 //
-//  Http.swift
+//  HTTP.swift
 //  
 //
 //  Created by lonnie on 2020/9/27.
 //
 
 import Foundation
-public enum Http {
+public enum HTTP {
     
     public static let query = QueryGenerator()
     
