@@ -11,43 +11,43 @@ import XCTest
 
 public struct Assert {
     
-    public func equal<T: Equatable>(_ lhs: T, _ rhs: T) {
+    public static func equal<T: Equatable>(_ lhs: T, _ rhs: T) {
         XCTAssertEqual(lhs, rhs)
     }
     
-    public func notEqual<T: Equatable>(_ lhs: T, _ rhs: T) {
+    public static func notEqual<T: Equatable>(_ lhs: T, _ rhs: T) {
         XCTAssertNotEqual(lhs, rhs)
     }
     
-    public func greaterThan<T: Comparable>(_ lhs: T, _ rhs: T) {
+    public static func greaterThan<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertGreaterThan(lhs, rhs)
     }
     
-    public func greaterThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
+    public static func greaterThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertGreaterThanOrEqual(lhs, rhs)
     }
     
-    public func lessThan<T: Comparable>(_ lhs: T, _ rhs: T) {
+    public static func lessThan<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertLessThan(lhs, rhs)
     }
     
-    public func lessThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
+    public static func lessThanOrEqual<T: Comparable>(_ lhs: T, _ rhs: T) {
         XCTAssertLessThanOrEqual(lhs, rhs)
     }
     
-    public func `true`(_ expression: Bool) {
+    public static func `true`(_ expression: Bool) {
         XCTAssertTrue(expression)
     }
     
-    public func `false`(_ expression: Bool) {
+    public static func `false`(_ expression: Bool) {
         XCTAssertFalse(expression)
     }
     
-    public func notNil(_ expression: Any?, message: String = "") {
+    public static func notNil(_ expression: Any?, message: String = "") {
         XCTAssertNotNil(expression, message)
     }
     
-    func fail(_ error: Error) {
+    public static func fail(_ error: Error) {
         XCTFail(error.localizedDescription)
     }
 }
@@ -56,30 +56,28 @@ protocol AssertProtocol {
     
     associatedtype Element
     
-    var value: Element { get }
-    
-    var assert: Assert { get }
+    var value: Element { get } 
     
 }
 
 extension AssertProtocol {
     
     func notNil() {
-        assert.notNil(value)
+        Assert.notNil(value)
     }
     
     func fail(_ error: Error) {
-        assert.fail(error)
+        Assert.fail(error)
     }
 }
 extension AssertProtocol where Element: Equatable {
     
     func equal(_ another: Element) {
-        assert.equal(value, another)
+        Assert.equal(value, another)
     }
     
     func notEqual(_ another: Element) {
-        assert.notEqual(value, another)
+        Assert.notEqual(value, another)
     }
     
 }
@@ -87,30 +85,30 @@ extension AssertProtocol where Element: Equatable {
 extension AssertProtocol where Element == Bool {
     
     func `true`() {
-        assert.true(value)
+        Assert.true(value)
     }
     
     func `false`() {
-       assert.false(value)
+       Assert.false(value)
     }
     
 }
 
 extension AssertProtocol where Element: Comparable {
     func greaterThan(_ another: Element) {
-        assert.greaterThan(value, another)
+        Assert.greaterThan(value, another)
     }
     
     func greaterThanOrEqual(_ another: Element) {
-        assert.greaterThanOrEqual(value, another)
+        Assert.greaterThanOrEqual(value, another)
     }
     
     func lessThan(_ another: Element) {
-        assert.lessThan(value, another)
+        Assert.lessThan(value, another)
     }
     
     func lessThanOrEqual(_ another: Element) {
-        assert.lessThanOrEqual(value, another)
+        Assert.lessThanOrEqual(value, another)
     }
 }
 
@@ -118,16 +116,12 @@ extension AssertProtocol where Element: Comparable {
 public struct EquatableAssert<T: Equatable>: AssertProtocol {
     
     public let value: T
-    
-    public let assert = Assert()
 
 }
 
 public struct ComparableAssert<T: Comparable>: AssertProtocol {
     
     public let value: T
-    
-    public let assert = Assert()
 
 }
 
