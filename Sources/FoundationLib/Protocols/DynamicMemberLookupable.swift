@@ -31,10 +31,17 @@ public extension DynamicMemberLookupable {
         }
     }
     
-    func get<T>(_ member: String) -> T? {
-        params[member] as? T
+    @discardableResult
+    func get<T>(_ key: String) throws -> T {
+        if let value: T = params[key] as? T { return value }
+        throw FoundationError.nilValue
     }
     
+    @discardableResult
+    func get<T: ExpressibleByNilLiteral>(_ key: String) -> T {
+        if let value: T = params[key] as? T { return value }
+        return nil
+    }
 }
 
 
