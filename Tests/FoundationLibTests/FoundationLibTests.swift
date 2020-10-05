@@ -295,7 +295,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testJSONObject() {
-        let jsonObject = JSONObject([
+        var jsonObject = JSONObject([
             "a": 1,
             "b": 2.2,
             "c": "hello"

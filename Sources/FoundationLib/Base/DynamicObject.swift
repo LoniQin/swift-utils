@@ -7,18 +7,17 @@
 
 import Foundation
 @dynamicCallable
-@dynamicMemberLookup
-open class DynamicObject {
+open class DynamicObject: NSObject, DynamicMemberLookupable {
     
-    required public init() {
-        
+    required public override init() {
+        super.init()
     }
     
     public static var new: Self {
         return Self.init()
     }
     
-    var params: [String: Any] = [:]
+    public var params: [String: Any] = [:]
     
     @discardableResult
     public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) -> Self {
@@ -26,24 +25,6 @@ open class DynamicObject {
             params[item.0] = item.1
         }
         return self
-    }
-    
-    public subscript<T>(dynamicMember member: String) -> T where T: Any {
-        get {
-            params[member] as! T
-        }
-        set {
-            params[member] = newValue
-        }
-    }
-    
-    public subscript<T>(dynamicMember member: String) -> T? where T: Any {
-        get {
-            params[member] as? T
-        }
-        set {
-            params[member] = newValue
-        }
     }
     
     public subscript(dynamicMember member: String) -> ()->() {

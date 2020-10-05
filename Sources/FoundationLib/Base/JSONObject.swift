@@ -6,36 +6,23 @@
 //
 import Foundation
 @dynamicCallable
-@dynamicMemberLookup
-public class JSONObject: DataConvertable {
+open class JSONObject: NSObject, DataConvertable, DynamicMemberLookupable {
     
-    public var value = [String: Any]()
+    public var params = [String: Any]()
     
-    public init(_ value: [String: Any] = [:]) {
-        self.value = value
+    public init(_ params: [String: Any] = [:]) {
+        self.params = params
     }
     
     public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) {
         for item in args {
-            value[item.0] = item.1
+            params[item.0] = item.1
         }
     }
     
-    public subscript<T>(dynamicMember member: String) -> T? where T: Any {
-        get {
-            get(member)
-        }
-        set {
-            value[member] = newValue
-        }
-    }
-   
-    public func get<T>(_ member: String) -> T? {
-        value[member] as? T
-    }
     
     public func toData() throws -> Data {
-        try JSONSerialization.data(withJSONObject: value, options: .fragmentsAllowed)
+        try JSONSerialization.data(withJSONObject: params, options: .fragmentsAllowed)
     }
     
 }

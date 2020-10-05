@@ -35,6 +35,16 @@ public extension Array {
         self = builder()
     }
     
+    mutating func appending(_ items: Element...) -> Self {
+        self.append(contentsOf: items)
+        return self
+    }
+    
+    mutating func removingLast(_ v: Int) -> Self {
+        self.removeLast(v)
+        return self
+    }
+    
     mutating func append(@ArrayBuilder _ builder: () -> Self) {
         self.append(contentsOf: builder())
     }
