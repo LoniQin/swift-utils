@@ -119,9 +119,11 @@ final class ExtensionsTest: XCTestCase {
         ("a" / "b").assert.equal("a/b")
         ("a" - "b").assert.equal("a-b")
         "%@-%@".interpolation("a", "b").assert.equal("a-b")
+        "%d-%d".interpolation(2, 3).assert.equal("2-3")
         ("999999" * 3).assert.equal("999999999999999999")
         (3 * "999999").assert.equal("999999999999999999")
     }
+    
     func testDispatchQueue() throws {
         let exp = self.expectation(description: #function)
         var value = 1
