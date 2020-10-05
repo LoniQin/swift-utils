@@ -112,7 +112,6 @@ extension AssertProtocol where Element: Comparable {
     }
 }
 
-
 public struct EquatableAssert<T: Equatable>: AssertProtocol {
     
     public let value: T
