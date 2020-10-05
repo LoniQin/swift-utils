@@ -50,6 +50,35 @@ final class ExtensionsTest: XCTestCase {
         a.float.assert.equal(1)
         a.double.assert.equal(1)
         a.uint.assert.equal(1)
+        99999.toBinaryString().assert.equal("11000011010011111")
+        var value = 3567
+        value.increasing().assert.equal(3568)
+        value.decreasing().assert.equal(3567)
+        
+    }
+    
+    func testFloat() {
+        let value: Float = 999
+        value.int.assert.equal(999)
+        value.float.assert.equal(999)
+        value.double.assert.equal(999)
+        value.uint.assert.equal(999)
+    }
+    
+    func testDouble() {
+        let value: Double = 999
+        value.int.assert.equal(999)
+        value.float.assert.equal(999)
+        value.double.assert.equal(999)
+        value.uint.assert.equal(999)
+    }
+    
+    func testUInt() {
+        let value: UInt = 999
+        value.int.assert.equal(999)
+        value.float.assert.equal(999)
+        value.double.assert.equal(999)
+        value.uint.assert.equal(999)
     }
     
     func testString() {
@@ -60,6 +89,23 @@ final class ExtensionsTest: XCTestCase {
         a.uint.assert.equal(29833)
         ("a" / "b").assert.equal("a/b")
         ("a" - "b").assert.equal("a-b")
+        "%@-%@".interpolation("a", "b").assert.equal("a-b")
+        ("999999" * 3).assert.equal("999999999999999999")
+        (3 * "999999").assert.equal("999999999999999999")
+    }
+    func testDispatchQueue() throws {
+        let exp = self.expectation(description: #function)
+        var value = 1
+        value = try DispatchQueue.sync(onMain: {
+            value + 1
+        })
+        DispatchQueue.main.after(1.0) {
+            value += 5
+            exp.fulfill()
+        }
+        waitForExpectations(timeout: 1.1) { (error) in
+            value.assert.equal(7)
+        }
     }
     
     func testNumericExtension() {
