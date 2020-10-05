@@ -15,7 +15,7 @@ fileprivate class A: NSObject {
 import CommonCrypto
 final class ExtensionsTest: XCTestCase {
     
-    func testNSOBjectExtension() {
+    func testNSOBjectExtension() throws {
         
         let a = A().then {
             $0.doubleValue = 2
@@ -42,6 +42,35 @@ final class ExtensionsTest: XCTestCase {
         a.doubleValue.assert.equal(6)
         a.stringValue.assert.equal("c")
         UIView.className().assert.equal("UIView")
+        var key = "key"
+        a.setAssociatedValue(255, with: &key)
+        a.getAssociatedValue(with: &key).assert.notNil().equal(255)
+        var value: Int? = nil
+        try DebugLogger.default.measure(desc: "Get and set with associated value") {
+            for i in 0..<1.million {
+                key = "key\(i)"
+                a.setAssociatedValue(i, with: &key)
+                value = a.getAssociatedValue(with: &key)//.assert.equal(i)
+            }
+        }
+        var dictionary = [String: Any]()
+        
+        try DebugLogger.default.measure(desc: "Get and set with dictionary") {
+            for i in 0..<1.million {
+                key = "key\(i)"
+                dictionary[key] = i
+                value = dictionary.get(key)
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Get and set with attribute") {
+            for i in 0..<1.million {
+                a.intValue = i
+                value = a.intValue
+            }
+        }
+        value.assert.equal(1.million - 1)
+        
     }
     
     func testInt() {

@@ -62,53 +62,74 @@ protocol AssertProtocol {
 
 extension AssertProtocol {
     
-    func notNil() {
+    @discardableResult
+    func notNil() -> Self {
         Assert.notNil(value)
+        return self
     }
     
-    func fail(_ error: Error) {
+    @discardableResult
+    func fail(_ error: Error) -> Self {
         Assert.fail(error)
+        return self
     }
 }
 extension AssertProtocol where Element: Equatable {
     
-    func equal(_ another: Element) {
+    @discardableResult
+    func equal(_ another: Element) -> Self {
         Assert.equal(value, another)
+        return self
     }
     
-    func notEqual(_ another: Element) {
+    @discardableResult
+    func notEqual(_ another: Element) -> Self {
         Assert.notEqual(value, another)
+        return self
     }
     
 }
 
 extension AssertProtocol where Element == Bool {
     
-    func `true`() {
+    @discardableResult
+    func `true`() -> Self {
         Assert.true(value)
+        return self
     }
     
-    func `false`() {
-       Assert.false(value)
+    @discardableResult
+    func `false`() -> Self {
+        Assert.false(value)
+        return self
     }
     
 }
 
 extension AssertProtocol where Element: Comparable {
-    func greaterThan(_ another: Element) {
+    
+    @discardableResult
+    func greaterThan(_ another: Element) -> Self {
         Assert.greaterThan(value, another)
+        return self
     }
     
-    func greaterThanOrEqual(_ another: Element) {
+    @discardableResult
+    func greaterThanOrEqual(_ another: Element) -> Self {
         Assert.greaterThanOrEqual(value, another)
+        return self
     }
     
-    func lessThan(_ another: Element) {
+    @discardableResult
+    func lessThan(_ another: Element) -> Self {
         Assert.lessThan(value, another)
+        return self
     }
     
-    func lessThanOrEqual(_ another: Element) {
+    @discardableResult
+    func lessThanOrEqual(_ another: Element) -> Self {
         Assert.lessThanOrEqual(value, another)
+        return self
     }
 }
 
