@@ -62,6 +62,13 @@ final class ExtensionsTest: XCTestCase {
         ("a" - "b").assert.equal("a-b")
     }
     
+    func testNumericExtension() {
+        9.hundred.assert.equal(900)
+        9.thouthand.assert.equal(9000)
+        9.million.assert.equal(9000000)
+        9.billion.assert.equal(9000000000)
+    }
+    
     static var allTests = [
         ("testNSOBjectExtension", testNSOBjectExtension)
     ]
