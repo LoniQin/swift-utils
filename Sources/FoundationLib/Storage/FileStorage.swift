@@ -19,14 +19,22 @@ public class FileStorage: DataStorage {
     
     private let lock = NSLock()
     
-    var encodeOptions: ProcessOptions = ProcessOptions(.none)
+    var encodeOptions: ProcessOptions
     
-    var decodeOptions: ProcessOptions = ProcessOptions(.none)
+    var decodeOptions: ProcessOptions
     
-    public init(path: String, encodeOptions: ProcessOptions = ProcessOptions(.none), decodeOptions: ProcessOptions = ProcessOptions(.none)) throws {
+    var loadAndSaveImmediately: Bool
+    
+    public init(path: String, encodeOptions: ProcessOptions = ProcessOptions(.none), decodeOptions: ProcessOptions = ProcessOptions(.none), loadAndSaveImmediately: Bool = false) throws {
         self.path = path
         self.encodeOptions = encodeOptions
         self.decodeOptions = decodeOptions
+        self.loadAndSaveImmediately = loadAndSaveImmediately
+        if self.loadAndSaveImmediately {
+            if FileManager.default.fileExists(atPath: path) {
+                try self.load()
+            }
+        }
     }
     
     public func load() throws {
@@ -81,6 +89,9 @@ public class FileStorage: DataStorage {
             } else {
                 self.dictionary.removeValue(forKey: key.description)
             }
+        }
+        if self.loadAndSaveImmediately {
+            try self.save()
         }
     }
     
