@@ -356,24 +356,28 @@ final class FoundationLibTests: XCTestCase {
         dog.increaseAge()
         dog.age.assert.equal(13)
         let sequence = (0..<1000000).map({$0})
-        for i in sequence {
-            dog.dynamicallyCall(withKeywordArguments: KeyValuePairs(dictionaryLiteral: (i.description, i)))
+        try DebugLogger.default.measure(desc: "Write to DynamicObject") {
+            for i in sequence {
+                dog.dynamicallyCall(withKeywordArguments: KeyValuePairs(dictionaryLiteral: (i.description, i)))
+            }
         }
-        try DebugLogger.default.measure(desc: "Test access integer using DynamicObject") {
+        try DebugLogger.default.measure(desc: "Access integer using DynamicObject") {
             var value: Int = 0
             for _ in 0..<1000000 {
                 value = dog.100000
             }
+            value.assert.equal(100000)
         }
-        try DebugLogger.default.measure(desc: "Test access integer using Dictionary") {
+        try DebugLogger.default.measure(desc: "Access integer using Dictionary") {
             var value: Int = 0
             for i in 0..<1000000 {
                 value = dog.params[String(i)] as! Int
             }
+            value.assert.equal(1000000-1)
         }
-        try DebugLogger.default.measure(desc: "Test access integer using Array") {
+        try DebugLogger.default.measure(desc: "Access integer using Array") {
             for i in 0..<1000000 {
-                sequence[i]
+                _ = sequence[i]
             }
         }
     }

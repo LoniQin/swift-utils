@@ -34,7 +34,7 @@ public extension Logging {
         let time = Date().timeIntervalSince(date)
         if printLog {
             do {
-                let value = [name, desc].filter{ !$0.isEmpty }.joined(separator: "-")
+                let value = [name, desc].filter{ !$0.isEmpty }.joined(separator: " - ")
                 try log(.verbose, "\(value): \(time)s")
             } catch {
                 return time
