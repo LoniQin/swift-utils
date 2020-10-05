@@ -8,13 +8,17 @@
 import Foundation
 @dynamicCallable
 @dynamicMemberLookup
-class DynamicObject {
+open class DynamicObject {
     
-    public static var new: DynamicObject {
-        return DynamicObject()
+    required public init() {
+        
     }
     
-    private var params: [String: Any] = [:]
+    public static var new: Self {
+        return Self.init()
+    }
+    
+    var params: [String: Any] = [:]
     
     @discardableResult
     public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) -> Self {
@@ -50,4 +54,5 @@ class DynamicObject {
             params[member] = newValue
         }
     }
+    
 }

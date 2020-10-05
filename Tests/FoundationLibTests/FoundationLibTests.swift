@@ -357,6 +357,53 @@ final class FoundationLibTests: XCTestCase {
         dog.age.assert.equal(13)
     }
     
+    func testMathObject() {
+        
+        class Math: DynamicObject {
+            
+            subscript(dynamicMember member: String) -> (Double) -> (Double) {
+                get {
+                    params[member] as! ((Double)->(Double))
+                }
+                set {
+                    params[member] = newValue
+                }
+            }
+            
+            subscript(dynamicMember member: String) -> (Double, Double) -> (Double) {
+                get {
+                    params[member] as! ((Double, Double)->(Double))
+                }
+                set {
+                    params[member] = newValue
+                }
+            }
+            
+        }
+        let math = Math()
+        math.add = {
+            $0 + $1
+        }
+        math.minus = {
+            $0 - $1
+        }
+        math.multiply = {
+            $0 * $1
+        }
+        math.divide = {
+            $0 / $1
+        }
+        math.negate = {
+            -$0
+        }
+        math.add(2, 3).assert.equal(5)
+        math.minus(11, 4).assert.equal(7)
+        math.multiply(33, 3).assert.equal(99)
+        math.divide(44, 4).assert.equal(11)
+        math.negate(5).assert.equal(-5)
+        
+    }
+    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)
