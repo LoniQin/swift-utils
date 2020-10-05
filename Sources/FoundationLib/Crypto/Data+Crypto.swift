@@ -23,6 +23,8 @@ public extension Data {
             return try HMAC(algorithm, key: key.toData()).process(self)
         case .changeEncoding:
             return self
+        case .none:
+            return self
         }
     }
     

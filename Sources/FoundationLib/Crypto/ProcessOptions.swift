@@ -39,6 +39,8 @@ public struct ProcessOptions {
         
         case changeEncoding
         
+        case none
+        
     }
     
     public let method: Method

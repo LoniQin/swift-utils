@@ -15,13 +15,13 @@ final class ProtocolsTest: XCTestCase {
     }
     
     func testDataStorageStrategy() throws {
-        var defaults: DataStorageStrategy = UserDefaults.standard
+        var defaults: DataStorage = UserDefaults.standard
         try test(with: &defaults)
-        var cache: DataStorageStrategy = NSCacheStorage()
+        var cache: DataStorage = CacheStorage()
         try test(with: &cache)
     }
     
-    func test(with storage: inout DataStorageStrategy) throws {
+    func test(with storage: inout DataStorage) throws {
         storage.phone = "1"
         storage.password = "2"
         storage.phone.assert.equal("1")

@@ -1,5 +1,5 @@
 //
-//  MemoryCacheStorage.swift
+//  DictionaryStorage.swift
 //  
 //
 //  Created by lonnie on 2020/8/21.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class MemoryCacheStorage: DataStorageStrategy {
+public class DictionaryStorage: DataStorage {
     
-    public static let `default` = MemoryCacheStorage()
+    public static let `default` = DictionaryStorage()
     
     private let lock = NSLock()
     

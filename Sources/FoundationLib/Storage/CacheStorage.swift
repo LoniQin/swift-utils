@@ -1,5 +1,5 @@
 //
-//  NSCacheStorage.swift
+//  CacheStorage.swift
 //  
 //
 //  Created by lonnie on 2020/9/6.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-public class NSCacheStorage: DataStorageStrategy {
+public class CacheStorage: DataStorage {
     
-    public static let `default` = NSCacheStorage()
+    public static let `default` = CacheStorage()
     
     private var cache = NSCache<NSString, AnyObject>()
     

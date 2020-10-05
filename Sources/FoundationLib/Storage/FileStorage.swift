@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class FileStorage: DataStorageStrategy {
+public class FileStorage: DataStorage {
     
     fileprivate let jsonDecoder = JSONDecoder()
 
@@ -19,16 +19,20 @@ public class FileStorage: DataStorageStrategy {
     
     private let lock = NSLock()
     
-    public init(path: String) throws {
-        
+    var encodeOptions: ProcessOptions = ProcessOptions(.none)
+    
+    var decodeOptions: ProcessOptions = ProcessOptions(.none)
+    
+    public init(path: String, encodeOptions: ProcessOptions = ProcessOptions(.none), decodeOptions: ProcessOptions = ProcessOptions(.none)) throws {
         self.path = path
-        
+        self.encodeOptions = encodeOptions
+        self.decodeOptions = decodeOptions
     }
     
     public func load() throws {
         try lock.tryLock { [unowned self] in
             
-            let data = try Data(contentsOf: URL(fileURLWithPath: path))
+            let data = try Data(contentsOf: URL(fileURLWithPath: path)).process(self.decodeOptions)
             
             let dic = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
             
@@ -42,7 +46,7 @@ public class FileStorage: DataStorageStrategy {
     
     public func save() throws {
         try lock.tryLock { [unowned self] in
-            let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
+            let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted).process(self.encodeOptions)
             let bak_path = self.path + "_bak"
             if FileManager.default.fileExists(atPath: self.path) {
                 try FileManager.default.moveItem(at: URL(fileURLWithPath: self.path), to: URL(fileURLWithPath: bak_path))

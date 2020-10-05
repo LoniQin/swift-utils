@@ -56,7 +56,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testMemoryCacheManager() throws {
-        let storage = MemoryCacheStorage()
+        let storage = DictionaryStorage()
         let user = User(name: "Lonnie")
         try storage.load()
         try storage.set(user, for: "user")
@@ -182,7 +182,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testNSCacheStorage() {
-        let storage = NSCacheStorage.default
+        let storage = CacheStorage.default
         do {
             try storage.set(1, for: "key")
             let value: Int = try storage.get("key")
@@ -247,9 +247,9 @@ final class FoundationLibTests: XCTestCase {
             try storageManager.set(a, for: "user")
             try a.assert.equal(storageManager.get("user"))
             try storageManager.save()
-            XCTAssert(try DataStoreManager(strategy: .memory).storage is MemoryCacheStorage)
+            XCTAssert(try DataStoreManager(strategy: .memory).storage is DictionaryStorage)
             XCTAssert(try DataStoreManager(strategy: .userDefaults(suiteName: "hello")).storage is UserDefaults)
-            XCTAssert(try DataStoreManager(strategy: .nsCache).storage is NSCacheStorage)
+            XCTAssert(try DataStoreManager(strategy: .nsCache).storage is CacheStorage)
             XCTAssert(try DataStoreManager(strategy: .file(path: "a.json")).storage is FileStorage)
             
         } catch let error {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public class DataStoreManager: DataStorageStrategy {
+public class DataStoreManager: DataStorage {
     
     public enum Strategy {
         case file(path: String)
@@ -15,9 +15,9 @@ public class DataStoreManager: DataStorageStrategy {
         case nsCache
     }
     
-    public let storage: DataStorageStrategy
+    public let storage: DataStorage
     
-    public init(storage: DataStorageStrategy) {
+    public init(storage: DataStorage) {
         self.storage = storage
     }
     
@@ -26,7 +26,7 @@ public class DataStoreManager: DataStorageStrategy {
         case .file(let path):
             self.storage = try FileStorage(path: path)
         case .memory:
-            self.storage = MemoryCacheStorage()
+            self.storage = DictionaryStorage()
         case .userDefaults(let suiteName):
             if let defaults = UserDefaults(suiteName: suiteName) {
                 self.storage = defaults
@@ -34,7 +34,7 @@ public class DataStoreManager: DataStorageStrategy {
                 throw FoundationError.nilValue
             }
         case .nsCache:
-            self.storage = NSCacheStorage()
+            self.storage = CacheStorage()
         }
     }
     

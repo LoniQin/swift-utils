@@ -48,6 +48,8 @@ public extension String {
             } else {
                 throw CryptoError.invalidParams
             }
+        case .none:
+            return self
         }
         return try data(fromEncoding).process(options).string(toEncoding)
     }

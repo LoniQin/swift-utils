@@ -1,5 +1,5 @@
 //
-//  DataStorageStrategy.swift
+//  DataStorage.swift
 //  
 //
 //  Created by lonnie on 2020/8/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 @dynamicMemberLookup
-public protocol DataStorageStrategy  {
+public protocol DataStorage  {
     
     func get<T: Codable>(_ key: CustomStringConvertible) throws -> T
     
@@ -19,7 +19,7 @@ public protocol DataStorageStrategy  {
     
 }
 
-public extension DataStorageStrategy {
+public extension DataStorage {
     
     func load() throws {
         
