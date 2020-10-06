@@ -41,7 +41,6 @@ final class ExtensionsTest: XCTestCase {
         a.intValue.assert.equal(7)
         a.doubleValue.assert.equal(6)
         a.stringValue.assert.equal("c")
-        UIView.className().assert.equal("UIView")
         var key = "key"
         a.setAssociatedValue(255, with: &key)
         a.getAssociatedValue(with: &key).assert.notNil().equal(255)
