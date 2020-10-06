@@ -26,10 +26,10 @@ public protocol Logging {
 public extension Logging {
     
     @discardableResult
-    func measure(name: String = #function, desc: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () -> Void) throws -> TimeInterval {
+    func measure(name: String = #function, desc: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () throws -> Void) throws -> TimeInterval {
         let date = Date()
         for _ in 0..<executeCount {
-            block()
+            try block()
         }
         let time = Date().timeIntervalSince(date)
         if printLog {

@@ -55,7 +55,7 @@ public class FileStorage: DataStorage {
     public func save() throws {
         try lock.tryLock { [unowned self] in
             let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted).process(self.encodeOptions)
-            let bak_path = self.path + "_bak"
+            let bak_path = self.path + ".temp"
             if FileManager.default.fileExists(atPath: self.path) {
                 try FileManager.default.moveItem(at: URL(fileURLWithPath: self.path), to: URL(fileURLWithPath: bak_path))
             }
@@ -72,10 +72,17 @@ public class FileStorage: DataStorage {
     
     public func get<T>(_ key: CustomStringConvertible) throws -> T where T : Decodable, T : Encodable {
         try lock.tryLock { [unowned self] in
-            guard let base64Encoded = self.dictionary[key.description] as? String else {
+            guard let value = self.dictionary[key.description] else {
                 throw FoundationError.nilValue
             }
-            guard let data = Data(base64Encoded: base64Encoded) else {
+            if T.self == Int.self || T.self == Double.self || T.self == Float.self || T.self == String.self  {
+                guard let value = value as? T else { throw FoundationError.nilValue }
+                return value
+            }
+            guard let base64EncodedString = value as? String else {
+                throw FoundationError.nilValue
+            }
+            guard let data = Data(base64Encoded: base64EncodedString) else {
                 throw FoundationError.invalidCoding
             }
             return try self.jsonDecoder.decode(T.self, from: data)
@@ -84,14 +91,14 @@ public class FileStorage: DataStorage {
     
     public func set<T>(_ value: T?, for key: CustomStringConvertible) throws where T : Decodable, T : Encodable {
         try lock.tryLock { [unowned self] in
-            if let value = value {
-                self.dictionary[key.description] = try jsonEncoder.encode(value).base64EncodedString()
+            if T.self == Int.self || T.self == Double.self || T.self == Float.self || T.self == String.self {
+                self.dictionary[key.description] = value
             } else {
-                self.dictionary.removeValue(forKey: key.description)
+                self.dictionary[key.description] = try jsonEncoder.encode(value).base64EncodedString()
             }
         }
-        if self.loadAndSaveImmediately {
-            try self.save()
+        if loadAndSaveImmediately {
+            try save()
         }
     }
     
