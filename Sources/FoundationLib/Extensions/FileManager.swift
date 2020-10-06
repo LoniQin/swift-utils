@@ -32,4 +32,10 @@ public extension FileManager {
         }
     }
     
+    func removeFileIfExist(_ path: String) throws {
+        if fileExists(atPath: path) {
+            try removeItem(atPath: path)
+        }
+    }
+    
 }

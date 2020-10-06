@@ -8,6 +8,22 @@
 import Compression
 import Foundation
 
+public enum CompressionAlogrithm: UInt32, CaseIterable {
+    
+    case lz4 = 256
+
+    case zlib = 517
+    
+    case lzma = 774
+    
+    case lzfse = 2049
+    
+    func compressionAlgorithm() -> compression_algorithm {
+        return compression_algorithm(rawValue)
+    }
+    
+}
+
 @available(iOS 9.0, OSX 10.11, *)
 public struct Compressor {
     
@@ -23,25 +39,9 @@ public struct Compressor {
         
     }
     
-    public enum Algorithm: UInt32, CaseIterable {
-        
-        case lz4 = 256
-
-        case zlib = 517
-        
-        case lzma = 774
-        
-        case lzfse = 2049
-        
-        func compressionAlgorithm() -> compression_algorithm {
-            return compression_algorithm(rawValue)
-        }
-        
-    }
-    
     public let operation: Operation
     
-    public let algorithm: Algorithm
+    public let algorithm: CompressionAlogrithm
     
     public let sourceFileHandle: FileHandle
     
@@ -51,7 +51,7 @@ public struct Compressor {
     
     public init(
         operation: Operation,
-        algorithm: Algorithm,
+        algorithm: CompressionAlogrithm,
         sourcePath: String,
         destinationPath: String,
         progress: @escaping (Int64) -> Void = {_ in }

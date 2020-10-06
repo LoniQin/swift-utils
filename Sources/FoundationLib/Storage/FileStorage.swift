@@ -25,11 +25,14 @@ public class FileStorage: DataStorage {
     
     var loadAndSaveImmediately: Bool
     
-    public init(path: String, encodeOptions: ProcessOptions = ProcessOptions(.none), decodeOptions: ProcessOptions = ProcessOptions(.none), loadAndSaveImmediately: Bool = false) throws {
+    var compresssionAlgorithm: CompressionAlogrithm?
+    
+    public init(path: String, encodeOptions: ProcessOptions = ProcessOptions(.none), decodeOptions: ProcessOptions = ProcessOptions(.none), loadAndSaveImmediately: Bool = false, compresssionAlgorithm: CompressionAlogrithm? = nil) throws {
         self.path = path
         self.encodeOptions = encodeOptions
         self.decodeOptions = decodeOptions
         self.loadAndSaveImmediately = loadAndSaveImmediately
+        self.compresssionAlgorithm = compresssionAlgorithm
         if self.loadAndSaveImmediately {
             if FileManager.default.fileExists(atPath: path) {
                 try self.load()
@@ -39,7 +42,18 @@ public class FileStorage: DataStorage {
     
     public func load() throws {
         try lock.tryLock { [unowned self] in
-            
+            if #available(iOS 9.0, OSX 10.11, *) {
+                if let algorithm = compresssionAlgorithm {
+                    if FileManager.default.fileExists(atPath: path) {
+                        let tempPath = path + ".temp"
+                        try FileManager.default.removeFileIfExist(tempPath)
+                        let compressor = try Compressor(operation: .decode, algorithm: algorithm, sourcePath: path, destinationPath: tempPath)
+                        try compressor.process()
+                         try FileManager.default.removeFileIfExist(path)
+                        try FileManager.default.moveItem(atPath: tempPath, toPath: path)
+                    }
+                }
+            }
             let data = try Data(contentsOf: URL(fileURLWithPath: path)).process(self.decodeOptions)
             
             let dic = try JSONSerialization.jsonObject(with: data, options: .allowFragments)
@@ -55,16 +69,16 @@ public class FileStorage: DataStorage {
     public func save() throws {
         try lock.tryLock { [unowned self] in
             let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted).process(self.encodeOptions)
-            let bak_path = self.path + "_bak"
-            if FileManager.default.fileExists(atPath: self.path) {
-                try FileManager.default.moveItem(at: URL(fileURLWithPath: self.path), to: URL(fileURLWithPath: bak_path))
-            }
-            let succeed = FileManager.default.createFile(atPath: self.path, contents: data, attributes: .none)
-            if FileManager.default.fileExists(atPath: bak_path) {
-                if succeed {
-                    try FileManager.default.removeItem(atPath: bak_path)
-                } else {
-                    try FileManager.default.moveItem(at: URL(fileURLWithPath: bak_path), to: URL(fileURLWithPath: self.path))
+            try FileManager.default.removeFileIfExist(path)
+            FileManager.default.createFile(atPath: path, contents: data, attributes: .none)
+            if #available(iOS 9.0, OSX 10.11, *) {
+                if let algorithm = compresssionAlgorithm {
+                    let tempPath = self.path + ".temp"
+                    try FileManager.default.removeFileIfExist(tempPath)
+                    let compressor = try Compressor(operation: .encode, algorithm: algorithm, sourcePath: path, destinationPath: tempPath)
+                    try compressor.process()
+                    try FileManager.default.removeFileIfExist(path)
+                    try FileManager.default.moveItem(atPath: tempPath, toPath: path)
                 }
             }
         }

@@ -11,10 +11,10 @@ import Compression
 final class CompressorTests: XCTestCase {
     
     func testCompressorAlgorithm() {
-        Compressor.Algorithm.lz4.compressionAlgorithm().assert.equal(COMPRESSION_LZ4)
-        Compressor.Algorithm.zlib.compressionAlgorithm().assert.equal(COMPRESSION_ZLIB)
-        Compressor.Algorithm.lzma.compressionAlgorithm().assert.equal(COMPRESSION_LZMA)
-        Compressor.Algorithm.lzfse.compressionAlgorithm().assert.equal(COMPRESSION_LZFSE)
+        CompressionAlogrithm.lz4.compressionAlgorithm().assert.equal(COMPRESSION_LZ4)
+        CompressionAlogrithm.zlib.compressionAlgorithm().assert.equal(COMPRESSION_ZLIB)
+        CompressionAlogrithm.lzma.compressionAlgorithm().assert.equal(COMPRESSION_LZMA)
+        CompressionAlogrithm.lzfse.compressionAlgorithm().assert.equal(COMPRESSION_LZFSE)
     }
     
     func testCompresorOperation() {
@@ -23,7 +23,7 @@ final class CompressorTests: XCTestCase {
     }
     
     func testCompression() throws {
-        try Compressor.Algorithm.allCases.forEach { algorithm in
+        try CompressionAlogrithm.allCases.forEach { algorithm in
             let postfix = "\(algorithm)"
             let path = dataPath()
             let fileName = "file.log"
