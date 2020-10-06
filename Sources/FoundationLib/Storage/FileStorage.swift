@@ -115,8 +115,8 @@ public class FileStorage: DataStorage {
                 self.dictionary.removeValue(forKey: key.description)
             }
         }
-        if self.loadAndSaveImmediately {
-            try self.save()
+        if loadAndSaveImmediately {
+            try save()
         }
     }
     
