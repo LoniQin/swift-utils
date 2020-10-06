@@ -3,10 +3,10 @@
 - [ ] UDP Client
 - [ ] WebSocket Client
 
- ## How to use
- The two important protocol are `RequestConvertable`, `ResponseConvertable`. Namely objects and structs that confirms to `RequestConvertable` can convert to URLRequest type, and that confirms to `ResponseConvertable` can convert from URLResponse to that specific type. 
+ ## Usage
+ The two important protocol are `RequestConvertable`, `ResponseConvertable`. Namely objects and structs that confirms to `RequestConvertable` can convert to `URLRequest` type, and that confirms to `ResponseConvertable` can convert from URLResponse to that specific type. 
  ### `RequestConvertable` and `ResponseConvertable`
- `RequestConvertable` can convert an object to a `URL`, and `ResponseConvertable` can convert a response Data to types that confirms to it.
+ `RequestConvertable` can convert an object to a `URLRquest`, and `ResponseConvertable` can convert a response Data to types that confirms to it.
  ```swift
  
  public protocol RequestConvertable {
