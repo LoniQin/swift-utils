@@ -6,26 +6,13 @@
 //
 
 import Foundation
-@dynamicCallable
-open class DynamicObject: NSObject, DynamicMemberLookupable {
+open class DynamicObject: NSObject, DynamicMemberLookupable, DynamicNewable {
     
     required public override init() {
         super.init()
     }
     
-    public static var new: Self {
-        return Self.init()
-    }
-    
     public var params: [String: Any] = [:]
-    
-    @discardableResult
-    public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) -> Self {
-        for item in args {
-            params[item.0] = item.1
-        }
-        return self
-    }
     
     public subscript(dynamicMember member: String) -> ()->() {
         get {
