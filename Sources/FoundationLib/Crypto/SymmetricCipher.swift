@@ -135,7 +135,7 @@ public struct SymmetricCipher {
         
         try verify(status)
         let outputLength = CCCryptorGetOutputLength(cryptor, data.count, true)
-        var pointer = UnsafeMutableRawPointer.allocate(byteCount: outputLength, alignment: MemoryLayout<UInt8>.alignment)
+        let pointer = UnsafeMutableRawPointer.allocate(byteCount: outputLength, alignment: MemoryLayout<UInt8>.alignment)
         defer {
             pointer.deallocate()
         }

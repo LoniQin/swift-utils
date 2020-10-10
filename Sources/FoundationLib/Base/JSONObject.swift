@@ -7,23 +7,24 @@
 import Foundation
 @dynamicCallable
 open class JSONObject: NSObject, DataConvertable, DynamicMemberLookupable, DynamicNewable {
+
+    public var params = [String: Any]()
     
     public required override init() {
         super.init()
         self.params = [:]
     }
     
+    public convenience init(_ data: Data) throws {
+        guard let params = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw FoundationError.nilValue
+        }
     
-    public var params = [String: Any]()
+        self.init(params)
+    }
     
     public init(_ params: [String: Any]) {
         self.params = params
-    }
-    
-    public func dynamicallyCall(withKeywordArguments args: KeyValuePairs<String, Any>) {
-        for item in args {
-            params[item.0] = item.1
-        }
     }
     
     

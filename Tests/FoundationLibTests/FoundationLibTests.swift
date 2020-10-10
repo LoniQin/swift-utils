@@ -294,8 +294,8 @@ final class FoundationLibTests: XCTestCase {
         dic.assert.equal(["A": 1, "B": 2, "C": 3, "D": 4])
     }
     
-    func testJSONObject() {
-        let jsonObject = JSONObject([
+    func testJSONObject() throws {
+        var jsonObject = JSONObject([
             "a": 1,
             "b": 2.2,
             "c": "hello"
@@ -319,6 +319,15 @@ final class FoundationLibTests: XCTestCase {
         jsonObject.g.assert.equal(9)
         jsonObject.1 = "ASDF"
         jsonObject.1.assert.equal("ASDF")
+        
+        let data = try jsonObject.toData()
+        let jsonObject2 = try JSONObject(data)
+        for (key, _) in jsonObject.params {
+            "\(jsonObject.params[key]!)".assert.equal("\(jsonObject2.params[key]!)")
+        }
+        jsonObject = JSONObject.new()
+        jsonObject.params.count.assert.equal(0)
+        
     }
     
     func testKeyPathConfigurable() {

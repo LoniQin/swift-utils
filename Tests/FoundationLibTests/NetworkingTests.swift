@@ -174,8 +174,6 @@ final class NetworkingTests: XCTestCase {
                     let result = try result.get()
                     result.id.assert.equal(1)
                     result.name.assert.equal("Lonnie")
-                    let data = try result.toData()
-                    data.count.assert.equal(0)
                     expectation.fulfill()
                 } catch let error {
                     XCTFail(error.localizedDescription)
