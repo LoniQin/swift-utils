@@ -6,11 +6,17 @@
 //
 import Foundation
 @dynamicCallable
-open class JSONObject: NSObject, DataConvertable, DynamicMemberLookupable {
+open class JSONObject: NSObject, DataConvertable, DynamicMemberLookupable, DynamicNewable {
+    
+    public required override init() {
+        super.init()
+        self.params = [:]
+    }
+    
     
     public var params = [String: Any]()
     
-    public init(_ params: [String: Any] = [:]) {
+    public init(_ params: [String: Any]) {
         self.params = params
     }
     

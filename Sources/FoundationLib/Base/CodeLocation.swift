@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public struct CodeLocation {
     
     public var file: String
@@ -16,10 +17,16 @@ public struct CodeLocation {
     
     public var function: String
     
-    public init(file: String = #file, line: Int = #line, column: Int = #column, function: String = #function) {
+    public init(
+        file: String = #file,
+        line: Int = #line,
+        column: Int = #column,
+        function: String = #function
+    ) {
         self.file = file
         self.line = line
         self.column = column
         self.function = function
     }
+    
 }

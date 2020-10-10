@@ -295,7 +295,7 @@ final class FoundationLibTests: XCTestCase {
     }
     
     func testJSONObject() {
-        var jsonObject = JSONObject([
+        let jsonObject = JSONObject([
             "a": 1,
             "b": 2.2,
             "c": "hello"
@@ -436,14 +436,14 @@ final class FoundationLibTests: XCTestCase {
         math.divide(44, 4).assert.equal(11)
         math.negate(5).assert.equal(-5)
         let sequence = (0..<1.million).map(Double.init)
-        try DebugLogger.default.measure(desc: "Caulcate with dynamic object") {
+        try DebugLogger.default.measure(desc: "Caulcate sin(x) with dynamic object") {
             autoreleasepool {
                 sequence.forEach {
                     math.sin($0)
                 }
             }
         }
-        try DebugLogger.default.measure(desc: "Caulcate with original function") {
+        try DebugLogger.default.measure(desc: "Caulcate sin(x) with original function") {
             autoreleasepool {
                 sequence.forEach {
                     sin($0)
