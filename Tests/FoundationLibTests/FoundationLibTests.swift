@@ -452,6 +452,12 @@ final class FoundationLibTests: XCTestCase {
         }
     }
     
+    func testCodeLocation() { 
+        let location = CodeLocation()
+        location.file.hasSuffix("FoundationLibTests.swift").assert.true()
+        location.function.assert.equal("testCodeLocation()")
+    }
+    
     static var allTests = [
         ("testUserDefaults", testUserDefaults),
         ("testUnwrappable", testUnwrappable)

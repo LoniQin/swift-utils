@@ -172,10 +172,10 @@ final class NetworkingTests: XCTestCase {
             HttpClient.default.send(URL(fileURLWithPath: filePath)) { (result: Result<User, Error>) in
                 do {
                     let result = try result.get()
-                    XCTAssert(result.id == 1)
-                    XCTAssert(result.name == "Jack")
+                    result.id.assert.equal(1)
+                    result.name.assert.equal("Lonnie")
                     let data = try result.toData()
-                    XCTAssert(data.count > 0)
+                    data.count.assert.equal(0)
                     expectation.fulfill()
                 } catch let error {
                     XCTFail(error.localizedDescription)
@@ -199,7 +199,7 @@ final class NetworkingTests: XCTestCase {
         ])
         do {
             let request = try form.toURLRequest()
-            XCTAssertEqual(request.url?.absoluteString, "https://www.example.com/user/signup")
+            request.url?.absoluteString.assert.equal("https://www.example.com/user/signup")
             let contentType = request.value(forHTTPHeaderField: "Content-Type")
             XCTAssertEqual(contentType?.hasPrefix("multipart/form-data;"), true)
         } catch let error {
