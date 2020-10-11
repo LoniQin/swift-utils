@@ -45,6 +45,14 @@ public extension BinaryTree {
         }
     }
     
+    func array(_ type: TraverseType) -> [T] {
+        var items = [T]()
+        traverse(type, {
+            items.append($0)
+        })
+        return items
+    }
+    
     func preOrder(_ block: @escaping (T) -> Void) {
         block(value)
         left?.preOrder(block)
