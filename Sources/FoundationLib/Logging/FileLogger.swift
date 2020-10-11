@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public struct FileLogger: Logging {
+public class FileLogger: Logging {
     
     public var path: String
     
@@ -26,6 +26,10 @@ public struct FileLogger: Logging {
     public func log(_ level: Level, _ messages: Any...) throws {
         let desc = messages.map { String(describing: $0) }.joined(separator: " ") + "\n"
         try handle.write(desc.data(.utf8))
+    }
+    
+    deinit {
+        handle.closeFile()
     }
     
 }

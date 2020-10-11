@@ -7,6 +7,9 @@
 
 import Foundation
 public enum CompressionError: Error {
+    
     case failToInitCompressionStream
+    
     case failToCompress
+    
 }

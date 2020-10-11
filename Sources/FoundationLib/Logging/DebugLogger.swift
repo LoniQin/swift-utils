@@ -10,7 +10,7 @@ public struct DebugLogger: Logging {
     
     public static let `default` = DebugLogger()
     
-    public func log(_ level: Level, _ messages: Any...) throws {
+    public func log(_ level: Level = .verbose, _ messages: Any...) throws {
         debugPrint(messages.map { "\($0)" }.joined(separator: " "))
     }
     
