@@ -113,24 +113,18 @@ final class CollectionTests: XCTestCase {
     func testArrayPerformance() throws {
         var array = Array<Int>()
         try DebugLogger.default.measure(desc: "Append item in array") {
-            self.try {
-                for i in 0..<1.million {
-                    array.append(i)
-                }
+            for i in 0..<1.million {
+                array.append(i)
             }
         }
         try DebugLogger.default.measure(desc: "Iterate item in array") {
-            self.try {
-                for _ in array {
-                    
-                }
+            for _ in array {
+                
             }
         }
         try DebugLogger.default.measure(desc: "Remove item in array") {
-            self.try {
-                while !array.isEmpty {
-                    _ = array.popLast()
-                }
+            while !array.isEmpty {
+                _ = array.popLast()
             }
         }
     }
@@ -138,18 +132,15 @@ final class CollectionTests: XCTestCase {
     func testBag() throws {
         let bag = Bag<Int>()
         try DebugLogger.default.measure(desc: "Append item in bag") {
-            self.try {
-                for i in 0..<1.million {
-                    bag.add(i)
-                }
+            for i in 0..<1.million {
+                bag.add(i)
             }
         }
         try DebugLogger.default.measure(desc: "Iterate item in bag") {
-              self.try {
-                  for _ in bag {
-                  }
-              }
-          }
+            for _ in bag {
+                
+            }
+        }
     }
     
     func testPriorityQueue() throws {
@@ -171,46 +162,39 @@ final class CollectionTests: XCTestCase {
             items.append(top)
         }
         items.assert.equal(Array(0..<100))
-        let queue3 = PriorityQueue<Int>(comparator: <)
-        items = (1...1.million).map { $0 }
-        try DebugLogger.default.measure(desc: "Append 1 million elements in Priority Queue") {
-            self.try {
-                for i in items {
-                    queue3.insert(i)
-                }
-            }
-        }
         
-        try DebugLogger.default.measure(desc: "Remove 1 million elements in Priority Queue") {
-            self.try {
-                while queue3.deleteTop() != nil {
-                    
-                }
-            }
-        }
-
     }
     
-    func testAppendAndRemoveRandomeQueue() throws {
-        let queue3 = PriorityQueue<Int>(comparator: <)
+    func testAppendAndRemoveRandomQueue() throws {
+        try testAppendAndRemovePriorityQueue(comparator: <, isRandom: true)
+        try testAppendAndRemovePriorityQueue(comparator: <, isRandom: false)
+        try testAppendAndRemovePriorityQueue(comparator: >, isRandom: true)
+        try testAppendAndRemovePriorityQueue(comparator: >, isRandom: false)
+    }
+    
+    func testAppendAndRemovePriorityQueue(comparator: @escaping PriorityQueue<Int>.Comparator, isRandom: Bool) throws {
+        let queue = PriorityQueue<Int>(comparator: comparator)
         var items = (1...1.million).map { $0 }
-        items.shuffle()
-        try DebugLogger.default.measure(desc: "Append 1 million random elements in Priority Queue") {
+        if isRandom {
+            items.shuffle()
+        }
+        try DebugLogger.default.measure(desc: "Append 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
             self.try {
                 for i in items {
-                    queue3.insert(i)
+                    queue.insert(i)
                 }
             }
         }
         
-        try DebugLogger.default.measure(desc: "Remove 1 million random elements in Priority Queue") {
+        try DebugLogger.default.measure(desc: "Remove 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
             self.try {
-                while queue3.deleteTop() != nil {
+                while queue.deleteTop() != nil {
                     
                 }
             }
         }
     }
+    
 }
 
 extension CollectionTests {
