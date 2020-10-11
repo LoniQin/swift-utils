@@ -204,7 +204,7 @@ final class CollectionTests: XCTestCase {
                 dic[item] = 1
             }
         }
-        let queue = FixedSizePriorityQueue<(String, Int)>(dic.count, comparator: { $0.1 < $1.1 || ($0.1 == $1.1 && $0.0 > $1.0) })
+        let queue = FixedSizePriorityQueue<(String, Int)>(capacity: dic.count, comparator: { $0.1 < $1.1 || ($0.1 == $1.1 && $0.0 > $1.0) })
         for item in dic.enumerated() {
             queue.insert(item.offset, item.element)
         }
@@ -224,7 +224,7 @@ final class CollectionTests: XCTestCase {
                 dic[item] = 1
             }
         }
-        let queue = FixedSizePriorityQueue<(Int, Int)>(dic.count, comparator: { $0.1 < $1.1 })
+        let queue = FixedSizePriorityQueue<(Int, Int)>(capacity: dic.count, comparator: { $0.1 < $1.1 })
         for item in dic.enumerated() {
             queue.insert(item.offset, item.element)
         }
@@ -236,7 +236,22 @@ final class CollectionTests: XCTestCase {
     }
     
     func testFixSizedPriorityQueue() {
-        
+        var nums = [Int]()
+        for i in 1...100 {
+            for _ in 0..<i {
+                nums.append(i)
+            }
+        }
+        nums.shuffle()
+        topKFrequent(nums: nums, 5).assert.equal([100, 99, 98, 97, 96])
+        var words = [String]()
+        for i in 1...100 {
+            for _ in 0..<i {
+                words.append(i.description)
+            }
+        }
+        words.shuffle()
+        topKFrequent(words: words, 5).assert.equal(["100", "99", "98", "97", "96"])
     }
     
 }
