@@ -235,6 +235,18 @@ final class CollectionTests: XCTestCase {
         return result
     }
     
+    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        let queue = FixedSizePriorityQueue<Int>(capacity: nums.count, comparator: { $0 < $1 })
+        for item in nums.enumerated() {
+            queue.insert(item.offset, item.element)
+        }
+        var result = [Int]()
+        while result.count < k && queue.count > 0 {
+            result.append(queue.deleteTop()!)
+        }
+        return result[k - 1]
+    }
+    
     func testFixSizedPriorityQueue() throws {
         var nums = [Int]()
         for i in 1...1000 {
