@@ -19,13 +19,13 @@ public class FixedSizePriorityQueue<Element>: Countable {
     
     public let comparator: ((Element, Element)-> Bool)
     
-    public init(_ capacity: Int, comparator: @escaping ((Element, Element)-> Bool)) {
+    public init(capacity: Int, comparator: @escaping ((Element, Element)-> Bool)) {
         self.capacity = capacity
+        self.comparator = comparator
         count = 0
         pq = Array(repeating: 0, count: capacity + 1)
         qp = Array(repeating: -1, count: capacity + 1)
         elements = Array(repeating: nil, count: capacity + 1)
-        self.comparator = comparator
     }
     
     public func contains(_ i: Int) -> Bool {
