@@ -152,6 +152,27 @@ final class CollectionTests: XCTestCase {
           }
     }
     
+    func testPriorityQueue() {
+        let queue = PriorityQueue<Int>(comparator: <)
+        for i in 0..<100 {
+            queue.insert(i)
+        }
+        var items = [Int]()
+        while let top = queue.deleteTop() {
+            items.append(top)
+        }
+        items.assert.equal(Array(0..<100).reversed())
+        let queue2 = PriorityQueue<Int>(comparator: >)
+        for i in 0..<100 {
+            queue2.insert(i)
+        }
+        items = [Int]()
+        while let top = queue2.deleteTop() {
+            items.append(top)
+        }
+        items.assert.equal(Array(0..<100))
+    }
+    
 }
 
 extension CollectionTests {
