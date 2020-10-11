@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public class PriorityQueue<Element: Comparable>: Countable {
+public class PriorityQueue<Element: Equatable>: Countable {
     
     public typealias Comparator = ((Element, Element) -> Bool)
     
@@ -16,7 +16,7 @@ public class PriorityQueue<Element: Comparable>: Countable {
         
     public fileprivate(set) var count = 0
         
-    public init(capacity: Int = 1, comparator: @escaping Comparator = { $0 < $1 }) {
+    public init(capacity: Int = 1, comparator: @escaping Comparator) {
         pq = [Element?](repeating: nil, count: capacity + 1)
         count = 0
         self.comparator = comparator
