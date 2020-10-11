@@ -19,7 +19,7 @@ public enum Level: String {
 
 public protocol Logging {
     
-    func log(_ level: Level, _ messages: Any...) throws
+    func log(message: Any..., level: Level, location: CodeLocation) throws
     
 }
 
@@ -35,7 +35,7 @@ public extension Logging {
         if printLog {
             do {
                 let value = [name, desc].filter{ !$0.isEmpty }.joined(separator: " - ")
-                try log(.verbose, "\(value): \(time)s")
+                try log(message: "\(value): \(time)s", level: .verbose, location: CodeLocation())
             } catch {
                 return time
             }

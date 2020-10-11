@@ -10,8 +10,9 @@ public struct DebugLogger: Logging {
     
     public static let `default` = DebugLogger()
     
-    public func log(_ level: Level = .verbose, _ messages: Any...) throws {
-        debugPrint(messages.map { "\($0)" }.joined(separator: " "))
+    public func log(message: Any..., level: Level = .verbose, location: CodeLocation = CodeLocation(file: #file, line: #line, function: #function)) throws {
+        let desc = "\(location.file) ~ \(location.function) ~ \(location.line): " + message.map { "\($0)" }.joined(separator: " ")
+        debugPrint(desc)
     }
     
 }

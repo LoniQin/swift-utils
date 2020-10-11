@@ -259,9 +259,9 @@ final class FoundationLibTests: XCTestCase {
     
     func testFileLogger() throws {
         let logger = try FileLogger(dataPath() / "file.log")
-        try logger.log(.verbose, "A")
-        try logger.log(.verbose, "B")
-        try logger.log(.verbose, "C")
+        try logger.log(message: "A", location: CodeLocation())
+        try logger.log(message: "B", location: CodeLocation())
+        try logger.log(message: "C", location: CodeLocation())
     }
     
     func testArrayBuilder() {
@@ -448,14 +448,14 @@ final class FoundationLibTests: XCTestCase {
         try DebugLogger.default.measure(desc: "Caulcate sin(x) with dynamic object") {
             autoreleasepool {
                 sequence.forEach {
-                    math.sin($0)
+                    _ = math.sin($0)
                 }
             }
         }
         try DebugLogger.default.measure(desc: "Caulcate sin(x) with original function") {
             autoreleasepool {
                 sequence.forEach {
-                    sin($0)
+                    _ = sin($0)
                 }
             }
         }
