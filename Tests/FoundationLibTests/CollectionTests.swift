@@ -235,23 +235,39 @@ final class CollectionTests: XCTestCase {
         return result
     }
     
-    func testFixSizedPriorityQueue() {
+    func findKthLargest(_ nums: [Int], _ k: Int) -> Int {
+        let queue = FixedSizePriorityQueue<Int>(capacity: nums.count, comparator: { $0 < $1 })
+        for item in nums.enumerated() {
+            queue.insert(item.offset, item.element)
+        }
+        var result = [Int]()
+        while result.count < k && queue.count > 0 {
+            result.append(queue.deleteTop()!)
+        }
+        return result[k - 1]
+    }
+    
+    func testFixSizedPriorityQueue() throws {
         var nums = [Int]()
-        for i in 1...100 {
+        for i in 1...1000 {
             for _ in 0..<i {
                 nums.append(i)
             }
         }
         nums.shuffle()
-        topKFrequent(nums: nums, 5).assert.equal([100, 99, 98, 97, 96])
+        try DebugLogger.default.measure(desc: "Append elements in Fixed Size Priority Queue") {
+            topKFrequent(nums: nums, 100).assert.equal((901...1000).map { $0 }.reversed())
+        }
         var words = [String]()
-        for i in 1...100 {
+        for i in 1...1000 {
             for _ in 0..<i {
                 words.append(i.description)
             }
         }
         words.shuffle()
-        topKFrequent(words: words, 5).assert.equal(["100", "99", "98", "97", "96"])
+        try DebugLogger.default.measure(desc: "Append elements in Fixed Size Priority Queue") {
+            topKFrequent(words: words, 100).assert.equal((901...1000).map { $0.description }.reversed())
+        }
     }
     
 }
