@@ -7,11 +7,15 @@
 
 import XCTest
 @testable import FoundationLib
+@propertyWrapper
+
+
 fileprivate class A: NSObject {
     var intValue: Int = 0
     var doubleValue: Double = 0.0
     var stringValue: String = ""
 }
+
 import CommonCrypto
 final class ExtensionsTest: XCTestCase {
     
