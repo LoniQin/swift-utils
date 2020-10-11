@@ -8,13 +8,15 @@
 import Foundation
 public class PriorityQueue<Element: Comparable>: Countable {
     
+    public typealias Comparator = ((Element, Element) -> Bool)
+    
     private var pq: [Element?]
     
-    public fileprivate(set) var comparator: ((Element, Element) -> Bool)
+    public fileprivate(set) var comparator: Comparator
         
     public fileprivate(set) var count = 0
         
-    public init(capacity: Int = 1, comparator: @escaping ((Element, Element) -> Bool) = { $0 < $1 }) {
+    public init(capacity: Int = 1, comparator: @escaping Comparator = { $0 < $1 }) {
         pq = [Element?](repeating: nil, count: capacity + 1)
         count = 0
         self.comparator = comparator
@@ -22,7 +24,8 @@ public class PriorityQueue<Element: Comparable>: Countable {
         
    public func insert(_ key: Element) {
         if count == pq.count - 1 { resize(2 * pq.count) }
-        pq[count.increasing()] = key
+        count += 1
+        pq[count] = key
         swim(count)
     }
         
@@ -63,8 +66,8 @@ public class PriorityQueue<Element: Comparable>: Countable {
         var i = k
         while 2 * i <= count {
             var j = 2 * i
-            if j < count && compare(j, j + 1) {j += 1 }
-            if !compare(i, j) { break}
+            if j < count && compare(j, j + 1) { j += 1 }
+            if !compare(i, j) { break }
             pq.swapAt(i, j)
             i = j
         }

@@ -152,7 +152,7 @@ final class CollectionTests: XCTestCase {
           }
     }
     
-    func testPriorityQueue() {
+    func testPriorityQueue() throws {
         let queue = PriorityQueue<Int>(comparator: <)
         for i in 0..<100 {
             queue.insert(i)
@@ -171,6 +171,23 @@ final class CollectionTests: XCTestCase {
             items.append(top)
         }
         items.assert.equal(Array(0..<100))
+        let queue3 = PriorityQueue<Int>(comparator: <)
+        items = (1...1.million).map { $0 }
+        try DebugLogger.default.measure(desc: "Append 1 million elements in Priority Queue") {
+            self.try {
+                for i in items {
+                    queue3.insert(i)
+                }
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Remove 1 million elements in Priority Queue") {
+            self.try {
+                while queue3.deleteTop() != nil {
+                    
+                }
+            }
+        }
     }
     
 }
