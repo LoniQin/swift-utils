@@ -152,6 +152,65 @@ final class CollectionTests: XCTestCase {
           }
     }
     
+    func testPriorityQueue() throws {
+        let queue = PriorityQueue<Int>(comparator: <)
+        for i in 0..<100 {
+            queue.insert(i)
+        }
+        var items = [Int]()
+        while let top = queue.deleteTop() {
+            items.append(top)
+        }
+        items.assert.equal(Array(0..<100).reversed())
+        let queue2 = PriorityQueue<Int>(comparator: >)
+        for i in 0..<100 {
+            queue2.insert(i)
+        }
+        items = [Int]()
+        while let top = queue2.deleteTop() {
+            items.append(top)
+        }
+        items.assert.equal(Array(0..<100))
+        let queue3 = PriorityQueue<Int>(comparator: <)
+        items = (1...1.million).map { $0 }
+        try DebugLogger.default.measure(desc: "Append 1 million elements in Priority Queue") {
+            self.try {
+                for i in items {
+                    queue3.insert(i)
+                }
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Remove 1 million elements in Priority Queue") {
+            self.try {
+                while queue3.deleteTop() != nil {
+                    
+                }
+            }
+        }
+
+    }
+    
+    func testAppendAndRemoveRandomeQueue() throws {
+        let queue3 = PriorityQueue<Int>(comparator: <)
+        var items = (1...1.million).map { $0 }
+        items.shuffle()
+        try DebugLogger.default.measure(desc: "Append 1 million random elements in Priority Queue") {
+            self.try {
+                for i in items {
+                    queue3.insert(i)
+                }
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Remove 1 million random elements in Priority Queue") {
+            self.try {
+                while queue3.deleteTop() != nil {
+                    
+                }
+            }
+        }
+    }
 }
 
 extension CollectionTests {
