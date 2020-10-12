@@ -59,7 +59,7 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
         return get(node: root, key: key)
     }
     
-    public func get(node: Node?, key: Key) -> Value? {
+    private func get(node: Node?, key: Key) -> Value? {
         var node = node
         while node != nil {
             if key < node!.key {
