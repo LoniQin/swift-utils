@@ -19,7 +19,7 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 
 ## Modules
 - [x] Extensions
-- [x] Missing Data structures and algorithms from Swift Standard Library
+- [x] Missing Data Structures and Algorithms from Swift Standard Library
 - [x] Property Wrappers
 - [x] Protocols
 - [x] Storage
