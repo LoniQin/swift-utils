@@ -254,6 +254,67 @@ final class CollectionTests: XCTestCase {
         }
     }
     
+    func testRedBlackTree() throws {
+        let tree = RedBlackTree<String, Int>()
+        var dictionary = [String: Int]()
+        let quantity = 100.thouthand
+        let numbers = Array(0..<quantity).shuffled()
+        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in RedBlackTree") {
+            for i in numbers {
+                tree[i.description] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in Dictionary") {
+            for i in numbers {
+                dictionary[i.description] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in RedBlackTree") {
+            for i in numbers {
+                tree[i.description].assert.equal(i)
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in Dictionary") {
+            for i in numbers {
+                dictionary[i.description]?.assert.equal(i)
+            }
+        }
+    }
+    
+    
+    func testRedBlackTree2() throws {
+        let tree = RedBlackTree<Int, Int>()
+        var dictionary = [Int: Int]()
+        let quantity = 100.thouthand
+        let numbers = Array(0..<quantity).shuffled()
+        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in RedBlackTree") {
+            for i in numbers {
+                tree[i] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in Dictionary") {
+            for i in numbers {
+                dictionary[i] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in RedBlackTree") {
+            for i in numbers {
+                tree[i].assert.equal(i)
+            }
+        }
+        
+        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in Dictionary") {
+            for i in numbers {
+                dictionary[i]?.assert.equal(i)
+            }
+        }
+    }
+    
 }
 
 extension CollectionTests {
