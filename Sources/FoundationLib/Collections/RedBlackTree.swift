@@ -36,12 +36,12 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
             return Node(key: key, value: value)
         }
         var node = node
-        if key < node!.key {
+        if key < node!.value.0 {
             node?.left = put(node: node?.left, key: key, value: value)
-        } else if key > node!.key {
+        } else if key > node!.value.0 {
             node?.right = put(node: node?.right, key: key, value: value)
         } else {
-            node?.value = value
+            node?.value.1 = value
         }
         if node?.right?.color == .red && node?.left?.color != .red {
             node = node?.rotateLeft()
@@ -62,12 +62,12 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
     private func get(node: Node?, key: Key) -> Value? {
         var node = node
         while node != nil {
-            if key < node!.key {
+            if key < node!.value.0 {
                 node = node?.left
-            } else if key > node!.key {
+            } else if key > node!.value.0 {
                 node = node?.right
             } else {
-                return node?.value
+                return node?.value.1
             }
         }
         return nil
@@ -94,11 +94,9 @@ public extension RedBlackTree {
         
     }
     
-    class Node {
+    final class Node: NSObject {
         
-        public var key: Key
-        
-        public var value: Value
+        public var value: (Key, Value)
         
         public var left: Node?
         
@@ -116,8 +114,7 @@ public extension RedBlackTree {
             count: Int = 1,
             color: Color = .red
         ) {
-            self.key = key
-            self.value = value
+            self.value = (key, value)
             self.left = left
             self.right = right
             self.count = count
@@ -160,5 +157,10 @@ public extension RedBlackTree {
 }
 
 extension RedBlackTree: Countable {
+    
+}
+
+
+extension RedBlackTree.Node: BinaryTreeProtocol {
     
 }
