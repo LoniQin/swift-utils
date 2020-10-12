@@ -22,7 +22,7 @@ final class SortingTests: XCTestCase {
         let shuffled = array.shuffled()
         try SortingAlgorithm.allCases.forEach { algorithm in
             var arr = shuffled
-            try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
+            try DebugLogger.default.measure(description: "Test \(algorithm) sorting algorithm") {
                 arr.sort(algorithm: algorithm, by: <)
             }
             (arr == array).assert.true()
@@ -35,7 +35,7 @@ final class SortingTests: XCTestCase {
         
         try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap, SortingAlgorithm.bucket].forEach { algorithm in
             var arr = shuffled
-            try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
+            try DebugLogger.default.measure(description: "Test \(algorithm) sorting algorithm") {
                 arr.sort(algorithm: algorithm, by: <)
             }
             (arr == array).assert.true()
@@ -52,7 +52,7 @@ final class SortingTests: XCTestCase {
         let shuffled = array.shuffled()
         try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.heap, SortingAlgorithm.bucket].forEach { algorithm in
             var arr = shuffled
-            try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
+            try DebugLogger.default.measure(description: "Test \(algorithm) sorting algorithm") {
                 arr.sort(algorithm: algorithm, by: <)
             }
             (arr == array).assert.true()

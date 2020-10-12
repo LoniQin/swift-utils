@@ -41,18 +41,18 @@ final class CollectionTests: XCTestCase {
 
     func testStackPerformance() throws {
         let stack = Stack<Int>()
-        try DebugLogger.default.measure(desc: "Append item in stack") {
+        try DebugLogger.default.measure(description: "Append item in stack") {
             for i in 0..<1.million {
                 stack.push(i)
             }
         }
-        try DebugLogger.default.measure(desc: "Iterate item in stack") {
+        try DebugLogger.default.measure(description: "Iterate item in stack") {
             for _ in stack {
                 
             }
         }
         
-        try DebugLogger.default.measure(desc: "Remove item in stack") {
+        try DebugLogger.default.measure(description: "Remove item in stack") {
             while !stack.isEmpty {
                 try stack.pop()
             }
@@ -81,17 +81,17 @@ final class CollectionTests: XCTestCase {
     
     func testQueuePerformance() throws {
         let queue = Queue<Int>()
-        try DebugLogger.default.measure(desc: "Append item in queue") {
+        try DebugLogger.default.measure(description: "Append item in queue") {
             for i in 0..<1.million {
                 queue.enqueue(i)
             }
         }
-        try DebugLogger.default.measure(desc: "Iterate queue") {
+        try DebugLogger.default.measure(description: "Iterate queue") {
             for _ in queue {
                 
             }
         }
-        try DebugLogger.default.measure(desc: "Remove item in queue") {
+        try DebugLogger.default.measure(description: "Remove item in queue") {
             while !queue.isEmpty {
                 try queue.dequeue()
             }
@@ -100,17 +100,17 @@ final class CollectionTests: XCTestCase {
     
     func testArrayPerformance() throws {
         var array = Array<Int>()
-        try DebugLogger.default.measure(desc: "Append item in array") {
+        try DebugLogger.default.measure(description: "Append item in array") {
             for i in 0..<1.million {
                 array.append(i)
             }
         }
-        try DebugLogger.default.measure(desc: "Iterate item in array") {
+        try DebugLogger.default.measure(description: "Iterate item in array") {
             for _ in array {
                 
             }
         }
-        try DebugLogger.default.measure(desc: "Remove item in array") {
+        try DebugLogger.default.measure(description: "Remove item in array") {
             while !array.isEmpty {
                 _ = array.popLast()
             }
@@ -119,12 +119,12 @@ final class CollectionTests: XCTestCase {
     
     func testBag() throws {
         let bag = Bag<Int>()
-        try DebugLogger.default.measure(desc: "Append item in bag") {
+        try DebugLogger.default.measure(description: "Append item in bag") {
             for i in 0..<1.million {
                 bag.add(i)
             }
         }
-        try DebugLogger.default.measure(desc: "Iterate item in bag") {
+        try DebugLogger.default.measure(description: "Iterate item in bag") {
             for _ in bag {
                 
             }
@@ -166,13 +166,13 @@ final class CollectionTests: XCTestCase {
         if isRandom {
             items.shuffle()
         }
-        try DebugLogger.default.measure(desc: "Append 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
+        try DebugLogger.default.measure(description: "Append 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
             for i in items {
                 queue.insert(i)
             }
         }
         
-        try DebugLogger.default.measure(desc: "Remove 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
+        try DebugLogger.default.measure(description: "Remove 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
             while queue.deleteTop() != nil {
                 
             }
@@ -239,7 +239,7 @@ final class CollectionTests: XCTestCase {
             }
         }
         nums.shuffle()
-        try DebugLogger.default.measure(desc: "Append elements in Fixed Size Priority Queue") {
+        try DebugLogger.default.measure(description: "Append elements in Fixed Size Priority Queue") {
             topKFrequent(nums: nums, 100).assert.equal((901...1000).map { $0 }.reversed())
         }
         var words = [String]()
@@ -249,7 +249,7 @@ final class CollectionTests: XCTestCase {
             }
         }
         words.shuffle()
-        try DebugLogger.default.measure(desc: "Append elements in Fixed Size Priority Queue") {
+        try DebugLogger.default.measure(description: "Append elements in Fixed Size Priority Queue") {
             topKFrequent(words: words, 100).assert.equal((901...1000).map { $0.description }.reversed())
         }
     }
@@ -259,56 +259,55 @@ final class CollectionTests: XCTestCase {
         var dictionary = [String: Int]()
         let quantity = 100.thouthand
         let numbers = Array(0..<quantity).shuffled()
-        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in RedBlackTree") {
+        try DebugLogger.default.measure(description: "Insert \(quantity) numbers in RedBlackTree") {
             for i in numbers {
                 tree[i.description] = i
             }
         }
         
-        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in Dictionary") {
+        try DebugLogger.default.measure(description: "Insert \(quantity) numbers in Dictionary") {
             for i in numbers {
                 dictionary[i.description] = i
             }
         }
         
-        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in RedBlackTree") {
+        try DebugLogger.default.measure(description: "Retrieve \(quantity) numbers in RedBlackTree") {
             for i in numbers {
                 tree[i.description].assert.equal(i)
             }
         }
         
-        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in Dictionary") {
+        try DebugLogger.default.measure(description: "Retrieve \(quantity) numbers in Dictionary") {
             for i in numbers {
                 dictionary[i.description]?.assert.equal(i)
             }
         }
     }
     
-    
     func testRedBlackTree2() throws {
         let tree = RedBlackTree<Int, Int>()
         var dictionary = [Int: Int]()
         let quantity = 100.thouthand
         let numbers = Array(0..<quantity).shuffled()
-        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in RedBlackTree") {
+        try DebugLogger.default.measure(description: "Insert \(quantity) numbers in RedBlackTree") {
             for i in numbers {
                 tree[i] = i
             }
         }
         
-        try DebugLogger.default.measure(desc: "Insert \(quantity) numbers in Dictionary") {
+        try DebugLogger.default.measure(description: "Insert \(quantity) numbers in Dictionary") {
             for i in numbers {
                 dictionary[i] = i
             }
         }
         
-        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in RedBlackTree") {
+        try DebugLogger.default.measure(description: "Retrieve \(quantity) numbers in RedBlackTree") {
             for i in numbers {
                 tree[i].assert.equal(i)
             }
         }
         
-        try DebugLogger.default.measure(desc: "Retrieve \(quantity) numbers in Dictionary") {
+        try DebugLogger.default.measure(description: "Retrieve \(quantity) numbers in Dictionary") {
             for i in numbers {
                 dictionary[i]?.assert.equal(i)
             }

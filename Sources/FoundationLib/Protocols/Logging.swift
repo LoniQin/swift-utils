@@ -26,7 +26,7 @@ public protocol Logging {
 public extension Logging {
     
     @discardableResult
-    func measure(name: String = #function, desc: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () throws -> Void) throws -> TimeInterval {
+    func measure(name: String = #function, description: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () throws -> Void, location: CodeLocation = CodeLocation()) throws -> TimeInterval {
         let date = Date()
         for _ in 0..<executeCount {
             try block()
@@ -34,8 +34,8 @@ public extension Logging {
         let time = Date().timeIntervalSince(date)
         if printLog {
             do {
-                let value = [name, desc].filter{ !$0.isEmpty }.joined(separator: " - ")
-                try log(message: "\(value): \(time)s", level: .verbose, location: CodeLocation())
+                let value = [name, description].filter{ !$0.isEmpty }.joined(separator: " - ")
+                try log(message: "\(value): \(time)s", level: .verbose, location: location)
             } catch {
                 return time
             }

@@ -45,7 +45,7 @@ final class ExtensionsTest: XCTestCase {
         a.setAssociatedValue(255, with: &key)
         a.getAssociatedValue(with: &key).assert.notNil().equal(255)
         var value: Int? = nil
-        try DebugLogger.default.measure(desc: "Get and set with associated value") {
+        try DebugLogger.default.measure(description: "Get and set with associated value") {
             for i in 0..<1.million {
                 key = "key\(i)"
                 a.setAssociatedValue(i, with: &key)
@@ -54,7 +54,7 @@ final class ExtensionsTest: XCTestCase {
         }
         var dictionary = [String: Any]()
         
-        try DebugLogger.default.measure(desc: "Get and set with dictionary") {
+        try DebugLogger.default.measure(description: "Get and set with dictionary") {
             for i in 0..<1.million {
                 key = "key\(i)"
                 dictionary[key] = i
@@ -62,7 +62,7 @@ final class ExtensionsTest: XCTestCase {
             }
         }
         
-        try DebugLogger.default.measure(desc: "Get and set with attribute") {
+        try DebugLogger.default.measure(description: "Get and set with attribute") {
             for i in 0..<1.million {
                 a.intValue = i
                 value = a.intValue

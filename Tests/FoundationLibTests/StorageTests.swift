@@ -51,21 +51,21 @@ final class StorageTests: XCTestCase {
         let iv = Data(random: 16)
         let filePath = dataPath() / "numbers"
         let fileStorage = try FileStorage(path: filePath, encodeOptions: .aes(.encrypt, key: key, iv: iv), decodeOptions: .aes(.decrypt, key: key, iv: iv))
-        try DebugLogger.default.measure(desc: "Set 1 million numbers") {
+        try DebugLogger.default.measure(description: "Set 1 million numbers") {
             for i in 0..<1.million {
                 try? fileStorage.set(i, for: i)
             }
         }
-        try DebugLogger.default.measure(desc: "Save data with AES algorithm") {
+        try DebugLogger.default.measure(description: "Save data with AES algorithm") {
             try? fileStorage.save()
         }
         
         let anotherFileStorage = try FileStorage(path: filePath, encodeOptions: .aes(.encrypt, key: key, iv: iv), decodeOptions: .aes(.decrypt, key: key, iv: iv))
-        try DebugLogger.default.measure(desc: "Load data with AES algorithm") {
+        try DebugLogger.default.measure(description: "Load data with AES algorithm") {
             try? anotherFileStorage.load()
         }
         var value: Int = 0
-        try DebugLogger.default.measure(desc: "Retrieve 1 million numbers") {
+        try DebugLogger.default.measure(description: "Retrieve 1 million numbers") {
             for i in 0..<1.million {
                 value = try anotherFileStorage.get(i)
                 value.assert.equal(i)
