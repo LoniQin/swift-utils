@@ -70,7 +70,7 @@ public extension Array where Element: Comparable & Hashable {
         for item in self {
             counter[item] = (counter[item] ?? 0) + 1
         }
-        let keys = counter.keys.sorted()
+        let keys = counter.keys.sorted(by: comparator)
         var i = 0
         for key in keys {
             let count = counter[key] ?? 0
