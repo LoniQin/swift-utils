@@ -7,6 +7,7 @@
 
 import Foundation
 public extension Array where Element: Comparable & Hashable {
+    
     mutating func sort(algorithm: SortingAlgorithm, by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
         switch algorithm {
         case .native:
@@ -22,6 +23,12 @@ public extension Array where Element: Comparable & Hashable {
         case .bucket:
             bucketSort(by: comparator)
         }
+    }
+    
+    func sorted(algorithm: SortingAlgorithm, by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) -> Self {
+        var value = self
+        value.sort(algorithm: algorithm, by: comparator)
+        return value
     }
     
     mutating func shellSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
@@ -82,7 +89,6 @@ public extension Array where Element: Comparable & Hashable {
     }
     
 }
-
 
 extension Array where Element: Comparable {
     
