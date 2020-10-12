@@ -6,8 +6,8 @@
 //
 
 import Foundation
-public extension Array where Element: Comparable {
-    mutating func sort(algorithm: SortingAlgorithm, comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
+public extension Array where Element: Comparable & Hashable {
+    mutating func sort(algorithm: SortingAlgorithm, by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
         switch algorithm {
         case .native:
             sort(by: comparator)
@@ -19,6 +19,8 @@ public extension Array where Element: Comparable {
             quick3WaySort(by: comparator)
         case .heap:
             heapSort(by: comparator)
+        case .bucket:
+            bucketSort(by: comparator)
         }
     }
     
@@ -60,6 +62,22 @@ public extension Array where Element: Comparable {
             swapAt(0, n - 1)
             n -= 1
             sink(1, n, by: comparator)
+        }
+    }
+    
+    mutating func bucketSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
+        var counter: [Element: Int] = [:]
+        for item in self {
+            counter[item] = (counter[item] ?? 0) + 1
+        }
+        let keys = counter.keys.sorted()
+        var i = 0
+        for key in keys {
+            let count = counter[key] ?? 0
+            for _ in 0..<count {
+                self[i] = key
+                i += 1
+            }
         }
     }
     

@@ -18,4 +18,6 @@ public enum SortingAlgorithm: CaseIterable {
     
     case heap
     
+    case bucket
+    
 }

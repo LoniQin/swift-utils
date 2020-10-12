@@ -23,7 +23,7 @@ final class SortingTests: XCTestCase {
         try SortingAlgorithm.allCases.forEach { algorithm in
             var arr = shuffled
             try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
-                arr.sort(algorithm: algorithm, comparator: <)
+                arr.sort(algorithm: algorithm, by: <)
             }
             (arr == array).assert.true()
         }
@@ -33,10 +33,27 @@ final class SortingTests: XCTestCase {
         let array = (1..<1000000).map { $0 }
         let shuffled = array.shuffled()
         
-        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap].forEach { algorithm in
+        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap, SortingAlgorithm.bucket].forEach { algorithm in
             var arr = shuffled
             try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
-                arr.sort(algorithm: algorithm, comparator: <)
+                arr.sort(algorithm: algorithm, by: <)
+            }
+            (arr == array).assert.true()
+        }
+    }
+    
+    func testSortingDuplicatedArray() throws {
+        var array = [Int]()
+        for i in 0..<10000 {
+            for _ in 0..<100 {
+                array.append(i)
+            }
+        }
+        let shuffled = array.shuffled()
+        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.heap, SortingAlgorithm.bucket].forEach { algorithm in
+            var arr = shuffled
+            try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
+                arr.sort(algorithm: algorithm, by: <)
             }
             (arr == array).assert.true()
         }
