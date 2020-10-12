@@ -17,6 +17,8 @@ public extension Array where Element: Comparable {
             quickSort(by: comparator)
         case .quick3Way:
             quick3WaySort(by: comparator)
+        case .heap:
+            heapSort(by: comparator)
         }
     }
     
@@ -45,6 +47,20 @@ public extension Array where Element: Comparable {
     
     mutating func quick3WaySort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
         quick3WaySort(low: 0, high: count - 1, by: comparator)
+    }
+    
+    mutating func heapSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
+        var n = count
+        var k = n >> 1
+        while k >= 1 {
+            sink(k, n, by: comparator)
+            k -= 1
+        }
+        while n > 1 {
+            swapAt(0, n - 1)
+            n -= 1
+            sink(1, n, by: comparator)
+        }
     }
     
 }
@@ -93,6 +109,17 @@ extension Array where Element: Comparable {
         }
         quick3WaySort(low: low, high: lt - 1, by: comparator)
         quick3WaySort(low: lt + 1, high: high, by: comparator)
+    }
+    
+    mutating func sink(_ k: Int, _ n: Int, by comparator: @escaping (Element, Element) -> Bool) {
+        var k = k
+        while 2 * k <= n {
+            var j = 2 * k
+            if j < n && comparator(self[j - 1], self[j]) { j += 1 }
+            if !comparator(self[k - 1], self[j - 1]) { break }
+            swapAt(k - 1, j - 1)
+            k = j
+        }
     }
     
 }

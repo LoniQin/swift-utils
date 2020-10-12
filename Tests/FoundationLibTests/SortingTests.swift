@@ -16,7 +16,7 @@ final class SortingTests: XCTestCase {
         let array = (1..<1000000).map { $0 }
         let shuffled = array.shuffled()
         
-        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way].forEach { algorithm in
+        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap].forEach { algorithm in
             var arr = shuffled
             try DebugLogger.default.measure(desc: "Test \(algorithm) sorting algorithm") {
                 arr.sort(algorithm: algorithm, comparator: <)

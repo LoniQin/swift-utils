@@ -16,4 +16,6 @@ public enum SortingAlgorithm: CaseIterable {
     
     case quick3Way
     
+    case heap
+    
 }
