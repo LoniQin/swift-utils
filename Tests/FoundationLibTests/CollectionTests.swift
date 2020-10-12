@@ -42,25 +42,19 @@ final class CollectionTests: XCTestCase {
     func testStackPerformance() throws {
         let stack = Stack<Int>()
         try DebugLogger.default.measure(desc: "Append item in stack") {
-            self.try {
-                for i in 0..<1.million {
-                    stack.push(i)
-                }
+            for i in 0..<1.million {
+                stack.push(i)
             }
         }
         try DebugLogger.default.measure(desc: "Iterate item in stack") {
-            self.try {
-                for _ in stack {
-                    
-                }
+            for _ in stack {
+                
             }
         }
         
         try DebugLogger.default.measure(desc: "Remove item in stack") {
-            self.try {
-                while !stack.isEmpty {
-                    try stack.pop()
-                }
+            while !stack.isEmpty {
+                try stack.pop()
             }
         }
     }
@@ -88,24 +82,18 @@ final class CollectionTests: XCTestCase {
     func testQueuePerformance() throws {
         let queue = Queue<Int>()
         try DebugLogger.default.measure(desc: "Append item in queue") {
-            self.try {
-                for i in 0..<1.million {
-                    queue.enqueue(i)
-                }
+            for i in 0..<1.million {
+                queue.enqueue(i)
             }
         }
         try DebugLogger.default.measure(desc: "Iterate queue") {
-            self.try {
-                for _ in queue {
-                    
-                }
+            for _ in queue {
+                
             }
         }
         try DebugLogger.default.measure(desc: "Remove item in queue") {
-            self.try {
-                while !queue.isEmpty {
-                    try queue.dequeue()
-                }
+            while !queue.isEmpty {
+                try queue.dequeue()
             }
         }
     }
@@ -179,18 +167,14 @@ final class CollectionTests: XCTestCase {
             items.shuffle()
         }
         try DebugLogger.default.measure(desc: "Append 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
-            self.try {
-                for i in items {
-                    queue.insert(i)
-                }
+            for i in items {
+                queue.insert(i)
             }
         }
         
         try DebugLogger.default.measure(desc: "Remove 1 million\(isRandom ? " Random" : "") elements in Priority Queue") {
-            self.try {
-                while queue.deleteTop() != nil {
-                    
-                }
+            while queue.deleteTop() != nil {
+                
             }
         }
     }
