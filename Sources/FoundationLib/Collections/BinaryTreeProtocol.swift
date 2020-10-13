@@ -15,7 +15,7 @@ public enum TraverseType {
     case postorder
 }
 
-public protocol BinaryTreeProtocol: NSObjectProtocol {
+public protocol BinaryTreeProtocol: class {
     
     associatedtype T
     
@@ -72,4 +72,14 @@ public extension BinaryTreeProtocol {
         right?.invert()
     }
     
+    func numberOfLevels() -> Int {
+        numberOfLevels(self)
+    }
+    
+}
+
+extension BinaryTreeProtocol {
+    func numberOfLevels(_ node: Self?) -> Int {
+        node == nil ? 0 : 1 + max(numberOfLevels(node?.left), numberOfLevels(node?.right))
+    }
 }

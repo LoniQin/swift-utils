@@ -9,6 +9,8 @@ import Foundation
 
 public enum FoundationError: Error {
     
+    case emptyCollection
+    
     case nilValue
     
     case outOfBounds
