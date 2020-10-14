@@ -7,9 +7,9 @@
 
 import Foundation
 
-public protocol BuilderClassProtocol: NSObjectProtocol {
+public protocol BuilderClassProtocol: class {
     
-    associatedtype T: NSObjectProtocol
+    associatedtype T: Any
     
     var value: T? { get set }
     
@@ -35,7 +35,7 @@ extension BuilderClassProtocol {
     
 }
 
-public protocol Buildable: NSObjectProtocol {
+public protocol Buildable: class {
     associatedtype BuilderClass: BuilderClassProtocol
 }
 
@@ -54,7 +54,7 @@ public extension Buildable {
     
 }
 
-open class Builder<T: Buildable>: NSObject, BuilderClassProtocol {
+open class Builder<T: Buildable>: BuilderClassProtocol {
     
     weak public var value: T?
     

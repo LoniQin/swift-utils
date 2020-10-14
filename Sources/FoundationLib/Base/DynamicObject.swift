@@ -6,10 +6,10 @@
 //
 
 import Foundation
-open class DynamicObject: NSObject, DynamicMemberLookupable, DynamicNewable {
+open class DynamicObject: DynamicMemberLookupable, DynamicNewable {
     
-    required public override init() {
-        super.init()
+    required public init() {
+        
     }
     
     public var params: [String: Any] = [:]

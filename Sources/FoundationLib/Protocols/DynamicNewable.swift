@@ -8,7 +8,7 @@
 import Foundation
 
 @dynamicCallable
-public protocol DynamicNewable: NSObjectProtocol {
+public protocol DynamicNewable: class {
     
     var params: [String: Any] { get set }
     
