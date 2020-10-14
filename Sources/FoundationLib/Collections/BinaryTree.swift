@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class BinaryTree<T>: NSObject {
+public final class BinaryTree<T> {
     
      public var value: T
     

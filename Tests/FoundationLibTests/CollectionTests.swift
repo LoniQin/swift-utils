@@ -287,13 +287,15 @@ final class CollectionTests: XCTestCase {
     func testRedBlackTree2() throws {
         let tree = RedBlackTree<Int, Int>()
         var dictionary = [Int: Int]()
-        let quantity = 100.thouthand
+        let quantity = 1.hundred.thouthand
         let numbers = Array(0..<quantity).shuffled()
         try DebugLogger.default.measure(description: "Insert \(quantity) numbers in RedBlackTree") {
             for i in numbers {
                 tree[i] = i
             }
         }
+        try tree.min().assert.equal(0)
+        try tree.max().assert.equal(quantity - 1)
         
         try DebugLogger.default.measure(description: "Insert \(quantity) numbers in Dictionary") {
             for i in numbers {
