@@ -294,7 +294,6 @@ final class CollectionTests: XCTestCase {
                 tree[i] = i
             }
         }
-        tree.root?.numberOfLevels().assert.equal(23)
         try tree.min().assert.equal(0)
         try tree.max().assert.equal(quantity - 1)
         
@@ -313,12 +312,6 @@ final class CollectionTests: XCTestCase {
         try DebugLogger.default.measure(description: "Retrieve \(quantity) numbers in Dictionary") {
             for i in numbers {
                 dictionary[i]?.assert.equal(i)
-            }
-        }
-        
-        try DebugLogger.default.measure(description: "Retrieve \(quantity) numbers in RedBlackTree") {
-            for i in numbers {
-                tree[i].assert.equal(i)
             }
         }
     }

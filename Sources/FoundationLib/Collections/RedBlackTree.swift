@@ -11,7 +11,7 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
     
     public var root: Node? = nil
     
-    public var count: Int { root?.count ?? 0 }
+    public var count: Int { size(root) }
     
     public init() {
         
@@ -49,9 +49,10 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
     private func get(_ node: Node?, _ key: Key) -> Value? {
         var node = node
         while node != nil {
-            if key < node!.value.0 {
+            let result = key.compareTo(node!.value.0)
+            if result < 0 {
                 node = node?.left
-            } else if key > node!.value.0 {
+            } else if result > 0 {
                 node = node?.right
             } else {
                 return node?.value.1
@@ -78,9 +79,10 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
             return Node(key: key, value: value)
         }
         var node = node
-        if key < node!.value.0 {
+        let result = key.compareTo(node!.value.0)
+        if result < 0 {
             node?.left = put(node?.left, key, value)
-        } else if key > node!.value.0 {
+        } else if result > 0 {
             node?.right = put(node?.right, key, value)
         } else {
             node?.value.1 = value
@@ -151,7 +153,7 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
     
     public func delete(_ key: Key) {
         if !contains(key) { return }
-        if (root?.left?.color ?? .black) != .red && (root?.right?.color ?? .black) != .red {
+        if !isRed(root?.left) && !isRed(root?.right) {
             root?.color = .red
         }
         root = delete(root, key)
@@ -199,6 +201,17 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
         node.left == nil ? node : min(node.left!)
     }
     
+    public func max() throws -> Key {
+        if isEmpty {
+            throw FoundationError.nilValue
+        }
+        return max(root!).value.0
+    }
+    
+    func max(_ node: Node) -> Node {
+        node.right == nil ? node : max(node.right!)
+    }
+    
     func balance(_ node: Node?) -> Node? {
         var node = node
         if isRed(node?.right) {
@@ -212,17 +225,6 @@ public class RedBlackTree<Key: Comparable, Value: Comparable> {
         }
         node?.count = size(node?.left) + size(node?.right) + 1
         return node
-    }
-    
-    public func max() throws -> Key {
-        if isEmpty {
-            throw FoundationError.nilValue
-        }
-        return max(root!).value.0
-    }
-    
-    func max(_ node: Node) -> Node {
-        node.right == nil ? node : max(node.right!)
     }
 
 }
@@ -292,7 +294,7 @@ public extension RedBlackTree {
             }
             left = x.right
             x.right = self
-            x.color = right?.color ?? .black
+            x.color = x.right?.color ?? .black
             x.right?.color = .red
             x.count = count
             count = (left?.count ?? 0) + (right?.count ?? 0) + 1
@@ -336,3 +338,4 @@ extension RedBlackTree: Countable {
 extension RedBlackTree.Node: BinaryTreeProtocol {
     
 }
+

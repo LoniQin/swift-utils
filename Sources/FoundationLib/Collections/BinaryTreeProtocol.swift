@@ -66,6 +66,21 @@ public extension BinaryTreeProtocol {
         block(value)
     }
     
+    func levelOrderArray() -> [[T]] {
+        var items = [[T]]()
+        levelOrder(0, &items)
+        return items
+    }
+    
+    func levelOrder(_ level: Int, _ items: inout [[T]]) {
+        if level == items.count {
+            items.append([])
+        }
+        items[level].append(value)
+        left?.levelOrder(level + 1, &items)
+        right?.levelOrder(level + 1, &items)
+    }
+    
     func invert() {
         swap(&left, &right)
         left?.invert()
