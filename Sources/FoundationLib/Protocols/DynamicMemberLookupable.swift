@@ -7,7 +7,7 @@
 
 import Foundation
 @dynamicMemberLookup
-public protocol DynamicMemberLookupable: NSObjectProtocol {
+public protocol DynamicMemberLookupable: class {
     var params: [String: Any] { get set }
 }
 

@@ -314,6 +314,24 @@ final class CollectionTests: XCTestCase {
                 dictionary[i]?.assert.equal(i)
             }
         }
+        try DebugLogger.default.measure(description: "Delete min") {
+            for i in 0..<quantity {
+                try tree.min().assert.equal(i)
+                try tree.deleteMin()
+            }
+            
+        }
+        for i in numbers {
+            tree[i] = i
+        }
+        
+        try DebugLogger.default.measure(description: "Delete max") {
+            for i in (0..<quantity).reversed() {
+                try tree.max().assert.equal(i)
+                try tree.deleteMax()
+            }
+            
+        }
     }
     
 }

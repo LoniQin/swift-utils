@@ -21,7 +21,7 @@ public struct AssociatedProperty<T> {
  
     public var wrappedValue: T? {
         
-        get { return objc_getAssociatedObject(object, &ExtensionPropertyKey) as? T }
+        get { objc_getAssociatedObject(object, &ExtensionPropertyKey) as? T }
         
         set { objc_setAssociatedObject(object, &ExtensionPropertyKey, newValue, policy) }
     }
