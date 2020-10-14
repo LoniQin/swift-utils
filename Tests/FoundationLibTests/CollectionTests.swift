@@ -335,9 +335,3 @@ final class CollectionTests: XCTestCase {
     }
     
 }
-
-extension CollectionTests {
-    static var allTests = [
-        ("testStack", testStack),
-    ]
-}

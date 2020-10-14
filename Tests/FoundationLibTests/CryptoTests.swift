@@ -191,9 +191,4 @@ final class CryptoTests: XCTestCase {
         XCTAssert(text == text2)
     }
 
-    static var allTests = [
-        ("testInBruteForce", testBruteForce),
-        ("testInRandom", testInRandom),
-        ("testAES", testAES128)
-    ]
 }
