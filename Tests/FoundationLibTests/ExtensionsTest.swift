@@ -144,8 +144,5 @@ final class ExtensionsTest: XCTestCase {
         9.million.assert.equal(9000000)
         9.billion.assert.equal(9000000000)
     }
-    
-    static var allTests = [
-        ("testNSOBjectExtension", testNSOBjectExtension)
-    ]
+ 
 }

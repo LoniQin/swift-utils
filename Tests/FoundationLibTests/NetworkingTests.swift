@@ -217,9 +217,10 @@ final class NetworkingTests: XCTestCase {
         options.key.assert.equal(data)
     }
     
-    #if canImport(UIKit)
+    
     
     func testDownloadImage() {
+        #if canImport(UIKit)
         self.expectation { expectation in
             let imagePath = dataPath() / "cat.jpg"
             print(imagePath)
@@ -232,8 +233,7 @@ final class NetworkingTests: XCTestCase {
                 }
             }
         }
+        #endif
     }
-    
-    #endif
     
 }

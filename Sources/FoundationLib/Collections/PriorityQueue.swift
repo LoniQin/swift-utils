@@ -23,7 +23,7 @@ public class PriorityQueue<Element: Equatable>: Countable {
     }
         
    public func insert(_ key: Element) {
-        if count == pq.count - 1 { resize(2 * pq.count) }
+        if count == pq.count - 1 { resize(pq.count << 1) }
         count += 1
         pq[count] = key
         swim(count)
@@ -36,7 +36,7 @@ public class PriorityQueue<Element: Equatable>: Countable {
         count -= 1
         sink(1)
         pq[count + 1] = nil
-        if count > 1 && count == (pq.count - 1) / 4 { resize(pq.count / 2) }
+        if count > 1 && count == (pq.count - 1) >> 2 { resize(pq.count >> 1) }
         return top
     }
     
@@ -46,7 +46,7 @@ public class PriorityQueue<Element: Equatable>: Countable {
             count -= 1
             sink(index)
             pq[count + 1] = nil
-            if count > 1 && count == (pq.count - 1) / 4 { resize(pq.count / 2) }
+            if count > 1 && count == (pq.count - 1) >> 2 { resize(pq.count >> 1) }
         }
     }
     
@@ -56,16 +56,16 @@ public class PriorityQueue<Element: Equatable>: Countable {
     
     private func swim(_ k: Int) {
         var i = k
-        while i > 1 && compare(i/2, i) {
-            pq.swapAt(i/2, i)
-            i /= 2
+        while i > 1 && compare(i >> 1, i) {
+            pq.swapAt(i >> 1, i)
+            i >>= 1
         }
     }
 
     private func sink(_ k: Int) {
         var i = k
-        while 2 * i <= count {
-            var j = 2 * i
+        while (i << 1) <= count {
+            var j = i << 1
             if j < count && compare(j, j + 1) { j += 1 }
             if !compare(i, j) { break }
             pq.swapAt(i, j)
