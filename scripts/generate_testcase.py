@@ -45,7 +45,7 @@ if __name__ == "__main__":
             test_cases.append(test_case)
 
 
-    manifests = "import XCTest\n#if !canImport(ObjectiveC)\n"
+    manifests = "#if !canImport(ObjectiveC)\n"
     print(test_cases)
     for test_case in test_cases:
         manifests += "extension " + test_case.name + " {\n"
@@ -59,6 +59,8 @@ if __name__ == "__main__":
         manifests += "\t\ttestCase({name}.allTests),\n".format(name=test_case.name)
     manifests += """\t]\n}\n#endif\n"""
     print(manifests)
+    with open(manifests_path, 'w') as f:
+        f.write(manifests)
 
 
 
