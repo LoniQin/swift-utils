@@ -11,5 +11,7 @@ import XCTest
 @testable import FoundationLib
 
 final class String_CryptoTestCase: XCTestCase {
-
+    func testSample() {
+    
+    }
 }
