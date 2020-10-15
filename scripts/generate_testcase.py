@@ -18,9 +18,6 @@ import XCTest
 
 final class {name}TestCase: XCTestCase {
 
-    func test{name}() {
-        (1 + 1).assert.equal(2)
-    }
 }
 """
 if __name__ == "__main__":

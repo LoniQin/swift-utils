@@ -3,7 +3,7 @@
 //  FileLoggerTestCase.swift
 //
 //
-//  Created by lonnie on 2020/1/1.
+//  Created by lonnie on 2020/10/16.
 //
 
 import Foundation
@@ -12,7 +12,4 @@ import XCTest
 
 final class FileLoggerTestCase: XCTestCase {
 
-    func testFileLogger() {
-        (1 + 1).assert.equal(2)
-    }
 }

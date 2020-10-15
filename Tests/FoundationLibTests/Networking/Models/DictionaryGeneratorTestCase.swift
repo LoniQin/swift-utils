@@ -3,7 +3,7 @@
 //  DictionaryGeneratorTestCase.swift
 //
 //
-//  Created by lonnie on 2020/1/1.
+//  Created by lonnie on 2020/10/16.
 //
 
 import Foundation
@@ -12,7 +12,4 @@ import XCTest
 
 final class DictionaryGeneratorTestCase: XCTestCase {
 
-    func testDictionaryGenerator() {
-        (1 + 1).assert.equal(2)
-    }
 }
