@@ -28,7 +28,7 @@ extension BuilderClassProtocol {
     }
     
     @discardableResult
-    public func set<V>(_ keyPath: ReferenceWritableKeyPath<T, V>, _ value: V) -> Self {
+    public func with<V>(_ keyPath: ReferenceWritableKeyPath<T, V>, _ value: V) -> Self {
         self.value?[keyPath: keyPath] = value
         return self
     }
@@ -36,7 +36,7 @@ extension BuilderClassProtocol {
 }
 
 public protocol Buildable: class {
-    associatedtype BuilderClass: BuilderClassProtocol
+    associatedtype BuilderClass: BuilderClassProtocol = Builder<Self>
 }
 
 fileprivate var builderKey = "builderKey"
