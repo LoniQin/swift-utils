@@ -11,5 +11,7 @@ import XCTest
 @testable import FoundationLib
 
 final class BinaryTreeProtocolTestCase: XCTestCase {
-
+    func testSample() {
+    
+    }
 }

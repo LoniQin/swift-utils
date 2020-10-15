@@ -11,5 +11,7 @@ import XCTest
 @testable import FoundationLib
 
 final class ComparableTestCase: XCTestCase {
-
+    func testSample() {
+    
+    }
 }

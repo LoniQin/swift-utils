@@ -11,5 +11,7 @@ import XCTest
 @testable import FoundationLib
 
 final class FileLoggerTestCase: XCTestCase {
-
+    func testSample() {
+    
+    }
 }
