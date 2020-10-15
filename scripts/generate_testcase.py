@@ -28,7 +28,6 @@ if __name__ == "__main__":
     items = __file__.split("/")
     file_directory = "/".join(items[:-1])
     base_path = "/".join(items[:-2])
-    command = "update manifests"
     source_path = base_path + "/Sources/FoundationLib"
     test_path = base_path + "/Tests/FoundationLibTests"
     swift_files = []
