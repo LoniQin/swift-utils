@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 public enum HTTP {
     
     public static let query = QueryGenerator()

@@ -26,7 +26,7 @@ final class BuildderTests: XCTestCase {
         }
         dog.age.assert.equal(8)
         dog.name.assert.equal("Tom")
-        dog.builder.set(\.age, 16).set(\.name, "Mary")
+        dog.builder.with(\.age, 16).with(\.name, "Mary")
         dog.age.assert.equal(16)
         dog.name.assert.equal("Mary")
     }
