@@ -11,14 +11,18 @@ import XCTest
 
 final class BuildderTests: XCTestCase {
     
-    class Dog: NSObject, Buildable {
-        
-        typealias BuilderClass = Builder<Dog>
-        
-        var name = "jack"
-        var age = 1
-    }
+    
     func testBuilderBlock() {
+        class Dog: Buildable {
+            
+            typealias BuilderClass = Builder<Dog>
+            
+            var name = "jack"
+            
+            var age = 1
+            
+        }
+        
         let dog = Dog()
         dog.builder.build {
             $0.name = "Tom"
