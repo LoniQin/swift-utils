@@ -69,7 +69,8 @@ if __name__ == "__main__":
                     begin = True
                     value = line.split("class ")
                     value.pop(0)
-                    test_case.name = value[0].split(":")[0]
+                    if len(value) >= 1:
+                        test_case.name = value[0].split(":")[0]
                 else:
                     if begin == True:
                         if line.__contains__("func test"):

@@ -1,58 +1,4 @@
 #if !canImport(ObjectiveC)
-extension StorageTests {
-	static var allTests = [
-	]
-}
-extension FoundationLibTests {
-	static var allTests = [
-		("testDefault", testDefault),
-		("testStringExtensions", testStringExtensions),
-		("testAssert", testAssert),
-		("testDictonaryExtension", testDictonaryExtension),
-		("testArrayExtension", testArrayExtension),
-		("testNSCacheStorage", testNSCacheStorage),
-		("testBuider", testBuider),
-		("testRegex", testRegex),
-		("testStorageManager", testStorageManager),
-		("testFileLogger", testFileLogger),
-		("testArrayBuilder", testArrayBuilder),
-		("testDictionaryWithArrayBuilder", testDictionaryWithArrayBuilder),
-		("testJSONObject", testJSONObject),
-		("testKeyPathConfigurable", testKeyPathConfigurable),
-		("testLocalization", testLocalization),
-		("testDynamicObject", testDynamicObject),
-		("testMathObject", testMathObject),
-	]
-}
-extension SortingTests {
-	static var allTests = [
-		("testSorting", testSorting),
-		("testSortingLargeArray", testSortingLargeArray),
-		("testSortingDuplicatedArray", testSortingDuplicatedArray),
-	]
-}
-extension ProtocolsTest {
-	static var allTests = [
-		("testDataStorageStrategy", testDataStorageStrategy),
-	]
-}
-extension NetworkingTests {
-	static var allTests = [
-		("testQueryParam", testQueryParam),
-		("testJSONParam", testJSONParam),
-		("testHttpRequest", testHttpRequest),
-		("testSendAndReceiveRequest1", testSendAndReceiveRequest1),
-		("testSendAndReceiveRequest2", testSendAndReceiveRequest2),
-		("testHttpClientWithHttpRequest", testHttpClientWithHttpRequest),
-		("testHttpClientWithURLAndURLRequest", testHttpClientWithURLAndURLRequest),
-		("testHttpClientWithURL", testHttpClientWithURL),
-		("testGetMockUser", testGetMockUser),
-		("testDataConvertable", testDataConvertable),
-		("testForm", testForm),
-		("testProcessOptions", testProcessOptions),
-		("testDownloadImage", testDownloadImage),
-	]
-}
 extension SymmetricCipherTestCase {
 	static var allTests = [
 		("testBruteForce", testBruteForce),
@@ -108,7 +54,16 @@ extension String_CryptoTestCase {
 }
 extension HttpClientTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testSendAndReceiveRequest1", testSendAndReceiveRequest1),
+		("testSendAndReceiveRequest2", testSendAndReceiveRequest2),
+		("testHttpClientWithHttpRequest", testHttpClientWithHttpRequest),
+		("testHttpClientWithURLAndURLRequest", testHttpClientWithURLAndURLRequest),
+		("testHttpClientWithURL", testHttpClientWithURL),
+		("testGetMockUser", testGetMockUser),
+		("testDataConvertable", testDataConvertable),
+		("testForm", testForm),
+		("testProcessOptions", testProcessOptions),
+		("testDownloadImage", testDownloadImage),
 	]
 }
 extension HttpMethodTestCase {
@@ -118,7 +73,8 @@ extension HttpMethodTestCase {
 }
 extension HTTPTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testQueryParam", testQueryParam),
+		("testJSONParam", testJSONParam),
 	]
 }
 extension ContentTypeTestCase {
@@ -133,7 +89,7 @@ extension DictionaryGeneratorTestCase {
 }
 extension HttpRequestTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testHttpRequest", testHttpRequest),
 	]
 }
 extension QueryGeneratorTestCase {
@@ -163,12 +119,12 @@ extension JSONTestCase {
 }
 extension RegexTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testRegex", testRegex),
 	]
 }
 extension CacheStorageTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testNSCacheStorage", testNSCacheStorage),
 	]
 }
 extension FileStorageTestCase {
@@ -186,12 +142,13 @@ extension DictionaryStorageTestCase {
 }
 extension DataStoreManagerTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testStorageManager", testStorageManager),
 	]
 }
 extension StringTestCase {
 	static var allTests = [
 		("testString", testString),
+		("testStringExtensions", testStringExtensions),
 	]
 }
 extension NSLockTestCase {
@@ -226,7 +183,7 @@ extension UIntTestCase {
 }
 extension ArrayTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testArrayExtension", testArrayExtension),
 	]
 }
 extension NSObjectTestCase {
@@ -236,7 +193,8 @@ extension NSObjectTestCase {
 }
 extension DictionaryTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testDictonary", testDictonary),
+		("testDictionaryWithArrayBuilder", testDictionaryWithArrayBuilder),
 	]
 }
 extension DataTestCase {
@@ -278,7 +236,9 @@ extension CompressionErrorTestCase {
 }
 extension Array_SortingTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testSorting", testSorting),
+		("testSortingLargeArray", testSortingLargeArray),
+		("testSortingDuplicatedArray", testSortingDuplicatedArray),
 	]
 }
 extension SortingAlgorithmTestCase {
@@ -342,7 +302,7 @@ extension NetworkingTestCase {
 }
 extension DataStorageTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testDataStorageStrategy", testDataStorageStrategy),
 	]
 }
 extension CountableTestCase {
@@ -357,7 +317,7 @@ extension LoggingTestCase {
 }
 extension ConfigurableTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testConfigurable", testConfigurable),
 	]
 }
 extension DynamicMemberLookupableTestCase {
@@ -427,7 +387,7 @@ extension UnwrappableTestCase {
 }
 extension FileLoggerTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testFileLogger", testFileLogger),
 	]
 }
 extension DebugLoggerTestCase {
@@ -437,7 +397,7 @@ extension DebugLoggerTestCase {
 }
 extension JSONObjectTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testJSONObject", testJSONObject),
 	]
 }
 extension CodeLocationTestCase {
@@ -447,7 +407,8 @@ extension CodeLocationTestCase {
 }
 extension DynamicObjectTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testMathObject", testMathObject),
+		("testDynamicObject", testDynamicObject),
 	]
 }
 extension EncodingTestCase {
@@ -462,7 +423,7 @@ extension FoundationErrorTestCase {
 }
 extension DefaultTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testDefault", testDefault),
 	]
 }
 extension AssociatedPropertyTestCase {
@@ -472,27 +433,23 @@ extension AssociatedPropertyTestCase {
 }
 extension BuilderTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testBuilder", testBuilder),
 	]
 }
 extension ArrayBuilderTestCase {
 	static var allTests = [
 		("testArrayWithOneItem", testArrayWithOneItem),
 		("testArrayWithMoreThanOneItem", testArrayWithMoreThanOneItem),
+		("testArrayBuilder", testArrayBuilder),
 	]
 }
 extension LocalizationTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testLocalization", testLocalization),
 	]
 }
 public func allTests() -> [XCTestCaseEntry] {
 	return [
-		testCase(StorageTests.allTests),
-		testCase(FoundationLibTests.allTests),
-		testCase(SortingTests.allTests),
-		testCase(ProtocolsTest.allTests),
-		testCase(NetworkingTests.allTests),
 		testCase(SymmetricCipherTestCase.allTests),
 		testCase(ProcessOptionsTestCase.allTests),
 		testCase(HMACTestCase.allTests),

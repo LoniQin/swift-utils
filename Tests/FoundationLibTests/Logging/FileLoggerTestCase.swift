@@ -11,7 +11,12 @@ import XCTest
 @testable import FoundationLib
 
 final class FileLoggerTestCase: XCTestCase {
-    func testSample() {
     
+    func testFileLogger() throws {
+        let logger = try FileLogger(dataPath() / "file.log")
+        try logger.log(message: "A", location: CodeLocation())
+        try logger.log(message: "B", location: CodeLocation())
+        try logger.log(message: "C", location: CodeLocation())
     }
+    
 }

@@ -26,4 +26,15 @@ final class StringTestCase: XCTestCase {
         (3 * "999999").assert.equal("999999999999999999")
     }
     
+    func testStringExtensions() {
+        let str = "hello world"
+        str.appendingSuffix(";").assert.equal("hello world;")
+        str.appendingPrefix("Lonnie:").assert.equal("Lonnie:hello world")
+        str.appendingSuffix(";").assert.equal("hello world;")
+        str.appendingSuffix("world").assert.equal("hello world")
+        str.appendingPrefix("hello").assert.equal("hello world")
+        ("user" / "login").assert.equal("user/login")
+        ("111" * 3).assert.equal("111111111")
+        ("111" - "222").assert.equal("111-222")
+    }
 }
