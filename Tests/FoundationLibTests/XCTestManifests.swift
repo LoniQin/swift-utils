@@ -521,7 +521,7 @@ extension BuilderTestCase {
 }
 extension ArrayBuilderTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testArrayItem", testArrayItem),
 	]
 }
 extension LocalizationTestCase {

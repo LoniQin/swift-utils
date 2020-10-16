@@ -11,7 +11,19 @@ import XCTest
 @testable import FoundationLib
 
 final class NodeTestCase: XCTestCase {
-    func testSample() {
-    
+     
+    func testNode() {
+        //
+        var node: Node<Int>?
+        for i in 0..<100 {
+            if node == nil {
+                node = Node(i)
+            } else {
+                node = Node(i, node)
+            }
+        }
+        XCTAssertNotNil(node)
+        
     }
+    
 }
