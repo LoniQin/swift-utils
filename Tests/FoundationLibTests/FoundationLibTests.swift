@@ -21,78 +21,6 @@ final class FoundationLibTests: XCTestCase {
         let name: String
     }
     
-    func testUnwrappable() {
-        var a: Int?
-        var b: Double?
-        var c: String?
-        a.unwrapped.assert.equal(0)
-        b.unwrapped.assert.equal(0)
-        c.unwrapped.assert.equal("")
-        a = 1
-        b = 2
-        c = "3"
-        a.assert.equal(1)
-        b.assert.equal(2)
-        c.assert.equal("3")
-    }
-    
-    func testDipatchQueue() {
-        do {
-            try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
-        } catch {
-            
-        }
-    }
-    
-    func testNumberConvertable() {
-        2.int.assert.equal(2)
-        2.uint.assert.equal(2)
-        2.double.assert.equal(2)
-        2.float.assert.equal(2)
-        2.0.int.assert.equal(2)
-        2.0.uint.assert.equal(2)
-        2.0.double.assert.equal(2.0)
-        2.0.float.assert.equal(2.0)
-    }
-    
-    func testMemoryCacheManager() throws {
-        let storage = DictionaryStorage()
-        let user = User(name: "Lonnie")
-        try storage.load()
-        try storage.set(user, for: "user")
-        try storage.save()
-        try user.assert.equal(storage.get("user"))
-    }
-    
-    func testUserDefaults() throws {
-        
-        struct User: Codable, Equatable {
-            let name: String
-        }
-        let storage = UserDefaults.standard
-        let user = User(name: "Lonnie")
-        try storage.load()
-        try storage.set(user, for: "user")
-        try storage.save()
-        try user.assert.equal(storage.get("user"))
-    }
-    
-    func testFileStorage() throws {
-        let filePath = dataPath()  / "values.json"
-        struct User: Codable, Equatable {
-            let name: String
-        }
-        let storage = try FileStorage(path: filePath)
-        let user = User(name: "Lonnie")
-        try storage.set(user, for: "user")
-        try storage.save()
-        try user.assert.equal(storage.get("user"))
-        let nextStorage = try FileStorage(path: filePath)
-        try nextStorage.load()
-        let nextUser: User = try nextStorage.get("user")
-        user.assert.equal(nextUser)
-    }
-    
     func testDefault() {
         var item = Item()
         item.intValue.unwrapped.assert.equal(2)
@@ -459,12 +387,6 @@ final class FoundationLibTests: XCTestCase {
                 }
             }
         }
-    }
-    
-    func testCodeLocation() { 
-        let location = CodeLocation()
-        location.file.hasSuffix("FoundationLibTests.swift").assert.true()
-        location.function.assert.equal("testCodeLocation()")
     }
 
 }

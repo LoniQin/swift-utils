@@ -2,7 +2,6 @@ import os
 import datetime
 from models import  *
 if __name__ == "__main__":
-    print(template)
     date = datetime.date.today()
     date_str = "%d/%d/%d"%(date.year, date.month, date.day)
     items = __file__.split("/")

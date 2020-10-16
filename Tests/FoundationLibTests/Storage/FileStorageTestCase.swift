@@ -49,6 +49,22 @@ final class FileStorageTestCase: XCTestCase {
         anotherFileStore.user.assert.notNil().equal(user)
     }
     
+    func testFileStorage3() throws {
+        let filePath = dataPath()  / "values.json"
+        struct User: Codable, Equatable {
+            let name: String
+        }
+        let storage = try FileStorage(path: filePath)
+        let user = User(name: "Lonnie")
+        try storage.set(user, for: "user")
+        try storage.save()
+        try user.assert.equal(storage.get("user"))
+        let nextStorage = try FileStorage(path: filePath)
+        try nextStorage.load()
+        let nextUser: User = try nextStorage.get("user")
+        user.assert.equal(nextUser)
+    }
+    
     func testFileStorageWithLargeData() throws {
         let key = Data(random: 32)
         let iv = Data(random: 16)

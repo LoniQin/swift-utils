@@ -25,6 +25,7 @@ final class DispatchQueueTestCase: XCTestCase {
         waitForExpectations(timeout: 1.1) { (error) in
             value.assert.equal(7)
         }
+        try 2.assert.equal(DispatchQueue.sync { 1 + 1 })
     }
     
 }

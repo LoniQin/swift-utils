@@ -1,15 +1,16 @@
+
 //
-//  ExtensionsTest.swift
+//  NumericTestCase.swift
 //
 //
-//  Created by lonnie on 2020/9/26.
+//  Created by lonnie on 2020/10/16.
 //
 
+import Foundation
 import XCTest
 @testable import FoundationLib
-import CommonCrypto
 
-final class ExtensionsTest: XCTestCase {
+final class NumericTestCase: XCTestCase {
     func testNumericExtension() {
         9.hundred.assert.equal(900)
         9.thouthand.assert.equal(9000)
