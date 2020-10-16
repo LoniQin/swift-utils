@@ -260,7 +260,7 @@ extension StackTestCase {
 }
 extension BinaryTreeProtocolTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testBinaryTree", testBinaryTree),
 	]
 }
 extension NodeTestCase {
