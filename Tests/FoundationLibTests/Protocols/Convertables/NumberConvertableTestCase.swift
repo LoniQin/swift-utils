@@ -11,7 +11,14 @@ import XCTest
 @testable import FoundationLib
 
 final class NumberConvertableTestCase: XCTestCase {
-    func testSample() {
-    
+    func testNumberConvertable() {
+        2.int.assert.equal(2)
+        2.uint.assert.equal(2)
+        2.double.assert.equal(2)
+        2.float.assert.equal(2)
+        2.0.int.assert.equal(2)
+        2.0.uint.assert.equal(2)
+        2.0.double.assert.equal(2.0)
+        2.0.float.assert.equal(2.0)
     }
 }

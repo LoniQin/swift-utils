@@ -7,7 +7,8 @@
 
 import Foundation
 
-func dataPath(_ file: String = #file) -> String {
+func dataPath() -> String {
+    let file = #file
     var comp = file.components(separatedBy: "/")
     comp.removeLast()
     comp.append("data")

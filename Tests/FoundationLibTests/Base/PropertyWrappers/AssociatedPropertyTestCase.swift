@@ -11,7 +11,9 @@ import XCTest
 @testable import FoundationLib
 
 final class AssociatedPropertyTestCase: XCTestCase {
+    
     func testSample() {
     
     }
+    
 }

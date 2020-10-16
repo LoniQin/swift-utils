@@ -1,27 +1,6 @@
 import os
 import datetime
-class TestCase:
-    def __init__(self):
-        self.name = ""
-        self.functions = []
-template ="""
-//
-//  {name}TestCase.swift
-//
-//
-//  Created by lonnie on {date}.
-//
-
-import Foundation
-import XCTest
-@testable import FoundationLib
-
-final class {name}TestCase: XCTestCase {
-    func testSample() {
-    
-    }
-}
-"""
+from models import  *
 if __name__ == "__main__":
     date = datetime.date.today()
     date_str = "%d/%d/%d"%(date.year, date.month, date.day)
@@ -50,9 +29,23 @@ if __name__ == "__main__":
         if not os.path.exists(dir):
             os.mkdir(dir)
         final_path = dir + "/" + name + "TestCase.swift"
-        content = template.replace("{name}", name).replace("{date}", date_str)
-        with open(final_path, 'w') as f:
-            f.write(content)
+        if os.path.exists(final_path):
+            print("file exists in %s"%(final_path))
+            contents = []
+            with open(final_path, 'r') as f:
+                contents = f.readlines()
+            index = -1
+            for i in range(len(contents) - 1, 0, -1):
+                if contents[i].startswith("}"):
+                    index = i
+            if index != -1:
+                contents = contents[0:index]
+                # TODO! Append necessary functions
+                contents.append("}\n")
+        else:
+            content = template.replace("{name}", name).replace("{date}", date_str)
+            with open(final_path, 'w') as f:
+                f.write(content)
     manifests_path = test_path + "/" + "XCTestManifests.swift"
     current_root = ""
     swift_files = []
@@ -76,7 +69,8 @@ if __name__ == "__main__":
                     begin = True
                     value = line.split("class ")
                     value.pop(0)
-                    test_case.name = value[0].split(":")[0]
+                    if len(value) >= 1:
+                        test_case.name = value[0].split(":")[0]
                 else:
                     if begin == True:
                         if line.__contains__("func test"):
@@ -99,7 +93,7 @@ if __name__ == "__main__":
     manifests += "public func allTests() -> [XCTestCaseEntry] {\n\treturn [\n"
     for test_case in test_cases:
         manifests += "\t\ttestCase({name}.allTests),\n".format(name=test_case.name)
-    manifests += """\t]\n}\n#endif\n"""
+    manifests += "\t]\n}\n#endif\n"
     with open(manifests_path, 'w') as f:
         f.write(manifests)
 

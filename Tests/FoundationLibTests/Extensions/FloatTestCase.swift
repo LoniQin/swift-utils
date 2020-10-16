@@ -11,7 +11,13 @@ import XCTest
 @testable import FoundationLib
 
 final class FloatTestCase: XCTestCase {
-    func testSample() {
     
+    func testFloat() {
+        let value: Float = 999
+        value.int.assert.equal(999)
+        value.float.assert.equal(999)
+        value.double.assert.equal(999)
+        value.uint.assert.equal(999)
     }
+    
 }
