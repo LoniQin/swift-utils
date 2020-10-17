@@ -274,6 +274,11 @@ extension QueueTestCase {
 		("testQueuePerformance", testQueuePerformance),
 	]
 }
+extension TrieTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension BagTestCase {
 	static var allTests = [
 		("testBag", testBag),
@@ -498,6 +503,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(BinaryTreeProtocolTestCase.allTests),
 		testCase(NodeTestCase.allTests),
 		testCase(QueueTestCase.allTests),
+		testCase(TrieTestCase.allTests),
 		testCase(BagTestCase.allTests),
 		testCase(BinaryTreeTestCase.allTests),
 		testCase(PriorityQueueTestCase.allTests),
