@@ -21,7 +21,6 @@ if __name__ == "__main__":
             os.mkdir(dir)
         final_path = dir + "/" + name + "TestCase.swift"
         if os.path.exists(final_path):
-            print("file exists in %s"%(final_path))
             contents = []
             with open(final_path, 'r') as f:
                 contents = f.readlines()
