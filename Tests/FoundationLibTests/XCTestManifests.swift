@@ -268,6 +268,11 @@ extension BinaryTreeProtocolTestCase {
 		("testSample", testSample),
 	]
 }
+extension DirectedGraphTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension NodeTestCase {
 	static var allTests = [
 		("testNode", testNode),
@@ -290,7 +295,7 @@ extension TrieTestCase {
 }
 extension GraphProtocolTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testGraph", testGraph),
 	]
 }
 extension BagTestCase {
@@ -311,7 +316,7 @@ extension PriorityQueueTestCase {
 }
 extension GraphTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testLeetcode997", testLeetcode997),
 	]
 }
 extension FixedSizePriorityQueueTestCase {
@@ -521,6 +526,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(RedBlackTreeTestCase.allTests),
 		testCase(StackTestCase.allTests),
 		testCase(BinaryTreeProtocolTestCase.allTests),
+		testCase(DirectedGraphTestCase.allTests),
 		testCase(NodeTestCase.allTests),
 		testCase(QueueTestCase.allTests),
 		testCase(TrieTestCase.allTests),

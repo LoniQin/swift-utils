@@ -11,14 +11,18 @@ import XCTest
 @testable import FoundationLib
 
 final class GraphTestCase: XCTestCase {
-    func testGraph() throws {
-        let graph = try Graph(URL(fileURLWithPath: dataPath() / "mediumG.txt"))
-        graph.maxDegree().assert.equal(21)
-        graph.averageDegree().assert.equal(10)
-        graph.numberOfSelfLoops().assert.equal(0)
-        let newGraph = try Graph(graph.toString())
-        graph.maxDegree().assert.equal(newGraph.maxDegree())
-        graph.averageDegree().assert.equal(newGraph.averageDegree())
-        graph.numberOfSelfLoops().assert.equal(newGraph.numberOfSelfLoops())
+    
+    func testGraph() {
+        let graph = Graph(10)
+        graph.addEdge(1, 2)
+        graph.adj(1).assert.equal([2])
+        graph.adj(2).assert.equal([1])
+        graph.degree(1).assert.equal(1)
+        graph.degree(2).assert.equal(1)
+        graph.addEdge(1, 3)
+        graph.adj(1).assert.equal([2, 3])
+        graph.degree(1).assert.equal(2)
     }
+    
 }
+
