@@ -30,13 +30,13 @@ public struct Form: RequestConvertable  {
         
     }
     
-    public let domain: StringConvetable
+    public let domain: StringConvertable
     
-    public var paths: [StringConvetable]
+    public var paths: [StringConvertable]
     
     public var items: [Item]
     
-    public init(domain: StringConvetable, paths: [StringConvetable], items: [Item]) {
+    public init(domain: StringConvertable, paths: [StringConvertable], items: [Item]) {
         self.domain = domain
         self.paths = paths
         self.items = items
