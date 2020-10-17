@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 @testable import FoundationLib
 final class TrieTestCase: XCTestCase {
-
+    
     func testTrie() throws {
         let trie = Trie<Character, Void>(.lowercasedAlphabets)
         try DebugLogger.default.measure {
@@ -24,7 +24,7 @@ final class TrieTestCase: XCTestCase {
         }
     }
     
-    func testTrie2() throws {
+    func testInsertNumberWithTrie() throws {
         let trie = Trie<Character, Int>(.numbers)
         try DebugLogger.default.measure(description: "Insert number with Trie") {
             for i in 0..<100000 {
@@ -33,6 +33,9 @@ final class TrieTestCase: XCTestCase {
                 try trie.value(key).assert.equal(i)
             }
         }
+    }
+    
+    func testInsertNumberWithDictionary() throws {
         var dic: [String: Int] = [:]
         try DebugLogger.default.measure(description: "Insert number with Dictionary") {
             for i in 0..<100000 {
@@ -40,7 +43,9 @@ final class TrieTestCase: XCTestCase {
                 dic[i.description].assert.equal(i)
             }
         }
-        
+    }
+    
+    func testInsertNumberWithRedBlackTree() throws {
         let redBlackTree = RedBlackTree<String, Int>()
         try DebugLogger.default.measure(description: "Insert number with RebBlackTree") {
             for i in 0..<100000 {
@@ -48,13 +53,14 @@ final class TrieTestCase: XCTestCase {
                 redBlackTree[i.description].assert.equal(i)
             }
         }
-        
-        
-        let trie2 = Trie<Character, Int>(.numbers)
+    }
+    
+    func testTrie3() {
+        let trie = Trie<Character, Int>(.numbers)
         let key = "12345".map({$0})
-        trie2[key] = 12345
-        trie2[key].assert.equal(12345)
-        trie2[key] = 89893
-        trie2[key].assert.equal(89893)
+        trie[key] = 12345
+        trie[key].assert.equal(12345)
+        trie[key] = 89893
+        trie[key].assert.equal(89893)
     }
 }

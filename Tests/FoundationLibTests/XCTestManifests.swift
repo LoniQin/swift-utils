@@ -191,6 +191,11 @@ extension NSObjectTestCase {
 		("testNSOBject", testNSOBject),
 	]
 }
+extension CharacterTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension DictionaryTestCase {
 	static var allTests = [
 		("testDictonary", testDictonary),
@@ -276,7 +281,11 @@ extension QueueTestCase {
 }
 extension TrieTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testTrie", testTrie),
+		("testInsertNumberWithTrie", testInsertNumberWithTrie),
+		("testInsertNumberWithDictionary", testInsertNumberWithDictionary),
+		("testInsertNumberWithRedBlackTree", testInsertNumberWithRedBlackTree),
+		("testTrie3", testTrie3),
 	]
 }
 extension BagTestCase {
@@ -488,6 +497,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(UIntTestCase.allTests),
 		testCase(ArrayTestCase.allTests),
 		testCase(NSObjectTestCase.allTests),
+		testCase(CharacterTestCase.allTests),
 		testCase(DictionaryTestCase.allTests),
 		testCase(DataTestCase.allTests),
 		testCase(DoubleTestCase.allTests),

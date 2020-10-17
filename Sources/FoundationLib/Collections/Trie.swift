@@ -19,7 +19,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
     
     private var templateNode: Node
     
-    private var nodes: [Node] = []
+    var nodes: [Node] = []
     
     private var elements: [Element] = []
     
