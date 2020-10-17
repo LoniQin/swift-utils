@@ -191,6 +191,11 @@ extension NSObjectTestCase {
 		("testNSOBject", testNSOBject),
 	]
 }
+extension CharacterTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension DictionaryTestCase {
 	static var allTests = [
 		("testDictonary", testDictonary),
@@ -272,6 +277,15 @@ extension QueueTestCase {
 	static var allTests = [
 		("testQueue", testQueue),
 		("testQueuePerformance", testQueuePerformance),
+	]
+}
+extension TrieTestCase {
+	static var allTests = [
+		("testTrie", testTrie),
+		("testInsertNumberWithTrie", testInsertNumberWithTrie),
+		("testInsertNumberWithDictionary", testInsertNumberWithDictionary),
+		("testInsertNumberWithRedBlackTree", testInsertNumberWithRedBlackTree),
+		("testTrie3", testTrie3),
 	]
 }
 extension BagTestCase {
@@ -483,6 +497,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(UIntTestCase.allTests),
 		testCase(ArrayTestCase.allTests),
 		testCase(NSObjectTestCase.allTests),
+		testCase(CharacterTestCase.allTests),
 		testCase(DictionaryTestCase.allTests),
 		testCase(DataTestCase.allTests),
 		testCase(DoubleTestCase.allTests),
@@ -498,6 +513,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(BinaryTreeProtocolTestCase.allTests),
 		testCase(NodeTestCase.allTests),
 		testCase(QueueTestCase.allTests),
+		testCase(TrieTestCase.allTests),
 		testCase(BagTestCase.allTests),
 		testCase(BinaryTreeTestCase.allTests),
 		testCase(PriorityQueueTestCase.allTests),

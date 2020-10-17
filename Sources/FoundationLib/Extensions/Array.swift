@@ -49,4 +49,11 @@ public extension Array {
         self.append(contentsOf: builder())
     }
     
+    init(count: Int, in elements: [Element]) {
+        self.init()
+        for _ in 0..<count {
+            self.append(elements[Int.random(in: 0..<elements.count)])
+        }
+    }
+    
 }

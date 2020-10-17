@@ -1,26 +1,17 @@
 import os
 import datetime
 from models import  *
+from utils import *
 if __name__ == "__main__":
+    lib_name = "FoundationLib"
     date = datetime.date.today()
     date_str = "%d/%d/%d"%(date.year, date.month, date.day)
     items = __file__.split("/")
     file_directory = "/".join(items[:-1])
     base_path = "/".join(items[:-2])
-    source_path = base_path + "/Sources/FoundationLib"
-    test_path = base_path + "/Tests/FoundationLibTests"
-    swift_files = []
-    current_root = ""
-    for array in os.walk(source_path):
-        for item in array:
-            if type(item) == list:
-                for element in item:
-                    if element.endswith(".swift"):
-                        file_path = current_root + "/" + element
-                        swift_files.append(file_path)
-            else:
-                current_root = item
-    template_path = file_directory + "/" + "TemplateTests"
+    source_path = base_path + "/Sources/{lib_name}".format(lib_name=lib_name)
+    test_path = base_path + "/Tests/{lib_name}Tests".format(lib_name=lib_name)
+    swift_files = get_files(source_path, lambda f : f.endswith(".swift"))
     for file in swift_files:
         item_path = test_path + file.split("FoundationLib")[1]
         name = item_path.split("/")[-1].split(".")[0]
@@ -30,7 +21,6 @@ if __name__ == "__main__":
             os.mkdir(dir)
         final_path = dir + "/" + name + "TestCase.swift"
         if os.path.exists(final_path):
-            print("file exists in %s"%(final_path))
             contents = []
             with open(final_path, 'r') as f:
                 contents = f.readlines()
@@ -48,16 +38,7 @@ if __name__ == "__main__":
                 f.write(content)
     manifests_path = test_path + "/" + "XCTestManifests.swift"
     current_root = ""
-    swift_files = []
-    for array in os.walk(test_path):
-        for item in array:
-            if type(item) == list:
-                for element in item:
-                    if element.endswith(".swift") and not element.endswith("XCTestManifests.swift"):
-                        file_path = current_root + "/" + element
-                        swift_files.append(file_path)
-            else:
-                current_root = item
+    swift_files = get_files(test_path, lambda f : f.endswith(".swift") and not f.endswith("XCTestManifests.swift"))
     test_cases = []
     for file in swift_files:
         with open(file) as f:
