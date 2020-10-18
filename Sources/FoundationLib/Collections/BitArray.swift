@@ -10,9 +10,9 @@ public class BitArray {
     
     var items: [UInt64]
     
-    public var range: Range<Int>
+    public let range: Range<Int>
     
-    public var capacity: Int
+    public let capacity: Int
     
     public init(_ range: Range<Int>) {
         self.range = range
