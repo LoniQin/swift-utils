@@ -13,7 +13,7 @@ if __name__ == "__main__":
     test_path = base_path + "/Tests/{lib_name}Tests".format(lib_name=lib_name)
     swift_files = get_files(source_path, lambda f : f.endswith(".swift"))
     for file in swift_files:
-        item_path = test_path + file.split("FoundationLib")[1]
+        item_path = test_path + file.split(lib_name)[1]
         name = item_path.split("/")[-1].split(".")[0]
         name = name.replace("+", "_")
         dir = "/".join(item_path.split("/")[:-1])
