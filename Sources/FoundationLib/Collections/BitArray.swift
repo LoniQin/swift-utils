@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  BitArray.swift
 //  
 //
 //  Created by lonnie on 2020/10/18.

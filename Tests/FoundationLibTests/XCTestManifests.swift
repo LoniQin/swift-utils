@@ -301,7 +301,9 @@ extension GraphProtocolTestCase {
 }
 extension BitArrayTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testBitArray", testBitArray),
+		("testBitArrayPerformance", testBitArrayPerformance),
+		("testSetPerformance", testSetPerformance),
 	]
 }
 extension BagTestCase {
