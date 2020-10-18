@@ -84,5 +84,5 @@ extension GraphProtocol {
             self.init(0)
         }
     }
-    
+  
 }
