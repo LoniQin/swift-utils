@@ -33,7 +33,7 @@ public class Queue<T>: Sequence, Countable {
     @discardableResult
     public func dequeue() throws -> T {
         guard let value = first?.value else {
-            throw FoundationError.nilValue
+            throw FoundationError.emptyCollection
         }
         first = first?.next
         if isEmpty { last = nil }

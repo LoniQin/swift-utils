@@ -28,9 +28,8 @@ final class TrieTestCase: XCTestCase {
         let trie = Trie<Character, Int>(.numbers)
         try DebugLogger.default.measure(description: "Insert number with Trie") {
             for i in 0..<100000 {
-                let key = i.description.map({$0})
-                try trie.insert(key, i)
-                try trie.value(key).assert.equal(i)
+                try trie.insert(i.description, i)
+                try trie.value(i.description).assert.equal(i)
             }
         }
     }
@@ -57,10 +56,12 @@ final class TrieTestCase: XCTestCase {
     
     func testTrie3() {
         let trie = Trie<Character, Int>(.numbers)
-        let key = "12345".map({$0})
+        let key = "12345"
         trie[key] = 12345
         trie[key].assert.equal(12345)
         trie[key] = 89893
         trie[key].assert.equal(89893)
+        trie[key] = nil
+        XCTAssert(trie[key] == nil)
     }
 }

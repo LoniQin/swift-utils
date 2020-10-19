@@ -25,7 +25,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
     
     private var elementIndex: [Element: Int] = [:]
     
-    public subscript(key: [Element]) -> Content? {
+    public subscript<T: Sequence>(key: T) -> Content? where T.Element == Element {
         get {
             try? value(key)
         }
@@ -44,8 +44,8 @@ public class Trie<Element: Hashable & Equatable, Content> {
         }
     }
     
-    public func insert(_  sequence: [Element], _ content: Content? = nil) throws {
-        var sequence = sequence
+    public func insert<T: Sequence>(_  sequence: T, _ content: Content? = nil) throws where T.Element == Element {
+        var sequence = sequence.map({$0})
         if !sequence.isEmpty { try insert(0, &sequence, 0, content) }
     }
     
@@ -63,7 +63,8 @@ public class Trie<Element: Hashable & Equatable, Content> {
         }
     }
     
-    public func search(_ sequence: [Element]) throws -> Bool {
+    public func search<T: Sequence>(_ sequence: T) throws -> Bool where T.Element == Element {
+        let sequence = sequence.map({$0})
         var i = 0, index = 0, position = 0
         while true {
             position = try elementIndex.get(sequence[i])
@@ -77,7 +78,8 @@ public class Trie<Element: Hashable & Equatable, Content> {
         }
     }
     
-    public func value(_ sequence: [Element]) throws -> Content {
+    public func value<T: Sequence>(_ sequence: T) throws -> Content where T.Element == Element {
+        let sequence = sequence.map({$0})
         var i = 0, index = 0, position = 0
         while true {
             position = try elementIndex.get(sequence[i])
@@ -94,7 +96,8 @@ public class Trie<Element: Hashable & Equatable, Content> {
         }
     }
     
-    public func startsWith(_ sequence: [Element]) throws -> Bool {
+    public func startsWith<T: Sequence>(_ sequence: T) throws -> Bool where T.Element == Element {
+        let sequence = sequence.map({$0})
         var i = 0, index = 0, position = 0
         while true {
             position = try elementIndex.get(sequence[i])
