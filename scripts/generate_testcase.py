@@ -12,6 +12,7 @@ if __name__ == "__main__":
     source_path = base_path + "/Sources/{lib_name}".format(lib_name=lib_name)
     test_path = base_path + "/Tests/{lib_name}Tests".format(lib_name=lib_name)
     swift_files = get_files(source_path, lambda f : f.endswith(".swift"))
+    line_count = 0
     for file in swift_files:
         item_path = test_path + file.split(lib_name)[1]
         name = item_path.split("/")[-1].split(".")[0]
@@ -24,6 +25,7 @@ if __name__ == "__main__":
             contents = []
             with open(final_path, 'r') as f:
                 contents = f.readlines()
+                line_count += len(contents)
             index = -1
             for i in range(len(contents) - 1, 0, -1):
                 if contents[i].startswith("}"):
@@ -36,6 +38,7 @@ if __name__ == "__main__":
             content = template.replace("{name}", name).replace("{date}", date_str)
             with open(final_path, 'w') as f:
                 f.write(content)
+    print("Number of lines in Source file: {line}".format(line=line_count))
     manifests_path = test_path + "/" + "XCTestManifests.swift"
     current_root = ""
     swift_files = get_files(test_path, lambda f : f.endswith(".swift") and not f.endswith("XCTestManifests.swift"))
@@ -77,9 +80,3 @@ if __name__ == "__main__":
     manifests += "\t]\n}\n#endif\n"
     with open(manifests_path, 'w') as f:
         f.write(manifests)
-
-                
-        
-
-
-

@@ -6,7 +6,35 @@
 //
 
 import Foundation
-public class BitArray {
+public class BitArray: Sequence {
+    
+    public struct Iterater: IteratorProtocol {
+        
+        public var bitArray: BitArray
+        
+        var start: Int
+        
+        public init(_ bitArray: BitArray) {
+            self.bitArray = bitArray
+            start = bitArray.range.lowerBound
+        }
+        
+        mutating public func next() -> Int? {
+            while start < bitArray.range.upperBound {
+                if bitArray.contains(start) {
+                    let value = start
+                    start += 1
+                    return value
+                }
+                start += 1
+            }
+            return nil
+        }
+    }
+    
+    public func makeIterator() -> Iterater {
+        return Iterater(self)
+    }
     
     var items: [UInt64]
     
@@ -17,7 +45,7 @@ public class BitArray {
     public init(_ range: Range<Int>) {
         self.range = range
         capacity = range.upperBound - range.lowerBound
-        self.items = .init(repeating: 0, count: capacity / 64 + 1)
+        self.items = .init(repeating: 0, count: capacity >> 6 + 1)
     }
     
     public func add(_ key: Int) throws {

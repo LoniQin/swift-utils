@@ -17,6 +17,7 @@ final class BitArrayTestCase: XCTestCase {
         for i in 0..<1000 {
             try bitArray.add(i)
         }
+        Array(bitArray).assert.equal(Array(0..<1000))
         for i in 0..<1000 {
             bitArray.contains(i).assert.true()
         }
@@ -26,6 +27,7 @@ final class BitArrayTestCase: XCTestCase {
         for i in 0..<1000 {
             bitArray.contains(i).assert.false()
         }
+        
     }
     
     func testBitArrayPerformance() throws {
