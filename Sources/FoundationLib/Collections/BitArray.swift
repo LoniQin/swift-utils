@@ -45,7 +45,7 @@ public class BitArray: Sequence {
     public init(_ range: Range<Int>) {
         self.range = range
         capacity = range.upperBound - range.lowerBound
-        self.items = .init(repeating: 0, count: capacity / 64 + 1)
+        self.items = .init(repeating: 0, count: capacity >> 6 + 1)
     }
     
     public func add(_ key: Int) throws {
