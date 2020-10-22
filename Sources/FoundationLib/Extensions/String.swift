@@ -19,6 +19,14 @@ public extension String {
         String(format: self, arguments: arguments)
     }
     
+    init(radom count: Int, in sequence: [Character]) throws {
+        if sequence.isEmpty  { throw FoundationError.outOfBounds }
+        self.init()
+        for _ in 0..<count {
+            self.append(sequence[Int.random(in: 0..<sequence.count)])
+        }
+    }
+    
 }
 
 extension String: NumberConvertable {
