@@ -13,6 +13,8 @@ import XCTest
 final class HttpClientTestCase: XCTestCase {
     
     struct User: JSON {
+        
+        
         let id: Int
         let name: String
     }
