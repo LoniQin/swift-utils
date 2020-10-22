@@ -64,4 +64,44 @@ final class TrieTestCase: XCTestCase {
         trie[key] = nil
         XCTAssert(trie[key] == nil)
     }
+    
+    func testScanProject() throws {
+        let trie = Trie<Character, Int>(.numbers + .alphabets)
+        let basePath = projectPath()
+        let subpaths = FileManager.default.subpaths(atPath: basePath) ?? []
+        for path in subpaths {
+            let filePath = basePath / path
+            if FileManager.default.fileExists(atPath: filePath) && filePath.hasSuffix(".swift") {
+                let strings = try String(contentsOf: .init(fileURLWithPath: filePath))
+                var elements: [Character] = []
+                for char in strings {
+                    if trie.contains(char) {
+                        elements.append(char)
+                    } else {
+                        if !elements.isEmpty {
+                            let value = trie[elements] ?? 0
+                            trie[elements] = value + 1
+                            elements.removeAll()
+                        }
+                    }
+                }
+            }
+        }
+        let keys = trie.allKeys().map { String($0) }
+        var dictionary: [String: Int] = [:]
+        for key in keys {
+            dictionary[key] = trie[key] ?? 0
+        }
+        try dictionary.toData().write(to: .init(fileURLWithPath: dataPath() / "trie"))
+        let newTrie = Trie<Character, Int>(.numbers + .alphabets)
+        for (key, value) in dictionary {
+            newTrie[key] = value
+        }
+        let newKeys = trie.allKeys().map({ String($0) })
+        newKeys.assert.equal(keys)
+        for key in keys {
+            trie[key].assert.equal(newTrie[key] ?? 0)
+        }
+        
+    }
 }
