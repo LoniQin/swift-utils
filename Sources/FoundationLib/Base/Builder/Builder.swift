@@ -54,7 +54,7 @@ public extension Buildable {
     
 }
 
-open class Builder<T: Buildable>: BuilderClassProtocol {
+open class Builder<T: Buildable>: NSObject, BuilderClassProtocol {
     
     weak public var value: T?
     

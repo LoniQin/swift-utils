@@ -10,13 +10,13 @@ import Foundation
 /// Http request
 public struct HttpRequest: RequestConvertable {
     
-    public let domain: StringConvetable
+    public let domain: StringConvertable
     
-    public let paths: [StringConvetable]
+    public let paths: [StringConvertable]
     
     public let method: HttpMethod
     
-    public let query: StringConvetable
+    public let query: StringConvertable
     
     public let body: DataConvertable?
     
@@ -30,10 +30,10 @@ public struct HttpRequest: RequestConvertable {
     ///   - query: query params
     ///   - body: Body params
     ///   - header: Header params
-    public init(domain: StringConvetable,
-         paths: [StringConvetable] = [],
+    public init(domain: StringConvertable,
+         paths: [StringConvertable] = [],
          method: HttpMethod = .get,
-         query: StringConvetable = "",
+         query: StringConvertable = "",
          body: DataConvertable? = nil,
          header: HttpHeaderConvertable = [:]) {
         self.domain = domain

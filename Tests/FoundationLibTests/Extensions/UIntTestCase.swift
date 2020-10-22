@@ -12,7 +12,7 @@ import XCTest
 
 final class UIntTestCase: XCTestCase {
     
-    func testUInt() {
+    func testNumberConvertable() {
         let value: UInt = 999
         value.int.assert.equal(999)
         value.float.assert.equal(999)

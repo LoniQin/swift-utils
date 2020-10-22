@@ -23,10 +23,16 @@ open class JSONObject: NSObject, DataConvertable, DynamicMemberLookupable, Dynam
         self.init(params)
     }
     
-    public init(_ params: [String: Any]) {
+    required public init(_ params: [String: Any]) {
         self.params = params
     }
     
+    public static func fromData(_ data: Data) throws -> Self {
+        guard let params = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+            throw FoundationError.nilValue
+        }
+        return Self(params)
+    }
     
     public func toData() throws -> Data {
         try JSONSerialization.data(withJSONObject: params, options: .fragmentsAllowed)

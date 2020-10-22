@@ -147,7 +147,7 @@ extension DataStoreManagerTestCase {
 }
 extension StringTestCase {
 	static var allTests = [
-		("testString", testString),
+		("testNumberConvertable", testNumberConvertable),
 		("testStringExtensions", testStringExtensions),
 	]
 }
@@ -178,7 +178,7 @@ extension DispatchQueueTestCase {
 }
 extension UIntTestCase {
 	static var allTests = [
-		("testUInt", testUInt),
+		("testNumberConvertable", testNumberConvertable),
 	]
 }
 extension ArrayTestCase {
@@ -191,6 +191,11 @@ extension NSObjectTestCase {
 		("testNSOBject", testNSOBject),
 	]
 }
+extension CharacterTestCase {
+	static var allTests = [
+		("testCharacter", testCharacter),
+	]
+}
 extension DictionaryTestCase {
 	static var allTests = [
 		("testDictonary", testDictonary),
@@ -199,7 +204,8 @@ extension DictionaryTestCase {
 }
 extension DataTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testInitWithHex", testInitWithHex),
+		("testEncoding", testEncoding),
 	]
 }
 extension DoubleTestCase {
@@ -263,6 +269,12 @@ extension BinaryTreeProtocolTestCase {
 		("testBinaryTree", testBinaryTree),
 	]
 }
+extension DirectedGraphTestCase {
+	static var allTests = [
+		("testDirectedGraph", testDirectedGraph),
+		("testLeetcode997", testLeetcode997),
+	]
+}
 extension NodeTestCase {
 	static var allTests = [
 		("testNode", testNode),
@@ -272,6 +284,27 @@ extension QueueTestCase {
 	static var allTests = [
 		("testQueue", testQueue),
 		("testQueuePerformance", testQueuePerformance),
+	]
+}
+extension TrieTestCase {
+	static var allTests = [
+		("testTrie", testTrie),
+		("testInsertNumberWithTrie", testInsertNumberWithTrie),
+		("testInsertNumberWithDictionary", testInsertNumberWithDictionary),
+		("testInsertNumberWithRedBlackTree", testInsertNumberWithRedBlackTree),
+		("testTrie3", testTrie3),
+	]
+}
+extension GraphProtocolTestCase {
+	static var allTests = [
+		("testGraph", testGraph),
+	]
+}
+extension BitArrayTestCase {
+	static var allTests = [
+		("testBitArray", testBitArray),
+		("testBitArrayPerformance", testBitArrayPerformance),
+		("testSetPerformance", testSetPerformance),
 	]
 }
 extension BagTestCase {
@@ -288,6 +321,11 @@ extension PriorityQueueTestCase {
 	static var allTests = [
 		("testPriorityQueue", testPriorityQueue),
 		("testAppendAndRemoveRandomQueue", testAppendAndRemoveRandomQueue),
+	]
+}
+extension GraphTestCase {
+	static var allTests = [
+		("testGraph", testGraph),
 	]
 }
 extension FixedSizePriorityQueueTestCase {
@@ -483,6 +521,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(UIntTestCase.allTests),
 		testCase(ArrayTestCase.allTests),
 		testCase(NSObjectTestCase.allTests),
+		testCase(CharacterTestCase.allTests),
 		testCase(DictionaryTestCase.allTests),
 		testCase(DataTestCase.allTests),
 		testCase(DoubleTestCase.allTests),
@@ -496,11 +535,16 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(RedBlackTreeTestCase.allTests),
 		testCase(StackTestCase.allTests),
 		testCase(BinaryTreeProtocolTestCase.allTests),
+		testCase(DirectedGraphTestCase.allTests),
 		testCase(NodeTestCase.allTests),
 		testCase(QueueTestCase.allTests),
+		testCase(TrieTestCase.allTests),
+		testCase(GraphProtocolTestCase.allTests),
+		testCase(BitArrayTestCase.allTests),
 		testCase(BagTestCase.allTests),
 		testCase(BinaryTreeTestCase.allTests),
 		testCase(PriorityQueueTestCase.allTests),
+		testCase(GraphTestCase.allTests),
 		testCase(FixedSizePriorityQueueTestCase.allTests),
 		testCase(NetworkingTestCase.allTests),
 		testCase(DataStorageTestCase.allTests),

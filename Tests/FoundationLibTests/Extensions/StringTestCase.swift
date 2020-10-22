@@ -12,7 +12,7 @@ import XCTest
 
 final class StringTestCase: XCTestCase {
     
-    func testString() {
+    func testNumberConvertable() {
         let a = "29833"
         a.int.assert.equal(29833)
         a.float.assert.equal(29833)
@@ -26,7 +26,7 @@ final class StringTestCase: XCTestCase {
         (3 * "999999").assert.equal("999999999999999999")
     }
     
-    func testStringExtensions() {
+    func testStringExtensions() throws {
         let str = "hello world"
         str.appendingSuffix(";").assert.equal("hello world;")
         str.appendingPrefix("Lonnie:").assert.equal("Lonnie:hello world")
@@ -36,5 +36,21 @@ final class StringTestCase: XCTestCase {
         ("user" / "login").assert.equal("user/login")
         ("111" * 3).assert.equal("111111111")
         ("111" - "222").assert.equal("111-222")
+        var items = try String(radom: 100, in: .numbers)
+        for item in items {
+            item.isNumber.assert.true()
+        }
+        items = try String(radom: 100, in: .lowercasedAlphabets)
+        for item in items {
+            item.isLowercase.assert.true()
+        }
+        items = try String(radom: 100, in: .uppercasedAlphabets)
+        for item in items {
+            item.isUppercase.assert.true()
+        }
+        items = try String(radom: 100, in: .alphabets)
+        for item in items {
+            item.isLetter.assert.true()
+        }
     }
 }

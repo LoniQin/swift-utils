@@ -17,12 +17,15 @@ final class UserDefaultsTestCase: XCTestCase {
         struct User: Codable, Equatable {
             let name: String
         }
-        let storage = UserDefaults.standard
+        
+        var storage = UserDefaults.standard
         let user = User(name: "Lonnie")
         try storage.load()
         try storage.set(user, for: "user")
         try storage.save()
         try user.assert.equal(storage.get("user"))
+        storage.anotherUser = User(name: "Tom")
+        storage.anotherUser.assert.equal(User(name: "Tom"))
     }
     
 }
