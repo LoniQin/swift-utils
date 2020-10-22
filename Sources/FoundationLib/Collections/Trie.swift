@@ -137,5 +137,19 @@ public class Trie<Element: Hashable & Equatable, Content> {
             }
         }
     }
+    
+    public func allKeys<T: Sequence>(startsWith prefix: T) -> [[Element]] where
+        T.Element == Element {
+        let prefix = prefix.map { $0 }
+        var keys: [[Element]] = []
+        var node: Node = nodes[0]
+        var i = 0
+        while i < prefix.count {
+            node = nodes[Int(node.positions[elementIndex[prefix[i]] ?? 0])]
+            i += 1
+        }
+        visit(node, prefix, &keys)
+        return keys
+    }
 
 }
