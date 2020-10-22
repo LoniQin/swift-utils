@@ -11,7 +11,7 @@ import XCTest
 @testable import FoundationLib
 
 final class CharacterTestCase: XCTestCase {
-    func testSample() {
+    func testCharacter() {
         [Character].numbers.assert.equal(Array("0123456789"))
         [Character].lowercasedAlphabets.assert.equal(Array("abcdefghijklmnopqrstuvwxyz"))
     }

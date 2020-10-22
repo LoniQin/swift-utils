@@ -12,7 +12,7 @@ import XCTest
 
 final class StringTestCase: XCTestCase {
     
-    func testString() {
+    func testNumberConvertable() {
         let a = "29833"
         a.int.assert.equal(29833)
         a.float.assert.equal(29833)
