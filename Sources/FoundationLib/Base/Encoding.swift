@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Encoding {
+public enum Encoding: CaseIterable {
     
     case utf8
     

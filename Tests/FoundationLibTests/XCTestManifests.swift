@@ -147,7 +147,7 @@ extension DataStoreManagerTestCase {
 }
 extension StringTestCase {
 	static var allTests = [
-		("testString", testString),
+		("testNumberConvertable", testNumberConvertable),
 		("testStringExtensions", testStringExtensions),
 	]
 }
@@ -178,7 +178,7 @@ extension DispatchQueueTestCase {
 }
 extension UIntTestCase {
 	static var allTests = [
-		("testUInt", testUInt),
+		("testNumberConvertable", testNumberConvertable),
 	]
 }
 extension ArrayTestCase {
@@ -193,7 +193,7 @@ extension NSObjectTestCase {
 }
 extension CharacterTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testCharacter", testCharacter),
 	]
 }
 extension DictionaryTestCase {
@@ -204,7 +204,8 @@ extension DictionaryTestCase {
 }
 extension DataTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testInitWithHex", testInitWithHex),
+		("testEncoding", testEncoding),
 	]
 }
 extension DoubleTestCase {
