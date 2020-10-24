@@ -27,6 +27,18 @@ public extension String {
         }
     }
     
+    func substring(from: Int? = nil, to: Int? = nil) -> Substring {
+        if let to = to, let from = from {
+            return self[index(startIndex, offsetBy: from)..<index(startIndex, offsetBy: to)]
+        } else if let from = from {
+            return self[index(startIndex, offsetBy: from)...]
+        } else if let to = to {
+            return self[..<index(startIndex, offsetBy: to)]
+        } else {
+            return self[self.startIndex..<self.endIndex]
+        }
+    }
+    
 }
 
 extension String: NumberConvertable {
