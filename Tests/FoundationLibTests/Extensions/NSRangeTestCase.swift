@@ -12,7 +12,9 @@ import XCTest
 
 final class NSRangeTestCase: XCTestCase {
     func testIsValid() {
-        var range = NSRange(location: NSNotFound, length: 1)
-        range.isValid.assert.true()
+        NSRange(location: NSNotFound, length: 1).isValid.assert.false()
+        NSRange(location: -1, length: 1).isValid.assert.false()
+        NSRange(location: 0, length: 1).isValid.assert.true()
+        NSRange(location: 10, length: 0).isValid.assert.false()
     }
 }

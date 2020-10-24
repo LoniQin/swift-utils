@@ -9,7 +9,7 @@ import Foundation
 public extension NSRange {
     
     var isValid: Bool {
-        location != NSNotFound
+        location != NSNotFound && location >= 0 && length > 0
     }
     
 }

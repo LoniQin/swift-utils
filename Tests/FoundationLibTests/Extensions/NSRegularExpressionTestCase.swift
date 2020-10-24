@@ -17,6 +17,7 @@ final class NSRegularExpressionTestCase: XCTestCase {
         try NSRegularExpression.urlExpression().validate("https://google.com").assert.true()
         try NSRegularExpression.urlExpression().validate("google.com").assert.false()
         try NSRegularExpression.urlExpression().validate("www.google.com").assert.false()
+        try NSRegularExpression.urlExpression().validate("file://1.png").assert.true()
     }
     
 }
