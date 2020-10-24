@@ -178,7 +178,7 @@ extension DispatchQueueTestCase {
 }
 extension NSRegularExpressionTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testNSRegularExpression", testNSRegularExpression),
 	]
 }
 extension UIntTestCase {
@@ -215,7 +215,7 @@ extension DataTestCase {
 }
 extension NSRangeTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testIsValid", testIsValid),
 	]
 }
 extension DoubleTestCase {
