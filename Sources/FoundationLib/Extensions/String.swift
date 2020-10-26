@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/8/19.
 //
-
+import CoreFoundation
 public extension String {
     
     func appendingPrefix(_ string: String) -> String {
@@ -37,6 +37,14 @@ public extension String {
         } else {
             return self[self.startIndex..<self.endIndex]
         }
+    }
+    
+    func replacingPercentEncoding() -> String {
+        CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, self as CFString, "" as CFString) as String
+    }
+    
+    func toRegularExpression(options: NSRegularExpression.Options = []) throws -> NSRegularExpression {
+        try NSRegularExpression(pattern: self, options: options)
     }
     
 }
