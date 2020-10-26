@@ -4,6 +4,7 @@
 //
 //  Created by lonnie on 2020/8/19.
 //
+import Foundation
 import CoreFoundation
 public extension String {
     
