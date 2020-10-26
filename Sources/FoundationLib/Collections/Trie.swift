@@ -23,6 +23,8 @@ public class Trie<Element: Hashable & Equatable, Content> {
     
     private var elements: [Element] = []
     
+    private var elementsSet: Set<Element> = []
+    
     private var elementIndex: [Element: Int] = [:]
     
     public subscript<T: Sequence>(key: T) -> Content? where T.Element == Element {
@@ -37,6 +39,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
 
     public init(_ elements: [Element]) {
         templateNode = Node(positions: [UInt32](repeating: 0, count: elements.count), isEnd: false)
+        elementsSet = Set(elements)
         nodes.append(templateNode)
         self.elements = elements
         for item in elements.enumerated() {
@@ -44,8 +47,12 @@ public class Trie<Element: Hashable & Equatable, Content> {
         }
     }
     
+    public func contains(_ element: Element) -> Bool {
+        elementsSet.contains(element)
+    }
+    
     public func insert<T: Sequence>(_  sequence: T, _ content: Content? = nil) throws where T.Element == Element {
-        var sequence = sequence.map({$0})
+        var sequence = sequence.map { $0 }
         if !sequence.isEmpty { try insert(0, &sequence, 0, content) }
     }
     
@@ -109,6 +116,40 @@ public class Trie<Element: Hashable & Equatable, Content> {
                 return true
             }
         }
+    }
+    
+    public func allKeys() -> [[Element]] {
+        var keys: [[Element]] = []
+        visit(nodes[0], [], &keys)
+        return keys
+    }
+    
+    private func visit(_ node: Node, _ key: [Element], _ keys: inout [[Element]]) {
+        var key = key
+        if node.isEnd {
+            keys.append(key)
+        }
+        for i in 0..<node.positions.count {
+            if node.positions[i] > 0 {
+                key.append(elements[i])
+                visit(nodes[Int(node.positions[i])], key, &keys)
+                key.removeLast()
+            }
+        }
+    }
+    
+    public func allKeys<T: Sequence>(startsWith prefix: T) -> [[Element]] where
+        T.Element == Element {
+        let prefix = prefix.map { $0 }
+        var keys: [[Element]] = []
+        var node: Node = nodes[0]
+        var i = 0
+        while i < prefix.count {
+            node = nodes[Int(node.positions[elementIndex[prefix[i]] ?? 0])]
+            i += 1
+        }
+        visit(node, prefix, &keys)
+        return keys
     }
 
 }

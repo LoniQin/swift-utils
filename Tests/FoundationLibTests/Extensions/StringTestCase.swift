@@ -52,5 +52,8 @@ final class StringTestCase: XCTestCase {
         for item in items {
             item.isLetter.assert.true()
         }
+        "0123456789".substring(from: 0).assert.equal("0123456789")
+        "0123456789".substring(to: 3).assert.equal("012")
+        "0123456789".substring(from: 2, to: 4).assert.equal("23")
     }
 }

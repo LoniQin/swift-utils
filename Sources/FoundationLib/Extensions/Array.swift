@@ -40,7 +40,7 @@ public extension Array {
         return self
     }
     
-    mutating func removingLast(_ v: Int) -> Self {
+    mutating func removingLast(_ v: Int = 1) -> Self {
         self.removeLast(v)
         return self
     }
