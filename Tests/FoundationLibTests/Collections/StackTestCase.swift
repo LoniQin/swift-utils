@@ -55,4 +55,49 @@ final class StackTestCase: XCTestCase {
         }
     }
     
+
+    func testCalculator() throws {
+        func evaluate(_ string: String) throws -> Double {
+            var array: [String] = []
+            var number = ""
+            for item in string {
+                if item == "+" || item == "-" || item == "*" || item == "/" {
+                    if !number.isEmpty {
+                        array.append(number)
+                        number.removeAll()
+                    }
+                    array.append("\(item)")
+                } else {
+                    number.append(item)
+                }
+            }
+            if !number.isEmpty {
+                array.append(number)
+            }
+            loop: while array.count > 1 && (array.contains("+") || array.contains("-") || array.contains("*") || array.contains("/"))  {
+                while let timesIndex = array.firstIndex(where: {$0 == "*" || $0 == "/"}) {
+                    if timesIndex == 0 || timesIndex == array.count - 1 { throw FoundationError.outOfBounds }
+                    let char = array[timesIndex]
+                    let lhs = Double(array[timesIndex - 1]) ?? 0
+                    let rhs = Double(array[timesIndex + 1]) ?? 0
+                    array[timesIndex-1...timesIndex+1] = [char == "*" ?  String(lhs * rhs) : String(lhs / rhs)]
+                }
+                while let timesIndex = array.firstIndex(where: {$0 == "+" || $0 == "-"}) {
+                    if timesIndex == 0 || timesIndex == array.count - 1 { throw FoundationError.outOfBounds }
+                    let char = array[timesIndex]
+                    let lhs = Double(array[timesIndex - 1]) ?? 0
+                    let rhs = Double(array[timesIndex + 1]) ?? 0
+                    array[timesIndex-1...timesIndex+1] = [char == "+" ?  String(lhs + rhs) : String(lhs - rhs)]
+                }
+                
+            }
+            return array.isEmpty ? 0 : (Double(array[0]) ?? 0)
+        }
+        try evaluate("1+1").assert.equal(2)
+        try evaluate("1-2").assert.equal(-1)
+        try evaluate("3*2").assert.equal(6)
+        try evaluate("24/3").assert.equal(8)
+        try evaluate("24/3*4+24").assert.equal(56)
+    }
+    
 }

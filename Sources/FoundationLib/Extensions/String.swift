@@ -4,7 +4,8 @@
 //
 //  Created by lonnie on 2020/8/19.
 //
-
+import Foundation
+import CoreFoundation
 public extension String {
     
     func appendingPrefix(_ string: String) -> String {
@@ -25,6 +26,26 @@ public extension String {
         for _ in 0..<count {
             self.append(sequence[Int.random(in: 0..<sequence.count)])
         }
+    }
+    
+    func substring(from: Int? = nil, to: Int? = nil) -> Substring {
+        if let to = to, let from = from {
+            return self[index(startIndex, offsetBy: from)..<index(startIndex, offsetBy: to)]
+        } else if let from = from {
+            return self[index(startIndex, offsetBy: from)...]
+        } else if let to = to {
+            return self[..<index(startIndex, offsetBy: to)]
+        } else {
+            return self[self.startIndex..<self.endIndex]
+        }
+    }
+    
+    func replacingPercentEncoding() -> String {
+        CFURLCreateStringByReplacingPercentEscapes(kCFAllocatorDefault, self as CFString, "" as CFString) as String
+    }
+    
+    func toRegularExpression(options: NSRegularExpression.Options = []) throws -> NSRegularExpression {
+        try NSRegularExpression(pattern: self, options: options)
     }
     
 }

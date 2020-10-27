@@ -176,6 +176,11 @@ extension DispatchQueueTestCase {
 		("testDispatchQueue", testDispatchQueue),
 	]
 }
+extension NSRegularExpressionTestCase {
+	static var allTests = [
+		("testNSRegularExpression", testNSRegularExpression),
+	]
+}
 extension UIntTestCase {
 	static var allTests = [
 		("testNumberConvertable", testNumberConvertable),
@@ -206,6 +211,11 @@ extension DataTestCase {
 	static var allTests = [
 		("testInitWithHex", testInitWithHex),
 		("testEncoding", testEncoding),
+	]
+}
+extension NSRangeTestCase {
+	static var allTests = [
+		("testIsValid", testIsValid),
 	]
 }
 extension DoubleTestCase {
@@ -262,11 +272,12 @@ extension StackTestCase {
 	static var allTests = [
 		("testStack", testStack),
 		("testStackPerformance", testStackPerformance),
+		("testCalculator", testCalculator),
 	]
 }
 extension BinaryTreeProtocolTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testBinaryTree", testBinaryTree),
 	]
 }
 extension DirectedGraphTestCase {
@@ -293,6 +304,7 @@ extension TrieTestCase {
 		("testInsertNumberWithDictionary", testInsertNumberWithDictionary),
 		("testInsertNumberWithRedBlackTree", testInsertNumberWithRedBlackTree),
 		("testTrie3", testTrie3),
+		("testScanProject", testScanProject),
 	]
 }
 extension GraphProtocolTestCase {
@@ -518,12 +530,14 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(FloatTestCase.allTests),
 		testCase(UserDefaultsTestCase.allTests),
 		testCase(DispatchQueueTestCase.allTests),
+		testCase(NSRegularExpressionTestCase.allTests),
 		testCase(UIntTestCase.allTests),
 		testCase(ArrayTestCase.allTests),
 		testCase(NSObjectTestCase.allTests),
 		testCase(CharacterTestCase.allTests),
 		testCase(DictionaryTestCase.allTests),
 		testCase(DataTestCase.allTests),
+		testCase(NSRangeTestCase.allTests),
 		testCase(DoubleTestCase.allTests),
 		testCase(FileManagerTestCase.allTests),
 		testCase(ComparableTestCase.allTests),

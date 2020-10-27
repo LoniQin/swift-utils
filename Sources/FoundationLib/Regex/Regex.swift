@@ -15,6 +15,10 @@ public enum Regex: String, CaseIterable, Validatable {
     
     case ip = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)"
     
+    case chineseCharacter = "[\\u4e00-\\u9fa5]{1,}"
+    
+    case alphaNumeric = "[A-Za-z0-9]+"
+    
     /// Scan text and find useful pattern
     /// - Parameter text: Text
     /// - Returns: Patterns

@@ -24,6 +24,10 @@ final class BagTestCase: XCTestCase {
                 
             }
         }
+        try DebugLogger.default.measure(description: "Compare equal") {
+            Array(bag).assert.equal((0..<1.million).reversed())
+        }
+        
     }
     
 }
