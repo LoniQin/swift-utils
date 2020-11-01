@@ -7,7 +7,7 @@
 
 import Foundation
 @dynamicCallable
-public class HTMLNode: NSObject {
+open class HTMLNode: NSObject {
     
     public var name: String
     
