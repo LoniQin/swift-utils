@@ -30,7 +30,6 @@ public extension Dictionary {
     
 }
 
-
 public extension Dictionary where Key == String {
     func htmlTagAttribute()-> String {
         map {
