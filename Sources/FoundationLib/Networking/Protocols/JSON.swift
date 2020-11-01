@@ -33,7 +33,7 @@ extension JSON  {
     }
     
     
-    static func fromData(_ data: Data) throws -> Self {
+    public static func fromData(_ data: Data) throws -> Self {
         try jsonDecoder.decode(Self.self, from: data)
     }
     
