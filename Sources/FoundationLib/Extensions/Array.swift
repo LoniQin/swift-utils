@@ -100,8 +100,6 @@ public extension Array {
         self.append(contentsOf: builder())
     }
     
-   
-    
     init(count: Int, in elements: [Element]) {
         self.init()
         for _ in 0..<count {
