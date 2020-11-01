@@ -29,3 +29,20 @@ public extension Dictionary {
     }
     
 }
+
+
+public extension Dictionary where Key == String {
+    func htmlTagAttribute()-> String {
+        map {
+            var result = "\($0.key)"
+            if let value = $0.value as? String {
+                if !value.isEmpty {
+                    result.append("=\"\($0.value)\"")
+                }
+            } else {
+                result.append("=\($0.value)")
+            }
+            return result
+        }.joined(separator: " ")
+    }
+}

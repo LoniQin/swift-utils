@@ -117,6 +117,11 @@ extension JSONTestCase {
 		("testSample", testSample),
 	]
 }
+extension HTMLTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension RegexTestCase {
 	static var allTests = [
 		("testRegex", testRegex),
@@ -519,6 +524,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(NetworkingErrorTestCase.allTests),
 		testCase(URLSessionTaskProtocolTestCase.allTests),
 		testCase(JSONTestCase.allTests),
+		testCase(HTMLTestCase.allTests),
 		testCase(RegexTestCase.allTests),
 		testCase(CacheStorageTestCase.allTests),
 		testCase(FileStorageTestCase.allTests),
