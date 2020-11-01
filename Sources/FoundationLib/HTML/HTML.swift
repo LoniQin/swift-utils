@@ -63,6 +63,10 @@ public class HTMLNode: NSObject {
         return content
     }
     
+    func write(to path: String) throws {
+        try toHTML().write(toFile: path, atomically: true, encoding: .utf8)
+    }
+    
 }
 
 public class html: HTMLNode {
