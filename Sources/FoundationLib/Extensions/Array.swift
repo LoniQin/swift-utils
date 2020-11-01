@@ -45,9 +45,62 @@ public extension Array {
         return self
     }
     
+    @discardableResult
+    mutating func safelyInsert(_ element: Element, at index: Int, succeed: inout Bool?) -> Self {
+        if index < 0  || index > count {
+            succeed = false
+            return self
+        }
+        succeed = true
+        if index == count {
+            append(element)
+            return self
+        }
+        var i = count
+        append(self[count - 1])
+        while i >= index {
+            if i == index  {
+                self[index] = element
+            } else {
+                self[i] = self[i - 1]
+            }
+            i -= 1
+        }
+        return self
+    }
+    
+    @discardableResult
+    mutating func safelyDelete(at index: Int, succeed: inout Bool?) -> Self {
+        if index < 0  || index >= count {
+            succeed = false
+            return self
+        }
+        succeed = true
+        for i in index..<count-1 {
+            self[i] = self[i + 1]
+        }
+        self.removeLast()
+        return self
+    }
+    
+    @discardableResult
+    mutating func reverse(at range: Range<Int>) -> Self {
+        if range.lowerBound < 0 || range.upperBound > count || range.lowerBound >= range.upperBound { return self }
+        var from = range.lowerBound
+        var to = range.upperBound - 1
+        while from < to {
+            swapAt(from, to)
+            from += 1
+            to -= 1
+        }
+        return self
+    }
+    
     mutating func append(@ArrayBuilder _ builder: () -> Self) {
         self.append(contentsOf: builder())
     }
+    
+   
     
     init(count: Int, in elements: [Element]) {
         self.init()
@@ -56,4 +109,35 @@ public extension Array {
         }
     }
     
+}
+
+public extension Array where Element: Equatable {
+    
+    func locate(_ element: Element) -> Int {
+        for i in 0..<count {
+            if self[i] == element {
+                return i
+            }
+        }
+        return -1
+    }
+    
+}
+
+public extension Array where Element: Comparable {
+    
+    @discardableResult
+    mutating func remove(from: Element, to: Element) -> Self {
+        var counter = 0
+        for i in 0..<count {
+            if self[i] >= from && self[i] <= to {
+                self[counter] = self[i]
+                counter += 1
+            }
+        }
+        if counter > 0 {
+            self.removeLast(counter)
+        }
+        return self
+    }
 }
