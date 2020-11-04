@@ -87,6 +87,10 @@ open class HTMLNode: NSObject {
         return self
     }
     
+    open override var description: String {
+        toHTML(level: 0)
+    }
+    
 }
 
 public class html: HTMLNode {
@@ -653,15 +657,48 @@ public class text: HTMLNode {
 public class foreach<T>: HTMLNode {
     var sequence: [T] = []
     var mapper: (T) -> HTMLNode
-    public init(_ sequence: [T], _ mapper: (T) -> HTMLNode) {
+    public init(_ sequence: [T], _ mapper: @escaping (T) -> HTMLNode) {
         self.sequence = sequence
         self.mapper = mapper
+        super.init(name: "")
     }
-    public func toHTML(level: Int = 0) -> String {
-        var value = ""
-        sequence.map(mapper).forEach { (node) in
-            value.append(node.toHTML(level: level+1) + "\n")
+    
+    public override func toHTML(level: Int = 0) -> String {
+        sequence.map(mapper).map { (node) in
+            node.toHTML(level: level)
+        }.joined(separator: "")
+    }
+}
+
+
+public class `if`: HTMLNode {
+    
+    let condition: () -> Bool
+    
+    var trueBlock: () -> HTMLNode = { br() }
+    
+    var falseBlock: () -> HTMLNode = { br() }
+    
+    public init(_ condition: @escaping @autoclosure () -> Bool) {
+        self.condition = { condition() }
+        super.init(name: "")
+    }
+    
+    public func `true`(_ trueBlock: @escaping () -> HTMLNode) -> Self {
+        self.trueBlock = trueBlock
+        return self
+    }
+    
+    public func `false`(_ falseBlock: @escaping () -> HTMLNode) -> Self {
+        self.falseBlock = falseBlock
+        return self
+    }
+    
+    public override func toHTML(level: Int = 0) -> String {
+        if condition() {
+            return trueBlock().toHTML(level: level)
+        } else {
+            return falseBlock().toHTML(level: level)
         }
-        return value
     }
 }
