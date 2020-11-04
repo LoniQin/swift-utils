@@ -34,9 +34,9 @@ final class HTMLTestCase: XCTestCase {
     }
     
     func testIf() {
-        `if`(1 > 0).true {
+        `if`(1 > 0) {
             li("1 is greater than 0")
-        }.false {
+        }.else {
             li("1 is less than 0")
         }.description.assert.equal("<li>1 is greater than 0</li>\n")
     }

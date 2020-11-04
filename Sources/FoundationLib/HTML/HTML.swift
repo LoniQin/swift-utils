@@ -679,17 +679,13 @@ public class `if`: HTMLNode {
     
     var falseBlock: () -> HTMLNode = { br() }
     
-    public init(_ condition: @escaping @autoclosure () -> Bool) {
+    public init(_ condition: @escaping @autoclosure () -> Bool, _ trueBlock: @escaping ()->HTMLNode) {
         self.condition = { condition() }
+        self.trueBlock = trueBlock
         super.init(name: "")
     }
     
-    public func `true`(_ trueBlock: @escaping () -> HTMLNode) -> Self {
-        self.trueBlock = trueBlock
-        return self
-    }
-    
-    public func `false`(_ falseBlock: @escaping () -> HTMLNode) -> Self {
+    public func `else`(_ falseBlock: @escaping () -> HTMLNode) -> Self {
         self.falseBlock = falseBlock
         return self
     }
