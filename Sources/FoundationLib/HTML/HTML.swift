@@ -67,6 +67,26 @@ open class HTMLNode: NSObject {
         try toHTML().write(toFile: path, atomically: true, encoding: .utf8)
     }
     
+    public func id(_ value: String) -> Self {
+        attributes["id"] = value
+        return self
+    }
+    
+    public func `class`(_ value: String) -> Self {
+        attributes["class"] = value
+        return self
+    }
+    
+    public func href(_ value: String) -> Self {
+        attributes["href"] = value
+        return self
+    }
+    
+    public func src(_ value: String) -> Self {
+        attributes["src"] = value
+        return self
+    }
+    
 }
 
 public class html: HTMLNode {
@@ -113,63 +133,65 @@ public class body: HTMLNode {
 }
 
 public class h1: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "h1", builder)
+    public init(_ content: String) {
+        super.init(name: "h1")
         self.contents = [content]
     }
 }
 
 public class h2: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "h2", builder)
+    public init(_ content: String) {
+        super.init(name: "h2")
         self.contents = [content]
     }
 }
 
 public class h3: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "h3", builder)
+    public init(_ content: String) {
+        super.init(name: "h3")
         self.contents = [content]
     }
 }
 
 public class h4: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "h4", builder)
+    public init(_ content: String) {
+        super.init(name: "h4")
         self.contents = [content]
     }
 }
 
 public class h5: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "h5", builder)
+    public init(_ content: String) {
+        super.init(name: "h5")
         self.contents = [content]
     }
 }
 
 public class h6: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "h6", builder)
+    public init(_ content: String = "") {
+        super.init(name: "h6")
         self.contents = [content]
     }
 }
 
 public class p: HTMLNode {
-    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+    public init(_ content: String = "", @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
         super.init(name: "p", builder)
         self.contents = [content]
     }
 }
 
 public class div: HTMLNode {
-    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+    public init(_ content: String = "", @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
         super.init(name: "div", builder)
+        self.contents = [content]
     }
 }
 
 public class span: HTMLNode {
-    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+    public init(_ content: String = "", @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
         super.init(name: "span", builder)
+        self.contents = [content]
     }
 }
 
@@ -468,8 +490,8 @@ public class object: HTMLNode {
 }
 
 public class ol: HTMLNode {
-    public init() {
-        super.init(name: "ol")
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "ol", builder)
     }
 }
 
@@ -582,14 +604,14 @@ public class time: HTMLNode {
 }
 
 public class u: HTMLNode {
-    public init() {
+    public init(_ content: String) {
         super.init(name: "u")
     }
 }
 
 public class ul: HTMLNode {
-    public init() {
-        super.init(name: "ul")
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "ul", builder)
     }
 }
 
@@ -612,7 +634,8 @@ public class wbr: HTMLNode {
 }
 
 public class text: HTMLNode {
-    public init() {
+    public init(_ content: String) {
         super.init(name: "text")
+        self.contents = [content]
     }
 }
