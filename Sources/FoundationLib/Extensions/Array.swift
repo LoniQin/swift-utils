@@ -126,15 +126,19 @@ public extension Array where Element: Comparable {
     
     @discardableResult
     mutating func remove(from: Element, to: Element) -> Self {
-        var counter = 0
-        for i in 0..<count {
+        var pointer = 0
+        var i = 0
+        while i < count  {
             if self[i] >= from && self[i] <= to {
-                self[counter] = self[i]
-                counter += 1
+                i += 1
+            } else {
+                self[pointer] = self[i]
+                pointer += 1
+                i += 1
             }
         }
-        if counter > 0 {
-            self.removeLast(counter)
+        if count - pointer > 0 {
+            self.removeLast(count - pointer)
         }
         return self
     }

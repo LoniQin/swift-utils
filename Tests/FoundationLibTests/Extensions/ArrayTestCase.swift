@@ -15,7 +15,7 @@ final class ArrayTestCase: XCTestCase {
     func testArrayExtension() {
         let array: [Any] = [1, 3, 5, "7", 9]
         
-        var items = [Int]()
+        let items = [Int]()
         do {
             let a: Int = try array.get(0)
             a.assert.equal(1)
@@ -83,6 +83,15 @@ final class ArrayTestCase: XCTestCase {
         var items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         items.remove(from: 3, to: 4)
         items.assert.equal([1, 2, 5, 6, 7, 8, 9, 10])
+        items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        items.remove(from: 1, to: 9)
+        items.assert.equal([10])
+        items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        items.remove(from: 1, to: 10)
+        items.assert.equal([])
+        items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        items.remove(from: 2, to: 10)
+        items.assert.equal([1])
     }
     
 }

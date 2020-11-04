@@ -226,8 +226,10 @@ public class template: HTMLNode {
 }
 
 public class a: HTMLNode {
-    public init() {
+    public init(content: String, href: String) {
         super.init(name: "a")
+        self.contents = [content]
+        self.href(href)
     }
 }
 
@@ -268,10 +270,11 @@ public class audio: HTMLNode {
 }
 
 public class b: HTMLNode {
-    public init() {
+    public init(_ content: String) {
         super.init(name: "b")
+        self.contents = [content]
     }
-}
+} 
 
 public class bdi: HTMLNode {
     public init() {
