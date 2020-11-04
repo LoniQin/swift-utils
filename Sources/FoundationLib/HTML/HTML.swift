@@ -619,8 +619,9 @@ public class ul: HTMLNode {
 }
 
 public class li: HTMLNode {
-    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+    public init(_ content: String = "", @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
         super.init(name: "li", builder)
+        self.contents = [content]
     }
 }
 
