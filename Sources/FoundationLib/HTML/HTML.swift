@@ -649,3 +649,19 @@ public class text: HTMLNode {
         self.contents = [content]
     }
 }
+
+public class foreach<T>: HTMLNode {
+    var sequence: [T] = []
+    var mapper: (T) -> HTMLNode
+    public init(_ sequence: [T], _ mapper: (T) -> HTMLNode) {
+        self.sequence = sequence
+        self.mapper = mapper
+    }
+    public func toHTML(level: Int = 0) -> String {
+        var value = ""
+        sequence.map(mapper).forEach { (node) in
+            value.append(node.toHTML(level: level+1) + "\n")
+        }
+        return value
+    }
+}
