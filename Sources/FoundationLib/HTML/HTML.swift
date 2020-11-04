@@ -618,6 +618,12 @@ public class ul: HTMLNode {
     }
 }
 
+public class li: HTMLNode {
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "li", builder)
+    }
+}
+
 public class `var`: HTMLNode {
     public init() {
         super.init(name: "var")
