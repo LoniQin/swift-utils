@@ -20,13 +20,19 @@ final class HTMLTestCase: XCTestCase {
                 p("Hello world")
             }
         }
-        let value = "<html>\n\t<header>\n\t\t<title>Hello world</title>\n\t</header>\n\t<body>\n\t\t<p>Hello world</p>\n\t</body>\n</html>"
-        // Convert to HTML string
-        node.toHTML().assert.equal(value)
-        print(node)
+        """
+        <html>
+        \t<header>
+        \t\t<title>Hello world</title>
+        \t</header>
+        \t<body>
+        \t\t<p>Hello world</p>
+        \t</body>
+        </html>
+        """.assert.equal(node.toHTML())
         // Write to file
         try node.write(to: dataPath() / "hello.html")
-        try String(contentsOfFile: dataPath() / "hello.html").assert.equal(value)
+        try String(contentsOfFile: dataPath() / "hello.html").assert.equal(node.toHTML())
     }
     
     func testForEach() {
