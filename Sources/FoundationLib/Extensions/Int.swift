@@ -30,6 +30,10 @@ public extension Int {
         self += 1
         return self
     }
+    
+    var tab: String {
+        String(repeating: "\t", count: self)
+    }
 }
 
 extension Int: NumberConvertable {

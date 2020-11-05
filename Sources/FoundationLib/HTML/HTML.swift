@@ -34,33 +34,28 @@ open class HTMLNode: NSObject {
     }
     
     public func toHTML(level: Int = 0) -> String {
-        var content = ""
+        var items = [String]()
         var htmlTagAttribute = ""
         if !attributes.isEmpty {
             htmlTagAttribute += " \(attributes.htmlTagAttribute())"
         }
         if contents.count == 0 && children.count == 0 {
-            content.append(String(repeating: "\t", count: level) + "<\(name)\(htmlTagAttribute)/>\n")
-            return content
-        }
-        content.append(String(repeating: "\t", count: level) + "<\(name)\(htmlTagAttribute)>")
-        if contents.count == 1 && children.count == 0 {
-            for item in contents {
-                content += item
-            }
-            content.append("</\(name)>\n")
+            items.append(level.tab + "<\(name)\(htmlTagAttribute)/>")
         } else {
-            content.append("\n")
-            for item in contents {
-                content += String(repeating: "\t", count: level + 1) + "\(item)\n"
+            items.append(level.tab + "<\(name)\(htmlTagAttribute)>")
+            if contents.count == 1 && children.count == 0 {
+                items[items.count - 1].append("\(contents[0])</\(name)>")
+            } else {
+                for item in contents {
+                    items.append((level + 1).tab + item)
+                }
+                for child in children {
+                    items.append(child.toHTML(level: level + 1))
+                }
+                items.append(level.tab + "</\(name)>")
             }
-            for child in children {
-                content.append(child.toHTML(level: level + 1))
-            }
-            content.append(String(repeating: "\t", count: level) + "</\(name)>\n")
         }
-        
-        return content
+        return items.joined(separator: "\n")
     }
     
     public func write(to path: String) throws {
@@ -91,6 +86,10 @@ open class HTMLNode: NSObject {
         toHTML(level: 0)
     }
     
+}
+
+public extension HTMLNode {
+ 
 }
 
 public class html: HTMLNode {
@@ -654,11 +653,11 @@ public class text: HTMLNode {
     }
 }
 
-public class foreach<T>: HTMLNode {
-    var sequence: [T] = []
-    var mapper: (T) -> HTMLNode
-    public init(_ sequence: [T], _ mapper: @escaping (T) -> HTMLNode) {
-        self.sequence = sequence
+public class `for`<T: Sequence>: HTMLNode {
+    var sequence: [T.Element] = []
+    var mapper: (T.Element) -> HTMLNode
+    public init(_ sequence: T, _ mapper: @escaping (T.Element) -> HTMLNode) {
+        self.sequence = sequence.map { $0 }
         self.mapper = mapper
         super.init(name: "")
     }
@@ -666,7 +665,7 @@ public class foreach<T>: HTMLNode {
     public override func toHTML(level: Int = 0) -> String {
         sequence.map(mapper).map { (node) in
             node.toHTML(level: level)
-        }.joined(separator: "")
+        }.joined(separator: "\n")
     }
 }
 
@@ -679,8 +678,8 @@ public class `if`: HTMLNode {
     
     var falseBlock: () -> HTMLNode = { br() }
     
-    public init(_ condition: @escaping @autoclosure () -> Bool, _ trueBlock: @escaping ()->HTMLNode) {
-        self.condition = { condition() }
+    public init(_ condition: @autoclosure @escaping () -> Bool, _ trueBlock: @escaping ()->HTMLNode) {
+        self.condition = condition
         self.trueBlock = trueBlock
         super.init(name: "")
     }
@@ -691,7 +690,7 @@ public class `if`: HTMLNode {
     }
     
     public override func toHTML(level: Int = 0) -> String {
-        if condition() {
+        if condition() == true {
             return trueBlock().toHTML(level: level)
         } else {
             return falseBlock().toHTML(level: level)
