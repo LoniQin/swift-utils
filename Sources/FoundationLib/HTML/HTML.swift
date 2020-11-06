@@ -34,6 +34,7 @@ open class HTMLNode: NSObject {
     }
     
     public func toHTML(level: Int = 0) -> String {
+        let contents = self.contents.filter { !$0.isEmpty }
         var items = [String]()
         var htmlTagAttribute = ""
         if !attributes.isEmpty {
