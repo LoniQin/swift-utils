@@ -232,7 +232,7 @@ public class a: HTMLNode {
     public init(content: String, href: String) {
         super.init(name: "a")
         self.contents = [content]
-        self.href(href)
+        self.attributes["href"] = href
     }
 }
 
@@ -612,6 +612,7 @@ public class time: HTMLNode {
 public class u: HTMLNode {
     public init(_ content: String) {
         super.init(name: "u")
+        contents = [content]
     }
 }
 
@@ -653,7 +654,7 @@ public class text: HTMLNode {
     }
 }
 
-public class `for`<T: Sequence>: HTMLNode {
+public class For<T: Sequence>: HTMLNode {
     var sequence: [T.Element] = []
     var mapper: (T.Element) -> HTMLNode
     public init(_ sequence: T, _ mapper: @escaping (T.Element) -> HTMLNode) {
@@ -670,30 +671,103 @@ public class `for`<T: Sequence>: HTMLNode {
 }
 
 
-public class `if`: HTMLNode {
+public class If: HTMLNode {
     
     let condition: () -> Bool
     
     var trueBlock: () -> HTMLNode = { br() }
     
+    struct ElseIf {
+        var block: () -> Bool
+        var node: () -> HTMLNode
+    }
+    
+    var elseIfs: [ElseIf] = []
+    
     var falseBlock: () -> HTMLNode = { br() }
     
-    public init(_ condition: @autoclosure @escaping () -> Bool, _ trueBlock: @escaping ()->HTMLNode) {
+    public init(
+        _ condition: @autoclosure @escaping () -> Bool,
+        _ trueBlock: @escaping ()->HTMLNode
+    ) {
         self.condition = condition
         self.trueBlock = trueBlock
         super.init(name: "")
     }
     
-    public func `else`(_ falseBlock: @escaping () -> HTMLNode) -> Self {
+    public func `else`(
+        _ falseBlock: @escaping () -> HTMLNode
+    ) -> Self {
         self.falseBlock = falseBlock
         return self
     }
     
-    public override func toHTML(level: Int = 0) -> String {
-        if condition() == true {
+    public func elif(
+        _ condition: @autoclosure @escaping () -> Bool,
+        _ block: @escaping () -> HTMLNode
+    ) -> Self {
+        self.elseIfs.append(.init(block: { condition() }, node: block))
+        return self
+    }
+    
+    public override func toHTML(
+        level: Int = 0
+    ) -> String {
+        if condition() {
             return trueBlock().toHTML(level: level)
         } else {
+            for elif in elseIfs {
+                if elif.block() == true {
+                    return elif.node().toHTML(level: level)
+                }
+            }
             return falseBlock().toHTML(level: level)
         }
     }
+}
+
+public class Switch<T: Equatable>: HTMLNode {
+    
+    let condition: () -> T
+    
+    struct Case {
+        var item: () -> T
+        var block: () -> HTMLNode
+    }
+    
+    struct Default {
+        var block: () -> HTMLNode
+    }
+    
+    var cases: [Case] = []
+    
+    var defaultItem: Default?
+    
+    public init(
+        _ condition: @autoclosure @escaping () -> T
+    ) {
+        self.condition = condition
+        super.init(name: "")
+    }
+    
+    public func `case`(_ item: @autoclosure @escaping () -> T,
+                       _ block: @autoclosure @escaping  () -> HTMLNode) -> Self {
+        cases.append(.init(item: { item() }, block: { block() } ))
+        return self
+    }
+    
+    public func `default`(_ block: @autoclosure @escaping  () -> HTMLNode) -> Self {
+        defaultItem = Default(block: block)
+        return self
+    }
+    
+    public override func toHTML(level: Int = 0) -> String {
+        for item in cases {
+            if item.item() == condition() {
+                return item.block().toHTML(level: level)
+            }
+        }
+        return defaultItem?.block().toHTML(level: level) ?? ""
+    }
+    
 }

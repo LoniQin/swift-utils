@@ -32,7 +32,7 @@ public extension Dictionary {
 
 public extension Dictionary where Key == String {
     func htmlTagAttribute()-> String {
-        map {
+        sorted { $0.key < $1.key }.map {
             var result = "\($0.key)"
             if let value = $0.value as? String {
                 if !value.isEmpty {
