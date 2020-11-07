@@ -19,7 +19,8 @@ open class HTMLNode: NSObject {
     
     public func dynamicallyCall(withKeywordArguments arguments: [String: Any]) -> HTMLNode {
         for item in arguments {
-            attributes[item.key] = item.value
+            let key = item.key.replacingOccurrences(of: "_", with: "-")
+            attributes[key] = item.value
         }
         return self
     }
@@ -485,8 +486,8 @@ public class meter: HTMLNode {
 }
 
 public class nav: HTMLNode {
-    public init() {
-        super.init(name: "nav")
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "nav", builder)
     }
 }
 
@@ -666,6 +667,20 @@ public class For<T: Sequence>: HTMLNode {
     
     public override func toHTML(level: Int = 0) -> String {
         sequence.map(mapper).map { (node) in
+            node.toHTML(level: level)
+        }.joined(separator: "\n")
+    }
+}
+
+public class List: HTMLNode {
+    var builder: () -> [HTMLNode]
+    public init(@ArrayBuilder _ builder: @escaping () -> [HTMLNode] = { [HTMLNode]() }) {
+        self.builder = builder
+        super.init(name: "")
+    }
+    
+    public override func toHTML(level: Int = 0) -> String {
+        builder().map { (node) in
             node.toHTML(level: level)
         }.joined(separator: "\n")
     }
