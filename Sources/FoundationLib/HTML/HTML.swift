@@ -17,6 +17,7 @@ open class HTMLNode: NSObject {
     
     public var children: [HTMLNode] = []
     
+    @discardableResult
     public func dynamicallyCall(withKeywordArguments arguments: [String: Any]) -> HTMLNode {
         for item in arguments {
             let key = item.key.replacingOccurrences(of: "_", with: "-")
@@ -119,9 +120,12 @@ public class script: HTMLNode {
 }
 
 public class link: HTMLNode {
-    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
-        super.init(name: "link", builder)
+    
+    public init(href: String) {
+        super.init(name: "link")
+        self(rel: "stylesheet", type: "text/css", href: href)
     }
+    
 }
 
 public class title: HTMLNode {
@@ -213,8 +217,9 @@ public class base: HTMLNode {
 }
 
 public class noscript: HTMLNode {
-    public init() {
+    public init(_ content: String) {
         super.init(name: "noscript")
+        self.contents = [content]
     }
 }
 
@@ -239,8 +244,10 @@ public class a: HTMLNode {
 }
 
 public class abbr: HTMLNode {
-    public init() {
+    public init(content: String, title: String) {
         super.init(name: "abbr")
+        self.contents = [content]
+        self(title: title)
     }
 }
 
@@ -468,8 +475,10 @@ public class mark: HTMLNode {
 }
 
 public class math: HTMLNode {
-    public init() {
+    public init(_ content: String) {
         super.init(name: "math")
+        self.contents = [content]
+        self(xmlns: "http://www.w3.org/1998/Math/MathML")
     }
 }
 

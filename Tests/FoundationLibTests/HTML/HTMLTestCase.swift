@@ -106,4 +106,27 @@ final class HTMLTestCase: XCTestCase {
         i = 10
         node.description.assert.equal("<p>Other result</p>")
     }
+    
+    func testLink() {
+        let node = FoundationLib.link(href: "style.css")
+        node.description.assert.equal("<link href=\"style.css\" rel=\"stylesheet\" type=\"text/css\"/>")
+    }
+    
+    func testA() {
+        a(content: "Click me", href: "http://www.sample.com").description.assert.equal("<a href=\"http://www.sample.com\">Click me</a>")
+    }
+    
+    func testAbbr() {
+        
+        "\(abbr(content: "US", title: "The United states"))".assert.equal("<abbr title=\"The United states\">US</abbr>")
+    }
+    
+    func testTitle() {
+        let node = title("hello")
+        node.description.assert.equal("<title>hello</title>")
+    }
+    
+    func testNoScript() {
+        noscript("Hello").description.assert.equal("<noscript>Hello</noscript>")
+    }
 }
