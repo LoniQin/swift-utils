@@ -10,7 +10,7 @@ import Foundation
 public struct ArrayBuilder {
     
     public static func buildBlock<T>(_ item: T) -> [T] {
-        return [item]
+        [item]
     }
     
     public static func buildBlock<T>(_ items: T...) -> [T] {

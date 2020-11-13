@@ -101,6 +101,12 @@ public class html: HTMLNode {
     }
 }
 
+public class head: HTMLNode {
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "head", builder)
+    }
+}
+
 public class header: HTMLNode {
     public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
         super.init(name: "header", builder)

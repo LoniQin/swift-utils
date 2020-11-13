@@ -13,7 +13,7 @@ final class HTMLTestCase: XCTestCase {
     func testHTML() throws {
         // 1. Build HTML
         let node = html {
-            header {
+            head {
                 title("Hello world")
             }
             body {
@@ -22,9 +22,9 @@ final class HTMLTestCase: XCTestCase {
         }
         """
         <html>
-        \t<header>
+        \t<head>
         \t\t<title>Hello world</title>
-        \t</header>
+        \t</head>
         \t<body>
         \t\t<p>Hello world</p>
         \t</body>
@@ -36,7 +36,7 @@ final class HTMLTestCase: XCTestCase {
         
         // 1.1 Set html attributes
         let node2 = html {
-            header {
+            head {
                 title("Hello world")
             }
             body {
@@ -49,9 +49,9 @@ final class HTMLTestCase: XCTestCase {
         print(node2)
         """
         <html>
-        \t<header>
+        \t<head>
         \t\t<title>Hello world</title>
-        \t</header>
+        \t</head>
         \t<body>
         \t\t<p class="class_1" id="p_1">Paragraph 1</p>
         \t\t<p class="class_2" id="p_2">Paragraph 2</p>
