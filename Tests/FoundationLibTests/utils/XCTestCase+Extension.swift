@@ -12,14 +12,19 @@ import Compression
 
 extension XCTestCase {
     
-    func expectation(title: String = #function, timeout: TimeInterval = 30, block: (XCTestExpectation) -> Void) {
+    func expectation(title: String = #function, timeout: TimeInterval = 30, block: (XCTestExpectation) throws -> Void) {
         let expectation = self.expectation(description: title)
-        block(expectation)
-        self.waitForExpectations(timeout: 30) { (error) in
-            if error != nil {
-                XCTFail(error.debugDescription)
+        do {
+            try block(expectation)
+            self.waitForExpectations(timeout: 30) { (error) in
+                if error != nil {
+                    XCTFail(error.debugDescription)
+                }
             }
+        } catch let error {
+            print(error)
         }
+        
     }
     
 }

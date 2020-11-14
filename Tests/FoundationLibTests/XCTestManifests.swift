@@ -348,10 +348,25 @@ extension FixedSizePriorityQueueTestCase {
 		("testFixSizedPriorityQueue", testFixSizedPriorityQueue),
 	]
 }
+extension GraphCycleFinderTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension DirectedGraphTestCase {
 	static var allTests = [
 		("testDirectedGraph", testDirectedGraph),
 		("testLeetcode997", testLeetcode997),
+	]
+}
+extension DirectedCycleTestCase {
+	static var allTests = [
+		("testGraphCycleFinder", testGraphCycleFinder),
+	]
+}
+extension TopologicalSortTestCase {
+	static var allTests = [
+		("testSample", testSample),
 	]
 }
 extension GraphProtocolTestCase {
@@ -360,6 +375,12 @@ extension GraphProtocolTestCase {
 	]
 }
 extension GraphPathFinderTestCase {
+	static var allTests = [
+		("testSample", testSample),
+		("testDataOnline", testDataOnline),
+	]
+}
+extension GraphDepthFirstOrderTestCase {
 	static var allTests = [
 		("testSample", testSample),
 	]
@@ -587,9 +608,13 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(BinaryTreeTestCase.allTests),
 		testCase(PriorityQueueTestCase.allTests),
 		testCase(FixedSizePriorityQueueTestCase.allTests),
+		testCase(GraphCycleFinderTestCase.allTests),
 		testCase(DirectedGraphTestCase.allTests),
+		testCase(DirectedCycleTestCase.allTests),
+		testCase(TopologicalSortTestCase.allTests),
 		testCase(GraphProtocolTestCase.allTests),
 		testCase(GraphPathFinderTestCase.allTests),
+		testCase(GraphDepthFirstOrderTestCase.allTests),
 		testCase(GraphTestCase.allTests),
 		testCase(GraphIteratorTestCase.allTests),
 		testCase(NetworkingTestCase.allTests),

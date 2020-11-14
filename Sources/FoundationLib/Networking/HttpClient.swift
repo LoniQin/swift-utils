@@ -26,7 +26,7 @@ public class HttpClient: Networking {
     @discardableResult
     public func send<T: ResponseConvertable>(
         _ request: RequestConvertable,
-        completion: @escaping (Result<T, Error>)->Void
+        completion: @escaping (Result<T, Error>) -> Void
     ) -> URLSessionTaskProtocol? {
         do {
             let task = session.dataTask(with: try request.toURLRequest()) { [weak self] data, response, error in
@@ -47,6 +47,14 @@ public class HttpClient: Networking {
             dispatch(completion: completion, result: .failure(error))
             return nil
         }
+    }
+    
+    @discardableResult
+    public func download<T: ResponseConvertable>(
+        _ request: RequestConvertable,
+        completion: @escaping (Result<T, Error>) -> Void
+    ) -> URLSessionTaskProtocol? {
+        send(request, completion: completion)
     }
     
     private func dispatch<T>(completion: @escaping (Result<T, Error>)->Void, result: Result<T, Error>) {
