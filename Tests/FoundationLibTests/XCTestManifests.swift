@@ -359,14 +359,9 @@ extension GraphProtocolTestCase {
 		("testGraph", testGraph),
 	]
 }
-extension BreathFirstSearchTestCase {
+extension GraphPathFinderTestCase {
 	static var allTests = [
-		("testBreathFirstSearch", testBreathFirstSearch),
-	]
-}
-extension DepthFirstSearchTestCase {
-	static var allTests = [
-		("testDeptchFirstSearch", testDeptchFirstSearch),
+		("testSample", testSample),
 	]
 }
 extension GraphTestCase {
@@ -376,7 +371,7 @@ extension GraphTestCase {
 }
 extension GraphIteratorTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testGraphIterator", testGraphIterator),
 	]
 }
 extension NetworkingTestCase {
@@ -594,8 +589,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(FixedSizePriorityQueueTestCase.allTests),
 		testCase(DirectedGraphTestCase.allTests),
 		testCase(GraphProtocolTestCase.allTests),
-		testCase(BreathFirstSearchTestCase.allTests),
-		testCase(DepthFirstSearchTestCase.allTests),
+		testCase(GraphPathFinderTestCase.allTests),
 		testCase(GraphTestCase.allTests),
 		testCase(GraphIteratorTestCase.allTests),
 		testCase(NetworkingTestCase.allTests),

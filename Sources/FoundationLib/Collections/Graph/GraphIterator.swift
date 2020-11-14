@@ -21,9 +21,15 @@ public class GraphIterator<T: GraphProtocol> {
         public var to: Int
     }
     
+    let graph: T
+    
     var marked: [Bool]
     
+    var method: Method
+    
     var block: (Edge)->Void
+    
+    let items: [Int]
     
     public init(
         _ graph: T,
@@ -31,7 +37,13 @@ public class GraphIterator<T: GraphProtocol> {
         _ items: [Int],
         _ block: @escaping (Edge)->Void = { item in }) {
         marked = [Bool](repeating: false, count: graph.vertexCount)
+        self.method = method
         self.block = block
+        self.graph = graph
+        self.items = items
+    }
+    
+    func begin() {
         if method == .bfs {
             bfs(graph, items)
         } else {
