@@ -10,48 +10,41 @@ public class Stack<T>: Sequence, Countable {
     
     public typealias Element = T
     
-    public typealias Iterator = ListNode<T>.Iterater
+    public typealias Iterator = Node<T>.Iterater
     
-    fileprivate(set) public var first: ListNode<T> = .leaf
+    fileprivate(set) public var firstNode: Node<T>?
     
     fileprivate(set) public var count: Int = 0
     
     public func push(_ item: T) {
-        first = .value(item, first)
+        firstNode = Node(item, firstNode)
         count += 1
     }
     
     @discardableResult
     public func pop() throws -> T {
-        guard case .value(let val, let next) = first else {
+        guard let value = firstNode?.value else {
             throw FoundationError.nilValue
         }
-        first = next
+        firstNode = firstNode?.next
         count -= 1
-        return val
+        return value
     }
     
-    public __consuming func makeIterator() -> ListNode<T>.Iterater {
-        ListNode.Iterater(node: first)
+    public __consuming func makeIterator() -> Node<T>.Iterater {
+        Node.Iterater(node: firstNode)
     }
     
     public func peek() throws -> T {
-        guard case .value(let val, _) = first else {
+        guard let value = firstNode?.value else {
             throw FoundationError.nilValue
         }
-        return val
+        return value
     }
     
     deinit {
-        var flag = true
-        while flag {
-            switch first {
-            case .leaf:
-                first = .leaf
-                flag = false
-            case .value(_, let node):
-                first = node
-            }
+        while !isEmpty {
+            try? pop()
         }
     }
     
