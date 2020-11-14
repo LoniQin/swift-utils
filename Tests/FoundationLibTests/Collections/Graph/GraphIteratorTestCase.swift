@@ -30,12 +30,14 @@ final class GraphIteratorTestCase: XCTestCase {
         graph.addEdge(6, 5)
         var bfsItems = [Int]()
         var dfsItems = [Int]()
-        _ = GraphIterator(graph, .bfs, [0]) {
+        let bfs = GraphIterator(graph, .bfs, [0]) {
             bfsItems.append($0.to)
         }
-        _ = GraphIterator(graph, .dfs, [0]) {
+        bfs.begin()
+        let dfs = GraphIterator(graph, .dfs, [0]) {
             dfsItems.append($0.to)
         }
+        dfs.begin()
         bfsItems.assert.equal([0, 1, 2, 3, 4, 5, 6])
         dfsItems.assert.equal([0, 1, 3, 4, 2, 5, 6])
         print("BFS: ", bfsItems)

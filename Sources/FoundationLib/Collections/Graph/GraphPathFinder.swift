@@ -13,6 +13,8 @@ public class GraphPathFinder<T: GraphProtocol> {
     
     var edgeTo: [Int]
     
+    var distanceTo: [Int]
+    
     var start: Int
     
     public init(
@@ -23,17 +25,27 @@ public class GraphPathFinder<T: GraphProtocol> {
         self.iterator = GraphIterator(graph, method, [start])
         self.start = start
         self.edgeTo = [Int](repeating: Int.max, count: iterator.graph.vertexCount)
+        self.distanceTo = [Int](repeating: Int.max, count: iterator.graph.vertexCount)
     }
     
     public func begin() {
-        self.iterator.block = {[unowned self] edge in
+        self.iterator.block = { [unowned self] edge in
             self.edgeTo[edge.to] = edge.from
+            if edge.from == -1 {
+                self.distanceTo[edge.to] = 0
+            } else {
+                self.distanceTo[edge.to] = self.distanceTo[edge.from] + 1
+            }
         }
         self.iterator.begin()
     }
     
     func hasPath(to: Int) -> Bool {
         iterator.visited(to)
+    }
+    
+    func distance(to v: Int) -> Int {
+        return distanceTo[v]
     }
     
     func path(to v: Int) -> Stack<Int> {
