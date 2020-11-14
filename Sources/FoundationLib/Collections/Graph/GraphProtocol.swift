@@ -6,20 +6,20 @@
 //
 
 import Foundation
-protocol GraphProtocol: StringConvertable {
+public protocol GraphProtocol: StringConvertable {
     
-    var vertexCount: Int {get}
+    var vertexCount: Int { get }
     
-    var edgeCount: Int  {get}
+    var edgeCount: Int  { get }
     
-    var adj: [[Int]]  {get}
+    var adj: [[Int]]  { get }
     
     func addEdge(_ v: Int, _ w: Int)
     
     init(_ vertexCount: Int)
 }
 
-extension GraphProtocol {
+public extension GraphProtocol {
     
     func validateVertex(_ v: Int) -> Bool {
         if v < 0 || v >= vertexCount {return false}
@@ -85,4 +85,12 @@ extension GraphProtocol {
         }
     }
   
+}
+
+public extension GraphProtocol {
+    
+    func depthFirstSearch(_ s: Int) -> DepthFirstSearch<Self> {
+        return DepthFirstSearch(self, s)
+    }
+    
 }

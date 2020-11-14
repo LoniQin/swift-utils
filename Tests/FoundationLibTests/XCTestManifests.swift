@@ -119,7 +119,15 @@ extension JSONTestCase {
 }
 extension HTMLTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testHTML", testHTML),
+		("testForEach", testForEach),
+		("testIf", testIf),
+		("testSwitch", testSwitch),
+		("testLink", testLink),
+		("testA", testA),
+		("testAbbr", testAbbr),
+		("testTitle", testTitle),
+		("testNoScript", testNoScript),
 	]
 }
 extension RegexTestCase {
@@ -194,6 +202,11 @@ extension UIntTestCase {
 extension ArrayTestCase {
 	static var allTests = [
 		("testArrayExtension", testArrayExtension),
+		("testSafelyInsert", testSafelyInsert),
+		("testSafelyDelete", testSafelyDelete),
+		("testLocate", testLocate),
+		("testReverse", testReverse),
+		("testRemove", testRemove),
 	]
 }
 extension NSObjectTestCase {
@@ -348,6 +361,26 @@ extension GraphTestCase {
 extension FixedSizePriorityQueueTestCase {
 	static var allTests = [
 		("testFixSizedPriorityQueue", testFixSizedPriorityQueue),
+	]
+}
+extension DirectedGraphTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
+extension GraphProtocolTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
+extension DepthFirstSearchTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
+extension GraphTestCase {
+	static var allTests = [
+		("testSample", testSample),
 	]
 }
 extension NetworkingTestCase {
@@ -566,6 +599,10 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(PriorityQueueTestCase.allTests),
 		testCase(GraphTestCase.allTests),
 		testCase(FixedSizePriorityQueueTestCase.allTests),
+		testCase(DirectedGraphTestCase.allTests),
+		testCase(GraphProtocolTestCase.allTests),
+		testCase(DepthFirstSearchTestCase.allTests),
+		testCase(GraphTestCase.allTests),
 		testCase(NetworkingTestCase.allTests),
 		testCase(DataStorageTestCase.allTests),
 		testCase(CountableTestCase.allTests),
