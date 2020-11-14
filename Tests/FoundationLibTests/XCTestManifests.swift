@@ -298,12 +298,6 @@ extension BinaryTreeProtocolTestCase {
 		("testBinaryTree", testBinaryTree),
 	]
 }
-extension DirectedGraphTestCase {
-	static var allTests = [
-		("testDirectedGraph", testDirectedGraph),
-		("testLeetcode997", testLeetcode997),
-	]
-}
 extension NodeTestCase {
 	static var allTests = [
 		("testNode", testNode),
@@ -323,11 +317,6 @@ extension TrieTestCase {
 		("testInsertNumberWithRedBlackTree", testInsertNumberWithRedBlackTree),
 		("testTrie3", testTrie3),
 		("testScanProject", testScanProject),
-	]
-}
-extension GraphProtocolTestCase {
-	static var allTests = [
-		("testGraph", testGraph),
 	]
 }
 extension BitArrayTestCase {
@@ -353,11 +342,6 @@ extension PriorityQueueTestCase {
 		("testAppendAndRemoveRandomQueue", testAppendAndRemoveRandomQueue),
 	]
 }
-extension GraphTestCase {
-	static var allTests = [
-		("testGraph", testGraph),
-	]
-}
 extension FixedSizePriorityQueueTestCase {
 	static var allTests = [
 		("testFixSizedPriorityQueue", testFixSizedPriorityQueue),
@@ -365,22 +349,28 @@ extension FixedSizePriorityQueueTestCase {
 }
 extension DirectedGraphTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testDirectedGraph", testDirectedGraph),
+		("testLeetcode997", testLeetcode997),
 	]
 }
 extension GraphProtocolTestCase {
+	static var allTests = [
+		("testGraph", testGraph),
+	]
+}
+extension BreathFirstSearchTestCase {
 	static var allTests = [
 		("testSample", testSample),
 	]
 }
 extension DepthFirstSearchTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testDeptchFirstSearch", testDeptchFirstSearch),
 	]
 }
 extension GraphTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testGraph", testGraph),
 	]
 }
 extension NetworkingTestCase {
@@ -588,19 +578,17 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(RedBlackTreeTestCase.allTests),
 		testCase(StackTestCase.allTests),
 		testCase(BinaryTreeProtocolTestCase.allTests),
-		testCase(DirectedGraphTestCase.allTests),
 		testCase(NodeTestCase.allTests),
 		testCase(QueueTestCase.allTests),
 		testCase(TrieTestCase.allTests),
-		testCase(GraphProtocolTestCase.allTests),
 		testCase(BitArrayTestCase.allTests),
 		testCase(BagTestCase.allTests),
 		testCase(BinaryTreeTestCase.allTests),
 		testCase(PriorityQueueTestCase.allTests),
-		testCase(GraphTestCase.allTests),
 		testCase(FixedSizePriorityQueueTestCase.allTests),
 		testCase(DirectedGraphTestCase.allTests),
 		testCase(GraphProtocolTestCase.allTests),
+		testCase(BreathFirstSearchTestCase.allTests),
 		testCase(DepthFirstSearchTestCase.allTests),
 		testCase(GraphTestCase.allTests),
 		testCase(NetworkingTestCase.allTests),

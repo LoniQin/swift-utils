@@ -12,11 +12,13 @@ import XCTest
 
 final class DepthFirstSearchTestCase: XCTestCase {
     
-    func testDiGraph() throws {
-        let graph = try DirectedGraph(URL(fileURLWithPath: dataPath() / "directed_graph"), sepearator: .init(charactersIn: "→"))
+    func testDeptchFirstSearch() throws {
+        let graph = try DirectedGraph(
+            URL(fileURLWithPath: dataPath() / "directed_graph"),
+            sepearator: .init(charactersIn: "→")
+        )
         graph.vertexCount.assert.equal(13)
         graph.edgeCount.assert.equal(22)
-        
         let dfs = DepthFirstSearch(graph, 4)
         let document = bootstrap_document {
             h1("Directed Graph")

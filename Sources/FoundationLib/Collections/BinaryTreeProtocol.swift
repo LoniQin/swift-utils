@@ -13,6 +13,8 @@ public enum TraverseType {
     case middleorder
     
     case postorder
+    
+    case levelorder
 }
 
 public protocol BinaryTreeProtocol: class {
@@ -37,6 +39,8 @@ public extension BinaryTreeProtocol {
             middleOrder(block)
         case .postorder:
             postOrder(block)
+        case .levelorder:
+            levelOrder(block)
         }
     }
     
@@ -64,6 +68,21 @@ public extension BinaryTreeProtocol {
         left?.postOrder(block)
         right?.postOrder(block)
         block(value)
+    }
+    
+    func levelOrder(_ block: @escaping (T) -> Void) {
+        let queue = Queue<Self>()
+        queue.enqueue(self)
+        while !queue.isEmpty {
+            let item = try! queue.dequeue()
+            block(item.value)
+            if let left = left {
+                queue.enqueue(left)
+            }
+            if let right = right {
+                queue.enqueue(right)
+            }
+        }
     }
     
     func levelOrderArray() -> [[T]] {
