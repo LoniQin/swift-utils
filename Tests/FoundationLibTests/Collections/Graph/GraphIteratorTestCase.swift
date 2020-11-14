@@ -31,10 +31,10 @@ final class GraphIteratorTestCase: XCTestCase {
         var bfsItems = [Int]()
         var dfsItems = [Int]()
         _ = GraphIterator(graph, .bfs, [0]) {
-            bfsItems.append($0.1)
+            bfsItems.append($0.to)
         }
         _ = GraphIterator(graph, .dfs, [0]) {
-            dfsItems.append($0.1)
+            dfsItems.append($0.to)
         }
         bfsItems.assert.equal([0, 1, 2, 3, 4, 5, 6])
         dfsItems.assert.equal([0, 1, 3, 4, 2, 5, 6])

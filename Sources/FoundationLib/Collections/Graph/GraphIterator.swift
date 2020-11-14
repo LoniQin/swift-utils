@@ -16,15 +16,20 @@ public class GraphIterator<T: GraphProtocol> {
         
     }
     
+    public struct Edge {
+        public var from: Int
+        public var to: Int
+    }
+    
     var marked: [Bool]
     
-    var block: ((Int, Int))->Void
+    var block: (Edge)->Void
     
     public init(
         _ graph: T,
         _ method: Method,
         _ items: [Int],
-        _ block: @escaping ((Int, Int))->Void = { item in }) {
+        _ block: @escaping (Edge)->Void = { item in }) {
         marked = [Bool](repeating: false, count: graph.vertexCount)
         self.block = block
         if method == .bfs {
@@ -37,16 +42,16 @@ public class GraphIterator<T: GraphProtocol> {
     func dfs(_ graph: T, _ items: [Int]) {
         for item in items {
             if marked[item] { continue }
-            let stack = Stack<(Int, Int)>()
-            stack.push((-1, item))
+            let stack = Stack<Edge>()
+            stack.push(Edge(from: -1, to: item))
             while !stack.isEmpty {
                 let v = try! stack.pop()
-                if marked[v.1] { continue }
-                marked[v.1] = true
+                if marked[v.to] { continue }
+                marked[v.to] = true
                 block(v)
-                for w in graph.adj[v.1].reversed() {
+                for w in graph.adj[v.to].reversed() {
                     if !marked[w] {
-                        stack.push((v.1, w))
+                        stack.push(Edge(from: v.to, to: w))
                     }
                 }
             }
@@ -55,17 +60,17 @@ public class GraphIterator<T: GraphProtocol> {
     }
     
     func bfs(_ graph: T, _ items: [Int]) {
-        let queue = Queue<(Int, Int)>()
+        let queue = Queue<Edge>()
         for item in items {
-            queue.enqueue((-1, item))
+            queue.enqueue(Edge(from: -1, to: item))
         }
         while !queue.isEmpty {
             let v = try! queue.dequeue()
-            if marked[v.1] { continue }
-            marked[v.1] = true
+            if marked[v.to] { continue }
+            marked[v.to] = true
             block(v)
-            for item in graph.adj(v.1) {
-                if !marked[item] { queue.enqueue((v.1, item)) }
+            for item in graph.adj(v.to) {
+                if !marked[item] { queue.enqueue(Edge(from: v.to, to: item)) }
             }
         }
     }
