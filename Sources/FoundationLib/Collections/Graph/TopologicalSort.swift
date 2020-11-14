@@ -15,7 +15,6 @@ public class TopologicalSort<T: GraphProtocol> {
     
     public init(_ graph: T) {
         let finder = GraphCycleFinder(graph)
-        print(Array(finder.cycle ?? Stack<Int>()))
         if !finder.hasCycle() {
             let dfs = GraphDepthFirstOrder(graph)
             order = dfs.reversePostOrder
