@@ -49,9 +49,9 @@ public extension GraphProtocol {
     ///
     /// - Parameter url: File URL
     /// - Throws: exception
-    init(_ url: URL) throws {
+    init(_ url: URL, sepearator: CharacterSet = .whitespacesAndNewlines) throws {
         let text = try String(contentsOf: url)
-        try self.init(text)
+        try self.init(text, sepearator: sepearator)
     }
     
     static func fromString(_ string: String) throws -> Self {
@@ -70,12 +70,12 @@ public extension GraphProtocol {
         return s
     }
     
-    init(_ text: String) throws {
+    init(_ text: String, sepearator: CharacterSet = .whitespacesAndNewlines) throws {
         let contents = text.components(separatedBy: .newlines)
         if !contents.isEmpty, let v = Int(contents[0]) {
             self.init(v)
             for i in 2..<contents.count {
-                let items = contents[i].components(separatedBy: .whitespacesAndNewlines).filter({!$0.isEmpty})
+                let items = contents[i].components(separatedBy: sepearator).filter({!$0.isEmpty})
                 if items.count == 2 {
                     addEdge(Int(items[0])!, Int(items[1])!)
                 }

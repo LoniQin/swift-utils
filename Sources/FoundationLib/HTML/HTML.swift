@@ -609,9 +609,50 @@ public class svg: HTMLNode {
 }
 
 public class table: HTMLNode {
-    public init() {
-        super.init(name: "table")
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "table", builder)
     }
+}
+
+public class tr: HTMLNode {
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "tr", builder)
+    }
+    
+}
+
+public class th: HTMLNode {
+    
+    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "th", builder)
+        self.contents = [content]
+    }
+    
+}
+
+public class thead: HTMLNode {
+    
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "thead", builder)
+    }
+    
+}
+
+public class tbody: HTMLNode {
+    
+    public init(@ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "tbody", builder)
+    }
+    
+}
+
+public class td: HTMLNode {
+    
+    public init(_ content: String, @ArrayBuilder _ builder: () -> [HTMLNode] = { [HTMLNode]() }) {
+        super.init(name: "td", builder)
+        self.contents = [content]
+    }
+    
 }
 
 public class textarea: HTMLNode {

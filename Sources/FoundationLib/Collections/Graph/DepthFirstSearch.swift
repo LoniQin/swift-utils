@@ -10,13 +10,17 @@ public class DepthFirstSearch<T: GraphProtocol> {
     
     var marked: [Bool]
     
-    public init(_ graph: T, _ start: Int) {
+    var block: (Int)->Void
+    
+    public init(_ graph: T, _ start: Int, _ block: @escaping (Int)->Void = { _ in }) {
         marked = [Bool](repeating: false, count: graph.vertexCount)
+        self.block = block
         dfs(graph, start)
     }
     
     func dfs(_ graph: T, _ v: Int) {
         marked[v] = true
+        block(v)
         for w in graph.adj[v] {
             if !marked[w] {
                 dfs(graph, w)
