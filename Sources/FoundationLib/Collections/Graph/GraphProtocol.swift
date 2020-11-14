@@ -86,11 +86,3 @@ public extension GraphProtocol {
     }
   
 }
-
-public extension GraphProtocol {
-    
-    func depthFirstSearch(_ s: Int) -> DepthFirstSearch<Self> {
-        return DepthFirstSearch(self, s)
-    }
-    
-}

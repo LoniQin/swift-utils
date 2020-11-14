@@ -296,6 +296,7 @@ extension StackTestCase {
 extension BinaryTreeProtocolTestCase {
 	static var allTests = [
 		("testBinaryTree", testBinaryTree),
+		("testLevelOrder", testLevelOrder),
 	]
 }
 extension NodeTestCase {
@@ -360,7 +361,7 @@ extension GraphProtocolTestCase {
 }
 extension BreathFirstSearchTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testBreathFirstSearch", testBreathFirstSearch),
 	]
 }
 extension DepthFirstSearchTestCase {
@@ -371,6 +372,11 @@ extension DepthFirstSearchTestCase {
 extension GraphTestCase {
 	static var allTests = [
 		("testGraph", testGraph),
+	]
+}
+extension GraphIteratorTestCase {
+	static var allTests = [
+		("testSample", testSample),
 	]
 }
 extension NetworkingTestCase {
@@ -591,6 +597,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(BreathFirstSearchTestCase.allTests),
 		testCase(DepthFirstSearchTestCase.allTests),
 		testCase(GraphTestCase.allTests),
+		testCase(GraphIteratorTestCase.allTests),
 		testCase(NetworkingTestCase.allTests),
 		testCase(DataStorageTestCase.allTests),
 		testCase(CountableTestCase.allTests),

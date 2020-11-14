@@ -4,7 +4,7 @@
 //
 //  Created by lonnie on 2020/11/14.
 //
-
+/*
 import Foundation
 public class BreathFirstSearch<T: GraphProtocol> {
     
@@ -14,18 +14,18 @@ public class BreathFirstSearch<T: GraphProtocol> {
     
     var queue = Queue<Int>()
     
-    public init(_ graph: T, _ start: [Int], _ block: @escaping (Int)->Void = { _ in }) throws {
+    public init(_ graph: T, _ start: [Int], _ block: @escaping (Int)->Void = { _ in }) {
         marked = [Bool](repeating: false, count: graph.vertexCount)
         self.block = block
-        try bfs(graph, start)
+        bfs(graph, start)
     }
     
-    func bfs(_ graph: T, _ items: [Int]) throws {
+    func bfs(_ graph: T, _ items: [Int]) {
         for item in items {
             queue.enqueue(item)
         }
         while !queue.isEmpty {
-            let v = try queue.dequeue()
+            let v = try! queue.dequeue()
             if marked[v] { continue }
             marked[v] = true
             block(v)
@@ -40,3 +40,4 @@ public class BreathFirstSearch<T: GraphProtocol> {
     }
     
 }
+*/
