@@ -47,6 +47,8 @@ final class GraphPathFinderTestCase: XCTestCase {
                     var finder = GraphPathFinder(graph, .dfs, 3)
                     finder.begin()
                     Array(finder.path(to: 0)).assert.equal([3, 5, 4, 2, 0])
+                    Array(finder.path(to: 1)).assert.equal([3, 5, 4, 2, 0, 1])
+                    Array(finder.path(to: 2)).assert.equal([3, 5, 4, 2])
                     Array(finder.path(to: 4)).assert.equal([3, 5, 4])
                     Array(finder.path(to: 6)).assert.equal([])
                     Array(finder.path(to: 7)).assert.equal([])

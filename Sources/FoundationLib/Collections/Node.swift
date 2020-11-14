@@ -57,19 +57,3 @@ public class Node<T> {
     }
     
 }
-
-extension Node: Equatable where T: Equatable {
-    
-    public static func == (lhs: Node<T>, rhs: Node<T>) -> Bool {
-        lhs.value == rhs.value
-    }
-    
-}
-
-extension Node: Comparable where T: Comparable {
-    
-    public static func < (lhs: Node<T>, rhs: Node<T>) -> Bool {
-        lhs.value < rhs.value
-    }
-  
-}

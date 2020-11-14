@@ -47,27 +47,36 @@ public class GraphIterator<T: GraphProtocol> {
         if method == .bfs {
             bfs(graph, items)
         } else {
-            dfs(graph, items)
+            for item in items {
+                dfs(graph, Edge(from: -1, to: item))
+            }
         }
     }
     
-    func dfs(_ graph: T, _ items: [Int]) {
-        for item in items {
-            if marked[item] { continue }
-            let stack = Stack<Edge>()
-            stack.push(Edge(from: -1, to: item))
-            while !stack.isEmpty {
-                let v = try! stack.pop()
-                if marked[v.to] { continue }
-                marked[v.to] = true
-                block(v)
-                for w in graph.adj[v.to].reversed() {
-                    if !marked[w] {
-                        stack.push(Edge(from: v.to, to: w))
-                    }
-                }
-            }
+    func dfs(_ graph: T, _ edge: Edge) {
 
+        var iterators: [Bag<Int>.Iterator] = []
+        for i in 0..<graph.vertexCount {
+            iterators.append(graph.adj[i].makeIterator())
+        }
+        let stack = Stack<Edge>()
+        marked[edge.to] = true
+        stack.push(edge)
+        block(edge)
+        while !stack.isEmpty {
+            let v = try! stack.peek()
+            if let item = iterators[v.to].next() {
+                let w = item
+                if !marked[w] {
+                    marked[w] = true
+                    let edge = Edge(from: v.to, to: w)
+                    block(edge)
+                    stack.push(edge)
+                }
+            } else {
+                try? stack.pop()
+            }
+            
         }
     }
     

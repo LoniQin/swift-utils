@@ -12,7 +12,7 @@ public class DirectedGraph: GraphProtocol {
     
     public fileprivate(set) var edgeCount: Int
     
-    public fileprivate(set) var adj: [[Int]]
+    public fileprivate(set) var adj: [Bag<Int>]
     
     public var indegree: [Int]
     
@@ -20,12 +20,15 @@ public class DirectedGraph: GraphProtocol {
         self.vertexCount = vertexCount
         self.edgeCount = 0
         indegree = [Int](repeating: 0, count: vertexCount)
-        adj = [[Int]](repeating: [], count: vertexCount)
+        adj = []
+        for _ in 0..<vertexCount {
+            adj.append(Bag<Int>())
+        }
     }
     
     public func addEdge(_ v: Int, _ w: Int) {
         if validateVertex(v) && validateVertex(w) {
-            adj[v].append(w)
+            adj[v].add(w)
             indegree[w] += 1
             edgeCount += 1
         }

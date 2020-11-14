@@ -10,31 +10,24 @@ public class Bag<T>: Countable, Sequence {
     
     public typealias Element = T
     
-    public typealias Iterator = ListNode<T>.Iterater
+    public typealias Iterator = Node<T>.Iterater
     
-    fileprivate(set) public var first: ListNode<T> = .leaf
+    fileprivate(set) public var first: Node<T>?
     
     fileprivate(set) public var count: Int = 0
     
     public func add(_ value: T) {
-        first = .value(value, first)
+        first = Node(value, first)
         count += 1
     }
    
     public __consuming func makeIterator() -> Iterator {
-        ListNode.Iterater(node: first)
+        Node.Iterater(node: first)
     }
     
     deinit {
-        var flag = true
-        while flag {
-            switch first {
-            case .leaf:
-                first = .leaf
-                flag = false
-            case .value(_, let node):
-                first = node
-            }
+        while first != nil {
+            first = first?.next
         }
     }
     

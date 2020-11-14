@@ -12,7 +12,7 @@ public protocol GraphProtocol: StringConvertable {
     
     var edgeCount: Int  { get }
     
-    var adj: [[Int]]  { get }
+    var adj: [Bag<Int>]  { get }
     
     func addEdge(_ v: Int, _ w: Int)
     
@@ -26,8 +26,8 @@ public extension GraphProtocol {
         return true
     }
     
-    func adj(_ v: Int) -> [Int] {
-        if !validateVertex(v) {return []}
+    func adj(_ v: Int) -> Bag<Int> {
+        if !validateVertex(v) { return Bag<Int>() }
         return adj[v]
     }
     
