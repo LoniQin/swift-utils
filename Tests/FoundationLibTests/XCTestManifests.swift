@@ -119,7 +119,8 @@ extension JSONTestCase {
 }
 extension UnionFindTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testUF", testUF),
+		("testFindCircleNumber", testFindCircleNumber),
 	]
 }
 extension HTMLTestCase {
@@ -278,6 +279,13 @@ extension Array_SortingTestCase {
 		("testSorting", testSorting),
 		("testSortingLargeArray", testSortingLargeArray),
 		("testSortingDuplicatedArray", testSortingDuplicatedArray),
+		("testSelectionSort", testSelectionSort),
+		("testInsertingSort", testInsertingSort),
+	]
+}
+extension MergeSortTestCase {
+	static var allTests = [
+		("testSample", testSample),
 	]
 }
 extension SortingAlgorithmTestCase {
@@ -602,6 +610,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(CompressorTestCase.allTests),
 		testCase(CompressionErrorTestCase.allTests),
 		testCase(Array_SortingTestCase.allTests),
+		testCase(MergeSortTestCase.allTests),
 		testCase(SortingAlgorithmTestCase.allTests),
 		testCase(RedBlackTreeTestCase.allTests),
 		testCase(StackTestCase.allTests),

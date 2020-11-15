@@ -24,4 +24,6 @@ public enum SortingAlgorithm: CaseIterable {
     
     case insertion
     
+    case merge
+    
 }

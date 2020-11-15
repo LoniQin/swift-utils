@@ -26,6 +26,8 @@ public extension Array where Element: Comparable & Hashable {
             selectionSort(by: comparator)
         case .insertion:
             insertionSort(by: comparator)
+        case .merge:
+            mergeSort(by: comparator)
         }
     }
     
@@ -116,6 +118,21 @@ public extension Array where Element: Comparable & Hashable {
         }
     }
     
+    mutating func mergeSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
+        let merge = MergeSort<Element>()
+        merge.sort(&self, comparator)
+    }
+    
+}
+
+public extension Array where Element: Comparable & Hashable {
+    mutating func sort(algorithm: SortingAlgorithm) {
+        sort(algorithm: algorithm, by: <)
+    }
+    
+    func sorted(algorithm: SortingAlgorithm) -> Self {
+        sorted(by: <)
+    }
 }
 
 extension Array where Element: Comparable {
