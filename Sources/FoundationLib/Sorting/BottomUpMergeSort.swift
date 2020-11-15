@@ -1,28 +1,32 @@
 //
-//  MergeSort.swift
+//  BottomUpMergeSort.swift
 //  
 //
 //  Created by lonnie on 2020/11/16.
 //
 
 import Foundation
-public class MergeSort<Element> {
+public class BottomUpMergeSort<Element> {
     
     public init() { }
     
     @discardableResult
     public func sort(_ items: inout [Element], _ comparator: @escaping (Element, Element) -> Bool) -> [Element] {
+        let n = items.count
         var aux = [Element](repeating: items[0], count: items.count)
-        sort(&items, &aux, 0, items.count - 1, comparator)
+        var len = 1
+        
+        while len < n {
+            var lo = 0
+            while lo < n - len {
+                let mid = lo + len - 1
+                let hi = min(lo + len + len - 1, n - 1)
+                merge(&items, &aux, lo, mid, hi, comparator)
+                lo += len + len
+            }
+            len *= 2
+        }
         return items
-    }
-    
-    func sort(_ items: inout [Element], _ aux: inout [Element], _ lo: Int, _ hi: Int, _ comparator: @escaping (Element, Element) -> Bool) {
-       if hi <= lo { return }
-        let mid = lo + (hi - lo) / 2
-        sort(&items, &aux, lo, mid, comparator)
-        sort(&items, &aux, mid + 1, hi, comparator)
-        merge(&items, &aux, lo, mid, hi, comparator)
     }
     
     func merge(_ items: inout [Element], _ aux: inout [Element], _ lo: Int, _ mid: Int, _ hi: Int, _ comparator: @escaping (Element, Element) -> Bool) {

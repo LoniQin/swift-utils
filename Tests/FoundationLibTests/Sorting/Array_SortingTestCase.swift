@@ -30,10 +30,10 @@ final class Array_SortingTestCase: XCTestCase {
     }
     
     func testSortingLargeArray() throws {
-        let array = (1..<1000000).map { $0 }
+        let array = (1..<100000).map { $0 }
         let shuffled = array.shuffled()
         
-        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap, SortingAlgorithm.bucket].forEach { algorithm in
+        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap, SortingAlgorithm.bucket, SortingAlgorithm.merge].forEach { algorithm in
             var arr = shuffled
             try DebugLogger.default.measure(description: "Test \(algorithm) sorting algorithm") {
                 arr.sort(algorithm: algorithm, by: <)

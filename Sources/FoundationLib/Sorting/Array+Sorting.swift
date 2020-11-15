@@ -119,7 +119,7 @@ public extension Array where Element: Comparable & Hashable {
     }
     
     mutating func mergeSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
-        let merge = MergeSort<Element>()
+        let merge = BottomUpMergeSort<Element>()
         merge.sort(&self, comparator)
     }
     

@@ -288,6 +288,11 @@ extension MergeSortTestCase {
 		("testSample", testSample),
 	]
 }
+extension BottomUpMergeSortTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension SortingAlgorithmTestCase {
 	static var allTests = [
 		("testSample", testSample),
@@ -611,6 +616,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(CompressionErrorTestCase.allTests),
 		testCase(Array_SortingTestCase.allTests),
 		testCase(MergeSortTestCase.allTests),
+		testCase(BottomUpMergeSortTestCase.allTests),
 		testCase(SortingAlgorithmTestCase.allTests),
 		testCase(RedBlackTreeTestCase.allTests),
 		testCase(StackTestCase.allTests),
