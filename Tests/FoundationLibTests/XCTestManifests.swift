@@ -117,6 +117,11 @@ extension JSONTestCase {
 		("testSample", testSample),
 	]
 }
+extension UnionFindTestCase {
+	static var allTests = [
+		("testSample", testSample),
+	]
+}
 extension HTMLTestCase {
 	static var allTests = [
 		("testHTML", testHTML),
@@ -366,7 +371,7 @@ extension DirectedCycleTestCase {
 }
 extension TopologicalSortTestCase {
 	static var allTests = [
-		("testSample", testSample),
+		("testTopologicalSort", testTopologicalSort),
 	]
 }
 extension GraphProtocolTestCase {
@@ -569,6 +574,7 @@ public func allTests() -> [XCTestCaseEntry] {
 		testCase(NetworkingErrorTestCase.allTests),
 		testCase(URLSessionTaskProtocolTestCase.allTests),
 		testCase(JSONTestCase.allTests),
+		testCase(UnionFindTestCase.allTests),
 		testCase(HTMLTestCase.allTests),
 		testCase(RegexTestCase.allTests),
 		testCase(CacheStorageTestCase.allTests),

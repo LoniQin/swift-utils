@@ -27,4 +27,18 @@ extension XCTestCase {
         
     }
     
+    func download<T: ResponseConvertable>(_ request: RequestConvertable, title: String = #function, completion: @escaping (T) throws -> Void) {
+        expectation(title: title) { (exp) in
+            HttpClient.default.download(request) { (result: Result<T, Error>) in
+                do {
+                    let item = try result.get()
+                    try completion(item)
+                    exp.fulfill()
+                } catch let error {
+                    XCTFail(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
 }
