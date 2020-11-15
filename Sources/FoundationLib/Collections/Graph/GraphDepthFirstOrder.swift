@@ -50,7 +50,7 @@ public class GraphDepthFirstOrder<G: GraphProtocol> {
         postCounter += 1
     }
     
-    var reversePostOrder: Stack<Int> {
+    public var reversePostOrder: Stack<Int> {
         let reversed = Stack<Int>()
         for v in postOrder {
             reversed.push(v)

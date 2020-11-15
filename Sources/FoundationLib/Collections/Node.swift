@@ -7,32 +7,6 @@
 
 import Foundation
 
-public indirect enum ListNode<T> {
-    
-    public typealias Element = T
-    
-    public struct Iterater: IteratorProtocol {
-        
-        public var node: ListNode
-        
-        mutating public func next() -> T? {
-            switch node {
-            case .leaf:
-                return nil
-            case .value(let val, let next):
-                self.node = next
-                return val
-            }
-        }
-    }
-    
-    case leaf
-    
-    case value(T, ListNode)
-     
-}
-
-
 public class Node<T> {
     
     public var value: T

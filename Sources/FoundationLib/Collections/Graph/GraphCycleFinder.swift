@@ -49,7 +49,7 @@ public class GraphCycleFinder<G: GraphProtocol> {
         onStack[v] = false
     }
     
-    func hasCycle() ->Bool {
+    public func hasCycle() ->Bool {
         cycle != nil
     }
     
