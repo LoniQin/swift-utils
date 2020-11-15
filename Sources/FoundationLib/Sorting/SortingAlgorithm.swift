@@ -20,4 +20,8 @@ public enum SortingAlgorithm: CaseIterable {
     
     case bucket
     
+    case selection
+    
+    case insertion
+    
 }

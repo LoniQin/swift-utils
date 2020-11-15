@@ -59,4 +59,20 @@ final class Array_SortingTestCase: XCTestCase {
         }
     }
     
+    func testSelectionSort() {
+        var array = (1..<100).shuffled()
+        array.selectionSort(by: <)
+        array.shuffle()
+        array.selectionSort(by: >)
+        array.assert.equal(Array(1..<100).reversed())
+    }
+    
+    func testInsertingSort() {
+        var array = (1..<100).shuffled()
+        array.insertionSort(by: <)
+        array.shuffle()
+        array.insertionSort(by: >)
+        array.assert.equal(Array(1..<100).reversed())
+    }
+    
 }

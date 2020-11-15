@@ -22,6 +22,10 @@ public extension Array where Element: Comparable & Hashable {
             heapSort(by: comparator)
         case .bucket:
             bucketSort(by: comparator)
+        case .selection:
+            selectionSort(by: comparator)
+        case .insertion:
+            insertionSort(by: comparator)
         }
     }
     
@@ -84,6 +88,30 @@ public extension Array where Element: Comparable & Hashable {
             for _ in 0..<count {
                 self[i] = key
                 i += 1
+            }
+        }
+    }
+    
+    mutating func selectionSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
+        for i in 0..<count {
+            var index = i
+            for j in i+1..<count {
+                if comparator(self[j], self[index]) {
+                    index = j
+                }
+            }
+            swapAt(index, i)
+        }
+    }
+    
+    mutating func insertionSort(by comparator: @escaping (Element, Element) -> Bool = { $0 < $1 }) {
+        for i in 1..<count {
+            var j = i
+            while j > 0 {
+                if comparator(self[j], self[j - 1]) {
+                    swapAt(j, j - 1)
+                }
+                j -= 1
             }
         }
     }
