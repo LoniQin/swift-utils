@@ -7,18 +7,18 @@
 
 import Foundation
 // Weighted quick-union by rank with path compression
-class UnionFind {
+public class UnionFind {
     var parent: [Int]
     var rank: [Int]
     var count: Int
     
-    init(_ count: Int) {
+    public init(_ count: Int) {
         self.count = count
         parent = (0..<count).map { $0 }
         rank = .init(repeating: 0, count: count)
     }
     
-    func find(_ p: Int) -> Int {
+    public func find(_ p: Int) -> Int {
         var p = p
         while p != parent[p] {
             parent[p] = parent[parent[p]]
@@ -27,11 +27,11 @@ class UnionFind {
         return p
     }
     
-    func connected(_ p: Int, _ q: Int) -> Bool {
+    public func connected(_ p: Int, _ q: Int) -> Bool {
         find(p) == find(q)
     }
     
-    func union(_ p: Int, _ q: Int) {
+    public func union(_ p: Int, _ q: Int) {
         let rootP = find(p)
         let rootQ = find(q)
         if rootP == rootQ { return }
