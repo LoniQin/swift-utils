@@ -74,7 +74,11 @@ public class GraphIterator<T: GraphProtocol> {
                     stack.push(edge)
                 }
             } else {
-                try? stack.pop()
+                do {
+                    try stack.pop()
+                } catch {
+                    
+                }
             }
             
         }

@@ -44,7 +44,11 @@ public class Stack<T>: Sequence, Countable {
     
     deinit {
         while !isEmpty {
-            try? pop()
+            do {
+                _ = try pop()
+            } catch {
+                
+            }
         }
     }
     
