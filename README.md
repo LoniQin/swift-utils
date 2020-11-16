@@ -19,7 +19,16 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 
 ## Modules
 - [x] Extensions
-- [x] Missing Data Structures and Algorithms
+- [x] Collections
+    - [x] Stack
+    - [x] Queue
+    - [x] Bag
+    - [x] Priority Queue
+    - [x] Binary Tree
+    - [x] Red Black Tree
+    - [x] Trie
+    - [x] Graph
+    - [x] Directed Graph
 - [x] Property Wrappers
 - [x] Protocols
 - [x] Storage
@@ -28,5 +37,6 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 - [x] [Crypto](https://github.com/LoniQin/swift-foundation-lib/blob/master/docs/crypto.md)
 - [x] Localization
 - [x] Logger
+- [x] HTML
 - [ ] Database
 - [x] Data Compression
