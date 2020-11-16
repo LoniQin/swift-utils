@@ -28,5 +28,6 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 - [x] [Crypto](https://github.com/LoniQin/swift-foundation-lib/blob/master/docs/crypto.md)
 - [x] Localization
 - [x] Logger
+- [x] HTML
 - [ ] Database
 - [x] Data Compression
