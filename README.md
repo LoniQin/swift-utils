@@ -19,7 +19,16 @@ In Xcode, you can choose File->Swift Packages->Add Pakcage dependancies, and add
 
 ## Modules
 - [x] Extensions
-- [x] Data Structures and Algorithms
+- [x] Collections
+    - [x] Stack
+    - [x] Queue
+    - [x] Bag
+    - [x] Priority Queue
+    - [x] Binary Tree
+    - [x] Red Black Tree
+    - [x] Trie
+    - [x] Graph
+    - [x] Directed Graph
 - [x] Property Wrappers
 - [x] Protocols
 - [x] Storage
