@@ -23,8 +23,12 @@ public class FileLogger: Logging {
         }
     }
     
-    public func log(message: Any..., level: Level = .verbose, location: CodeLocation = CodeLocation(file: #file, line: #line, function: #function)) throws {
-        let desc =  "\(location.file) ~ \(location.function) ~ \(location.line): " + message.map { String(describing: $0) }.joined(separator: " ") + "\n"
+    public func log(message: Any..., level: Level = .verbose, location: CodeLocation? = nil) throws {
+        var desc = ""
+        if let location = location {
+            desc = "\(location.file) ~ \(location.function) ~ \(location.line): "
+        }
+        desc += message.map { "\($0)" }.joined(separator: " ") + "\n"
         try handle.write(desc.data(.utf8))
     }
     

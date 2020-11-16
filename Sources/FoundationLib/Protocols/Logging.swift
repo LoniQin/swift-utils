@@ -19,14 +19,14 @@ public enum Level: String {
 
 public protocol Logging {
     
-    func log(message: Any..., level: Level, location: CodeLocation) throws
+    func log(message: Any..., level: Level, location: CodeLocation?) throws
     
 }
 
 public extension Logging {
     
     @discardableResult
-    func measure(name: String = #function, description: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () throws -> Void, location: CodeLocation = CodeLocation()) throws -> TimeInterval {
+    func measure(name: String = #function, description: String = "", executeCount: Int = 1, printLog: Bool = true, _ block: () throws -> Void, location: CodeLocation? = nil) throws -> TimeInterval {
         let date = Date()
         for _ in 0..<executeCount {
             try block()

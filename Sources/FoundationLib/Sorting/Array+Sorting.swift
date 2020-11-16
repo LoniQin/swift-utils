@@ -164,20 +164,21 @@ extension Array where Element: Comparable {
         let v = self[low]
         var i = low + 1
         while i <= gt {
-            if self[i] == v { i += 1 }
-            else {
-                if comparator(self[i], v) {
-                    swapAt(lt, i)
-                    lt += 1
-                    i += 1
-                } else {
-                    swapAt(i, gt)
-                    gt -= 1
-                }
+            if self[i] == v {
+                i += 1
+                continue
+            }
+            if comparator(self[i], v) {
+                swapAt(lt, i)
+                lt += 1
+                i += 1
+            } else {
+                swapAt(i, gt)
+                gt -= 1
             }
         }
         quick3WaySort(low: low, high: lt - 1, by: comparator)
-        quick3WaySort(low: lt + 1, high: high, by: comparator)
+        quick3WaySort(low: gt + 1, high: high, by: comparator)
     }
     
     mutating func sink(_ k: Int, _ n: Int, by comparator: @escaping (Element, Element) -> Bool) {

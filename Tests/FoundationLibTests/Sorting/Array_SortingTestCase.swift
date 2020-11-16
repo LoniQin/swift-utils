@@ -50,7 +50,7 @@ final class Array_SortingTestCase: XCTestCase {
             }
         }
         let shuffled = array.shuffled()
-        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.heap, SortingAlgorithm.bucket].forEach { algorithm in
+        try [SortingAlgorithm.native, SortingAlgorithm.quick, SortingAlgorithm.quick3Way, SortingAlgorithm.heap, SortingAlgorithm.bucket, SortingAlgorithm.merge].forEach { algorithm in
             var arr = shuffled
             try DebugLogger.default.measure(description: "Test \(algorithm) sorting algorithm") {
                 arr.sort(algorithm: algorithm, by: <)
