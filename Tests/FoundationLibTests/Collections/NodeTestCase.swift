@@ -14,12 +14,12 @@ final class NodeTestCase: XCTestCase {
      
     func testNode() {
         //
-        var node: Node<Int>?
+        var node: ListNode<Int>?
         for i in 0..<100 {
             if node == nil {
-                node = Node(i)
+                node = ListNode(i)
             } else {
-                node = Node(i, node)
+                node = ListNode(i, node)
             }
         }
         XCTAssertNotNil(node)

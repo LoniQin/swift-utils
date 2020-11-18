@@ -7,20 +7,20 @@
 
 import Foundation
 
-public class Node<T> {
+public class ListNode<T>: Sequence {
     
     public var value: T
     
-    public var next: Node<T>?
+    public var next: ListNode<T>?
     
-    public init(_ value: T, _ next: Node<T>? = nil) {
+    public init(_ value: T, _ next: ListNode<T>? = nil) {
         self.value = value
         self.next = next
     }
     
     public struct Iterater: IteratorProtocol {
         
-        public var node: Node?
+        public var node: ListNode?
         
         mutating public func next() -> T? {
             defer {
@@ -28,6 +28,10 @@ public class Node<T> {
             }
             return node?.value
         }
+    }
+    
+    public func makeIterator() -> Iterater {
+        Iterater(node: self)
     }
     
 }

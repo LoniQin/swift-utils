@@ -10,14 +10,14 @@ public class Stack<T>: Sequence, Countable {
     
     public typealias Element = T
     
-    public typealias Iterator = Node<T>.Iterater
+    public typealias Iterator = ListNode<T>.Iterater
     
-    fileprivate(set) public var firstNode: Node<T>?
+    fileprivate(set) public var firstNode: ListNode<T>?
     
     fileprivate(set) public var count: Int = 0
     
     public func push(_ item: T) {
-        firstNode = Node(item, firstNode)
+        firstNode = ListNode(item, firstNode)
         count += 1
     }
     
@@ -31,8 +31,8 @@ public class Stack<T>: Sequence, Countable {
         return value
     }
     
-    public __consuming func makeIterator() -> Node<T>.Iterater {
-        Node.Iterater(node: firstNode)
+    public __consuming func makeIterator() -> ListNode<T>.Iterater {
+        ListNode.Iterater(node: firstNode)
     }
     
     public func peek() throws -> T {

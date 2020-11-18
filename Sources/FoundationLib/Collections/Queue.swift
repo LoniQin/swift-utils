@@ -11,17 +11,17 @@ public class Queue<T>: Sequence, Countable {
     
     public typealias Element = T
     
-    public typealias Iterator = Node<T>.Iterater
+    public typealias Iterator = ListNode<T>.Iterater
     
-    fileprivate(set) public var first: Node<T>?
+    fileprivate(set) public var first: ListNode<T>?
     
-    fileprivate(set) public var last: Node<T>?
+    fileprivate(set) public var last: ListNode<T>?
     
     fileprivate(set) public var count: Int = 0
     
     public func enqueue(_ item: T) {
         let oldLast = last
-        last = Node(item)
+        last = ListNode(item)
         if isEmpty {
             first = last
         } else {
@@ -41,8 +41,8 @@ public class Queue<T>: Sequence, Countable {
         return value
     }
     
-    public __consuming func makeIterator() -> Node<T>.Iterater {
-        Node.Iterater(node: first)
+    public __consuming func makeIterator() -> ListNode<T>.Iterater {
+        ListNode.Iterater(node: first)
     }
     
     deinit {

@@ -10,19 +10,19 @@ public class Bag<T>: Countable, Sequence {
     
     public typealias Element = T
     
-    public typealias Iterator = Node<T>.Iterater
+    public typealias Iterator = ListNode<T>.Iterater
     
-    fileprivate(set) public var first: Node<T>?
+    fileprivate(set) public var first: ListNode<T>?
     
     fileprivate(set) public var count: Int = 0
     
     public func add(_ value: T) {
-        first = Node(value, first)
+        first = ListNode(value, first)
         count += 1
     }
    
     public __consuming func makeIterator() -> Iterator {
-        Node.Iterater(node: first)
+        ListNode.Iterater(node: first)
     }
     
     deinit {
