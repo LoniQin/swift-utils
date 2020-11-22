@@ -202,5 +202,89 @@ final class RedBlackTreeTestCase: XCTestCase {
         sorted.assert.equal(Array(0..<1.million))
     }
     
+    func testHashTable() {
+        let table = SeparateChainingHashTable<Int, Int>()
+        for i in 0..<1000 {
+            table.put(i, i)
+        }
+        for i in 0..<1000 {
+            table.get(i)?.assert.equal(i)
+        }
+    }
+    
+    func testLinearProbingHashTable() {
+        let table = LinearProbingHashTable<Int, Int>()
+        for i in 0..<100 {
+            table.put(i, i)
+        }
+        print(table.get(125))
+        for i in 0..<100 {
+            table.delete(i)
+        }
+    }
+    
+    func testHashTablePerformance() throws {
+        let table = SeparateChainingHashTable<Int, Int>()
+        var dictionary = Dictionary<Int, Int>()
+        let value = 1000.thouthand
+        try DebugLogger.default.measure(description: "Insert \(value) node in HashTable") {
+            for i in 0..<value {
+                table.put(i, i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
+            for i in 0..<value {
+                table.get(i).assert.equal(i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Insert \(value) node in Dictionary") {
+            for i in 0..<value {
+                dictionary[i] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
+            for i in 0..<value {
+               XCTAssert(dictionary[i] == i)
+            }
+        }
+    }
+    
+    func testLinearProbingHashTablePerformance() throws {
+        let table = LinearProbingHashTable<Int, Int>()
+        var dictionary = Dictionary<Int, Int>()
+        let value = 1.million
+        try DebugLogger.default.measure(description: "Insert \(value) node in HashTable") {
+            for i in 0..<value {
+                table.put(i, i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
+            for i in 0..<value {
+                table.get(i).assert.equal(i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Delete \(value) node in HashTable") {
+            for i in 0..<value {
+                table.delete(i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Insert \(value) node in Dictionary") {
+            for i in 0..<value {
+                dictionary[i] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
+            for i in 0..<value {
+               XCTAssert(dictionary[i] == i)
+            }
+        }
+    }
 }
 
