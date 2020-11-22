@@ -9,7 +9,8 @@
 import Foundation
 import XCTest
 @testable import FoundationLib
-
+let RED = true
+let BLACK = false
 final class RedBlackTreeTestCase: XCTestCase {
     
     func testRedBlackTree() throws {
@@ -92,4 +93,114 @@ final class RedBlackTreeTestCase: XCTestCase {
         }
     }
     
+    func testRedBlackTreeForSorting() throws {
+        
+        class RedBlackBSTForSorting<Key: Comparable> {
+            
+            var root: Node? = nil
+            
+            private func isRed(_ node: Node?) -> Bool {
+                node?.color == RED
+            }
+
+            func put(_ key: Key) {
+                put(&root, key)
+            }
+            
+            private func put(_ node: inout Node?, _ key: Key) {
+                guard node != nil else {
+                    node = Node(key: key)
+                    return
+                }
+                if key < node!.key {
+                    put(&node!.left, key)
+                } else if key > node!.key {
+                    put(&node!.right, key)
+                } else {
+                    node?.repeatCount += 1
+                }
+                // Rotate left
+                if let x = node?.right, isRed(x), !isRed(node?.left) {
+                    node?.right = x.left
+                    x.left = node
+                    x.color = x.left!.color
+                    x.left?.color = RED
+                    node = x
+                }
+                // Rotate right
+                if let x = node?.left, isRed(x), isRed(x.left) {
+                    node?.left = x.right
+                    x.right = node
+                    x.color = x.right!.color
+                    x.right?.color = RED
+                    node = x
+                }
+                // Flip Colors
+                if isRed(node?.left) && isRed(node?.right) {
+                    node?.left?.color = BLACK
+                    node?.right?.color = BLACK
+                    node?.color = RED
+                }
+            }
+            
+            var items: [Key] = []
+            
+            func inorder() -> [Key] {
+                items.removeAll()
+                inorder(root)
+                return items
+            }
+            
+            func inorder(_ node: Node?) {
+                if node == nil { return }
+                inorder(node?.left)
+                for _ in 0..<node!.repeatCount {
+                    items.append(node!.key)
+                }
+                inorder(node?.right)
+            }
+            
+            typealias Color = Bool
+
+            final class Node {
+                
+                var key: Key
+                
+                var left, right: Node?
+                
+                var color: Color
+                
+                var repeatCount: UInt16 = 1
+                
+                public init(
+                    key: Key,
+                    left: Node? = nil,
+                    right: Node? = nil,
+                    color: Color = RED
+                ) {
+                    self.key = key
+                    self.left = left
+                    self.right = right
+                    self.color = color
+                }
+                
+            }
+            
+        }
+
+        func sortArray(_ items: [Int]) -> [Int] {
+            nums.reduce(into: RedBlackBSTForSorting<Int>()) {
+                $0.put($1)
+            }.inorder()
+        }
+        
+        let nums = (0..<1.million).shuffled()
+        var sorted = [Int]()
+        try DebugLogger.default.measure {
+            sorted = sortArray(nums)
+        }
+        sorted.assert.equal(Array(0..<1.million))
+    }
+    
 }
+

@@ -22,6 +22,7 @@ final class NodeTestCase: XCTestCase {
                 node = ListNode(i, node)
             }
         }
+        Array(node!).assert.equal(Array(0..<100).reversed())
         XCTAssertNotNil(node)
         
     }
