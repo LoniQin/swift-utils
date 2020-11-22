@@ -89,7 +89,6 @@ public class LinearProbingHashTable<Key: Hashable, Value> {
     }
     
     private func resize(_ size: Int) {
-        print("Resize form \(items.count) to \(size)")
         count = 0
         let oldItems = items
         items = Array(repeating: nil, count: size)

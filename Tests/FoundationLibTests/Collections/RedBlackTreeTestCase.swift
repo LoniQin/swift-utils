@@ -281,7 +281,7 @@ final class RedBlackTreeTestCase: XCTestCase {
         }
         
         try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
-            for i in 0..<10.thouthand {
+            for i in 0..<value {
                XCTAssert(dictionary[i] == i)
             }
         }
