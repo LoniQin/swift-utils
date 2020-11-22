@@ -203,7 +203,7 @@ final class RedBlackTreeTestCase: XCTestCase {
     }
     
     func testHashTable() {
-        let table = HashTable<Int, Int>()
+        let table = SeparateChainingHashTable<Int, Int>()
         for i in 0..<1000 {
             table.put(i, i)
         }
@@ -215,25 +215,26 @@ final class RedBlackTreeTestCase: XCTestCase {
     func testHashTablePerformance() throws {
         let table = SeparateChainingHashTable<Int, Int>()
         var dictionary = Dictionary<Int, Int>()
-        try DebugLogger.default.measure(description: "Insert 1 million node in HashTable") {
-            for i in 0..<10.thouthand {
+        let value = 1000.thouthand
+        try DebugLogger.default.measure(description: "Insert \(value) node in HashTable") {
+            for i in 0..<value {
                 table.put(i, i)
             }
         }
         
-        try DebugLogger.default.measure(description: "Retrieve 1 million node in HashTable") {
-            for i in 0..<10.thouthand {
+        try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
+            for i in 0..<value {
                 table.get(i).assert.equal(i)
             }
         }
         
-        try DebugLogger.default.measure(description: "Insert 1 million node in Dictionary") {
-            for i in 0..<10.thouthand {
+        try DebugLogger.default.measure(description: "Insert \(value) node in Dictionary") {
+            for i in 0..<value {
                 dictionary[i] = i
             }
         }
         
-        try DebugLogger.default.measure(description: "Retrieve 1 million node in HashTable") {
+        try DebugLogger.default.measure(description: "Retrieve \(value) node in HashTable") {
             for i in 0..<10.thouthand {
                XCTAssert(dictionary[i] == i)
             }

@@ -14,28 +14,26 @@ public class SeparateChainingHashTable<Key: Hashable, Value> {
     
     public fileprivate(set) var count: Int
     
-    private var items: [ListNode<(Key, Value)>?]
+    private var items: [[(Key, Value)]]
     
-    public init(capacity: Int = 4) {
-        self.capacity = capacity
-        items = Array(repeating: nil, count: capacity)
+    public init() {
+        self.capacity = initCapacity
+        items = Array(repeating: [], count: capacity)
         self.count = 0
     }
     
     private func resize(_ size: Int) {
         let oldItems = items
-        items = [ListNode<(Key, Value)>?](repeating: nil, count: capacity)
+        items = [[(Key, Value)]](repeating: [], count: size)
         for item in oldItems {
-            if let item = item {
-                for element in item {
-                    put(element.0, element.1)
-                }
+            for element in item {
+                put(element.0, element.1)
             }
         }
     }
     
     private func hash(_ key: Key) -> Int {
-        abs(key.hashValue) % items.count
+        return key.hashValue & (items.count - 1)
     }
     
     public func put(_ key: Key, _ value: Value) {
@@ -43,22 +41,16 @@ public class SeparateChainingHashTable<Key: Hashable, Value> {
             resize(2 * items.count)
         }
         let i = hash(key)
-        if let node = items[i] {
-            items[i] = ListNode((key, value), node)
+        if let index = items[i].firstIndex(where: {$0.0 == key}) {
+            items[i][index].1 = value
         } else {
-            items[i] = ListNode((key, value), nil)
+            items[i].append((key, value))
+            count += 1
         }
     }
     
     public func get(_ key: Key) -> Value? {
-        if let node = items[hash(key)] {
-            for item in node {
-                if item.0 == key {
-                    return item.1
-                }
-            }
-        }
-        return nil
+        return items[hash(key)].first { $0.0 == key }?.1
     }
     
     public func contains(_ key: Key) -> Bool {
@@ -67,30 +59,16 @@ public class SeparateChainingHashTable<Key: Hashable, Value> {
     
     public func delete(_ key: Key)  {
         let i = hash(key)
-        if items[i] != nil {
-            var node = items[i]
-            if node?.value.0 == key {
-                items[i] = node?.next
-            } else {
-                while node?.next != nil {
-                    if node?.next!.value.0 == key {
-                        node?.next = node?.next?.next
-                    }
-                    node = node?.next
-                }
+        let index = items[i].firstIndex {
+            $0.0 == key
+        }
+        if let index = index {
+            if items[i].safelyDelete(at: index) {
+                count -= 1
             }
         }
-        if items.count > 4 && count <= 2 * items.count {
+        if items.count > initCapacity && count <= 2 * items.count {
             resize(count >> 1)
-        }
-    }
-    
-    deinit {
-        while !items.isEmpty {
-            var node = items.popLast()!
-            while node != nil {
-                node = node?.next
-            }
         }
     }
     

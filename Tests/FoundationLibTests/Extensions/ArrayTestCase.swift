@@ -52,13 +52,13 @@ final class ArrayTestCase: XCTestCase {
     func testSafelyDelete() {
         var items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         var succeed: Bool?
-        items.safelyDelete(at: 8, succeed: &succeed)
+        items.safelyDelete(at: 8)
         items.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 10])
         items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        items.safelyDelete(at: 0, succeed: &succeed)
+        items.safelyDelete(at: 0)
         items.assert.equal([2, 3, 4, 5, 6, 7, 8, 9, 10])
         items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        items.safelyDelete(at: 9, succeed: &succeed)
+        items.safelyDelete(at: 9)
         items.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 9])
     }
     

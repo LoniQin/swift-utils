@@ -68,19 +68,18 @@ public extension Array {
         }
         return self
     }
+
     
     @discardableResult
-    mutating func safelyDelete(at index: Int, succeed: inout Bool?) -> Self {
+    mutating func safelyDelete(at index: Int) -> Bool {
         if index < 0  || index >= count {
-            succeed = false
-            return self
+            return false
         }
-        succeed = true
         for i in index..<count-1 {
             self[i] = self[i + 1]
         }
         self.removeLast()
-        return self
+        return true
     }
     
     @discardableResult
