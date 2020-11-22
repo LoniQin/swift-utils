@@ -202,5 +202,42 @@ final class RedBlackTreeTestCase: XCTestCase {
         sorted.assert.equal(Array(0..<1.million))
     }
     
+    func testHashTable() {
+        let table = HashTable<Int, Int>()
+        for i in 0..<1000 {
+            table.put(i, i)
+        }
+        for i in 0..<1000 {
+            table.get(i)?.assert.equal(i)
+        }
+    }
+    
+    func testHashTablePerformance() throws {
+        let table = SeparateChainingHashTable<Int, Int>()
+        var dictionary = Dictionary<Int, Int>()
+        try DebugLogger.default.measure(description: "Insert 1 million node in HashTable") {
+            for i in 0..<10.thouthand {
+                table.put(i, i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Retrieve 1 million node in HashTable") {
+            for i in 0..<10.thouthand {
+                table.get(i).assert.equal(i)
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Insert 1 million node in Dictionary") {
+            for i in 0..<10.thouthand {
+                dictionary[i] = i
+            }
+        }
+        
+        try DebugLogger.default.measure(description: "Retrieve 1 million node in HashTable") {
+            for i in 0..<10.thouthand {
+               XCTAssert(dictionary[i] == i)
+            }
+        }
+    }
 }
 
