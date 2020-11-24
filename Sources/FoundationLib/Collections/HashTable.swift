@@ -6,21 +6,66 @@
 //
 
 import Foundation
-public class SeparateChainingHashTable<Key: Hashable, Value> {
+public protocol HashTable {
     
-    private let initCapacity = 4
+    associatedtype Key: Hashable
     
-    public var capacity: Int
+    associatedtype Value
     
-    public fileprivate(set) var count: Int
+    var capacity: Int { get }
+    
+    var count: Int { get }
+    
+    func put(_ key: Key, _ value: Value?)
+    
+    func get(_ key: Key) -> Value?
+    
+    func delete(_ key: Key)
+    
+}
+
+public extension HashTable {
+
+    var isEmpty: Bool { count == 0 }
+    
+    func contains(_ key: Key) -> Bool {
+        get(key) != nil
+    }
+    
+    subscript(key: Key) -> Value? {
+        set {
+            put(key, newValue)
+        }
+        get {
+            get(key)
+        }
+    }
+    
+}
+
+extension HashTable {
+    
+    static func initialCapacity() -> Int {
+        4
+    }
+    
+    func hash(_ key: Key) -> Int {
+        return key.hashValue & (capacity - 1)
+    }
+}
+
+public class SeparateChainingHashTable<Key: Hashable, Value>: HashTable {
+    
+    public var capacity: Int {
+        items.count
+    }
+    
+    public fileprivate(set) var count: Int = 0
     
     private var items: [[(Key, Value)]]
     
     public init() {
-        self.capacity = initCapacity
-        items = Array(repeating: [], count: capacity)
-        print(items[0].count )
-        self.count = 0
+        items = Array(repeating: [], count: Self.initialCapacity())
     }
     
     private func resize(_ size: Int) {
@@ -37,7 +82,11 @@ public class SeparateChainingHashTable<Key: Hashable, Value> {
         return key.hashValue & (items.count - 1)
     }
     
-    public func put(_ key: Key, _ value: Value) {
+    public func put(_ key: Key, _ value: Value?) {
+        guard let value = value else {
+            delete(key)
+            return
+        }
         if count >= 10 * items.count {
             resize(2 * items.count)
         }
@@ -68,24 +117,25 @@ public class SeparateChainingHashTable<Key: Hashable, Value> {
                 count -= 1
             }
         }
-        if items.count > initCapacity && count <= 2 * items.count {
+        if items.count > Self.initialCapacity() && count <= 2 * items.count {
             resize(count >> 1)
         }
     }
     
 }
 
-public class LinearProbingHashTable<Key: Hashable, Value> {
-    
-    private let initCapacity = 4
+public class LinearProbingHashTable<Key: Hashable, Value>: HashTable {
     
     public fileprivate(set) var count: Int = 0
     
     private var items: [(Key, Value)?]
     
+    public var capacity: Int {
+        items.count
+    }
+    
     public init() {
-        self.count = 0
-        self.items = Array(repeating: nil, count: initCapacity)
+        self.items = Array(repeating: nil, count: Self.initialCapacity())
     }
     
     private func resize(_ size: Int) {
@@ -99,11 +149,12 @@ public class LinearProbingHashTable<Key: Hashable, Value> {
         }
     }
     
-    private func hash(_ key: Key) -> Int {
-        return key.hashValue & (items.count - 1)
-    }
-    
-    public func put(_ key: Key, _ value: Value) {
+    public func put(_ key: Key, _ value: Value?) {
+        guard let value = value else {
+            delete(key)
+            return
+        }
+        
         if count * 2 >= items.count {
             resize(2 * items.count)
         }
@@ -138,10 +189,6 @@ public class LinearProbingHashTable<Key: Hashable, Value> {
         }
     }
     
-    public func contains(_ key: Key) -> Bool {
-        get(key) != nil
-    }
-    
     public func delete(_ key: Key)  {
         if !contains(key) { return }
         var i = hash(key)
@@ -158,7 +205,7 @@ public class LinearProbingHashTable<Key: Hashable, Value> {
             i = (i + 1) & (items.count - 1)
         }
         count -= 1
-        if items.count > initCapacity && count <= items.count / 8 {
+        if items.count > Self.initialCapacity() && count <= (items.count >> 3) {
             resize(items.count >> 1)
         }
     }

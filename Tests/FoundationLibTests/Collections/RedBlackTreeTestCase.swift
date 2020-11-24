@@ -286,5 +286,108 @@ final class RedBlackTreeTestCase: XCTestCase {
             }
         }
     }
+    class AllOne {
+        var dic = [String: Int]()
+        let tree = RedBlackTree<Int, [String]>()
+        /** Initialize your data structure here. */
+        init() {
+            
+        }
+        
+        /** Inserts a new key <Key> with value 1. Or increments an existing key by 1. */
+        func inc(_ key: String) {
+            if let value = dic[key] {
+                var arr = tree[value]!
+                arr.remove(at: arr.firstIndex(of: key)!)
+                if arr.isEmpty {
+                    tree[value] = nil
+                } else {
+                    tree[value] = arr
+                }
+                var arr2 = tree[value + 1] ?? []
+                arr2.append(key)
+                tree[value + 1] = arr2
+                dic[key] = value + 1
+            } else {
+                dic[key] = 1
+                var arr = tree[1] ?? []
+                arr.append(key)
+                tree[1] = arr
+            }
+            print(dic)
+        }
+        
+        /** Decrements an existing key by 1. If Key's value is 1, remove it from the data structure. */
+        func dec(_ key: String) {
+            if let value = dic[key] {
+                if value > 1 {
+                    var arr = tree[value] ?? []
+                    arr.remove(at: arr.firstIndex(of: key)!)
+                    if arr.isEmpty {
+                        tree[value] = nil
+                    } else {
+                        tree[value] = arr
+                    }
+                    dic[key] = value - 1
+                    var arr2 = tree[value - 1] ?? []
+                    arr2.append(key)
+                    tree[value - 1] = arr2
+                } else {
+                    var arr = tree[1] ?? []
+                    arr.remove(at: arr.firstIndex(of: key)!)
+                    if arr.isEmpty {
+                        tree[1] = nil
+                    } else {
+                        tree[1] = arr
+                    }
+                    dic[key] = nil
+                }
+            }
+            print(dic)
+        }
+        
+        /** Returns one of the keys with maximal value. */
+        func getMaxKey() -> String {
+            print(dic)
+            do {
+                let items = try tree.get(tree.max())
+                return items?.first ?? ""
+            } catch {
+                return ""
+            }
+        }
+        
+        /** Returns one of the keys with Minimal value. */
+        func getMinKey() -> String {
+            print(dic)
+            do {
+                var items = try tree.get(tree.min())
+                return items?.first ?? ""
+            } catch {
+                return ""
+            }
+        }
+    }
+
+    func test2() {
+        /*
+        ["AllOne","inc","inc","inc","inc","inc","inc","dec", "dec","getMinKey","dec","getMaxKey","getMinKey"]
+        [[],["a"],["b"],["b"],["c"],["c"],["c"],["b"],["b"],[],["a"],[],[]]
+        */
+        let allOne = AllOne()
+        allOne.inc("a")
+        allOne.inc("b")
+        allOne.inc("b")
+        allOne.inc("c")
+        allOne.inc("c")
+        allOne.inc("c")
+        allOne.inc("b")
+        allOne.dec("b")
+        allOne.dec("b")
+        print(allOne.getMinKey())
+        allOne.dec("a")
+        print(allOne.getMaxKey())
+        print(allOne.getMinKey())
+    }
 }
 

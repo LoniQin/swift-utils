@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class RedBlackTree<Key: Comparable, Value: Comparable> {
+public class RedBlackTree<Key: Comparable, Value> {
     
     public var root: Node? = nil
     
