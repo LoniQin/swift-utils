@@ -9,6 +9,8 @@ import Foundation
 
 public class CacheStorage: DataStorage {
     
+    public init() {}
+    
     public static let `default` = CacheStorage()
     
     private var cache = NSCache<NSString, AnyObject>()

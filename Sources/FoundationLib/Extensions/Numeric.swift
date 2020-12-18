@@ -23,5 +23,5 @@ public extension Numeric {
     var billion: Self {
         self * Self(exactly: 1000000000)!
     }
-    
+
 }

@@ -9,6 +9,8 @@ import Foundation
 
 public class DictionaryStorage: DataStorage {
     
+    public init() {}
+    
     public static let `default` = DictionaryStorage()
     
     private let lock = NSLock()

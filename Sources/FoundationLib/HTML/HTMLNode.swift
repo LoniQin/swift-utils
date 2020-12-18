@@ -73,22 +73,22 @@ open class HTMLNode: NSObject {
 
 // Chained methods
 public extension HTMLNode {
-    public func id(_ value: String) -> Self {
+    func id(_ value: String) -> Self {
         attributes["id"] = value
         return self
     }
     
-    public func `class`(_ value: String) -> Self {
+    func `class`(_ value: String) -> Self {
         attributes["class"] = value
         return self
     }
     
-    public func href(_ value: String) -> Self {
+    func href(_ value: String) -> Self {
         attributes["href"] = value
         return self
     }
     
-    public func src(_ value: String) -> Self {
+    func src(_ value: String) -> Self {
         attributes["src"] = value
         return self
     }
