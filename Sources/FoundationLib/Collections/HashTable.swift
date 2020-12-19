@@ -45,6 +45,7 @@ public extension HashTable {
 
 extension HashTable {
     
+    // Must be the
     static func initialCapacity() -> Int {
         4
     }
@@ -169,7 +170,7 @@ public class LinearProbingHashTable<Key: Hashable, Value>: HashTable {
                 items[i]?.1 = value
                 break
             }
-            i = (i + 1) & (items.count - 1)
+            increase(&i)
         }
     }
     
@@ -183,7 +184,7 @@ public class LinearProbingHashTable<Key: Hashable, Value>: HashTable {
                 if item.0 == key {
                     return item.1
                 } else {
-                    i = (i + 1) & (items.count - 1)
+                    increase(&i)
                 }
             }
         }
@@ -193,16 +194,16 @@ public class LinearProbingHashTable<Key: Hashable, Value>: HashTable {
         if !contains(key) { return }
         var i = hash(key)
         while key != items[i]?.0 {
-            i = (i + 1) & (items.count - 1)
+            increase(&i)
         }
         items[i] = nil
-        i = (i + 1) & (items.count - 1)
+        increase(&i)
         while items[i] != nil {
             let newItem = items[i]!
             items[i] = nil
             count -= 1
             put(newItem.0, newItem.1)
-            i = (i + 1) & (items.count - 1)
+            increase(&i)
         }
         count -= 1
         if items.count > Self.initialCapacity() && count <= (items.count >> 3) {
@@ -210,4 +211,7 @@ public class LinearProbingHashTable<Key: Hashable, Value>: HashTable {
         }
     }
     
+    func increase(_ i: inout Int) {
+        i = (i + 1) & (items.count - 1)
+    }
 }
