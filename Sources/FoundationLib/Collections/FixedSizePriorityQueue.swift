@@ -95,16 +95,16 @@ public class FixedSizePriorityQueue<Element>: Countable {
     
     private func swim(_ k: Int) {
         var k = k
-        while k > 1 && compare(k/2, k) {
-            pq.swapAt(k/2, k)
-            k /= 2
+        while k > 1 && compare(k >> 1, k) {
+            pq.swapAt(k >> 1, k)
+            k >>= 1
         }
     }
 
     private func sink(_ k: Int) {
         var k = k
-        while 2 * k <= count {
-            var j = 2 * k
+        while (k << 1) <= count {
+            var j = (k << 1)
             if j < count && compare(j, j + 1) { j += 1 }
             if !compare(k, j) { break }
             pq.swapAt(k, j)

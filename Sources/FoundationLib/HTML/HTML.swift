@@ -752,7 +752,7 @@ public class Switch<T: Equatable>: HTMLNode {
                 return item.block().toHTML(level: level)
             }
         }
-        return defaultItem?.block().toHTML(level: level) ?? ""
+        return (defaultItem?.block().toHTML(level: level)).unwrapped
     }
     
 }

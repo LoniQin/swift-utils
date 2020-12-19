@@ -86,7 +86,7 @@ public extension GraphProtocol {
     }
     
     static func toResponse(with data: Data) throws -> Self {
-        try Self(String(data: data, encoding: .utf8) ?? "")
+        try Self(String(data: data, encoding: .utf8).unwrapped)
     }
   
 }

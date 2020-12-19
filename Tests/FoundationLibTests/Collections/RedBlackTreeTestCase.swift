@@ -216,8 +216,7 @@ final class RedBlackTreeTestCase: XCTestCase {
         let table = LinearProbingHashTable<Int, Int>()
         for i in 0..<100 {
             table.put(i, i)
-        }
-        print(table.get(125))
+        } 
         for i in 0..<100 {
             table.delete(i)
         }
@@ -348,10 +347,9 @@ final class RedBlackTreeTestCase: XCTestCase {
         
         /** Returns one of the keys with maximal value. */
         func getMaxKey() -> String {
-            print(dic)
             do {
                 let items = try tree.get(tree.max())
-                return items?.first ?? ""
+                return (items?.first).unwrapped
             } catch {
                 return ""
             }
@@ -359,10 +357,9 @@ final class RedBlackTreeTestCase: XCTestCase {
         
         /** Returns one of the keys with Minimal value. */
         func getMinKey() -> String {
-            print(dic)
             do {
-                var items = try tree.get(tree.min())
-                return items?.first ?? ""
+                let items = try tree.get(tree.min())
+                return (items?.first).unwrapped
             } catch {
                 return ""
             }

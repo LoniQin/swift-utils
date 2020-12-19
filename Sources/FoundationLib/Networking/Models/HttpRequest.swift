@@ -46,16 +46,15 @@ public struct HttpRequest: RequestConvertable {
     
     public func toURLRequest() throws -> URLRequest {
         let queryPart = query.toString()
-        var urlString = ([domain]+paths).map({$0.toString()}).joined(separator: "/")
+        
+        var urlString = (CollectionOfOne(domain) + paths).map { $0.toString() }.joined(separator: "/")
         if !queryPart.isEmpty {
             urlString.append("?\(queryPart)")
         }
         guard let url = URL(string: urlString) else { throw NetworkingError.invalidRequest }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue.uppercased()
-        if let body = body {
-            request.httpBody = try body.toData()
-        }
+        request.httpBody = try body?.toData()
         request.allHTTPHeaderFields = header.toHttpHeader()
         return request
     }

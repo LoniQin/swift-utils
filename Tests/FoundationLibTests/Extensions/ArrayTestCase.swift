@@ -14,8 +14,6 @@ final class ArrayTestCase: XCTestCase {
     
     func testArrayExtension() {
         let array: [Any] = [1, 3, 5, "7", 9]
-        
-        let items = [Int]()
         do {
             let a: Int = try array.get(0)
             a.assert.equal(1)
@@ -51,7 +49,6 @@ final class ArrayTestCase: XCTestCase {
     
     func testSafelyDelete() {
         var items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-        var succeed: Bool?
         items.safelyDelete(at: 8)
         items.assert.equal([1, 2, 3, 4, 5, 6, 7, 8, 10])
         items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
