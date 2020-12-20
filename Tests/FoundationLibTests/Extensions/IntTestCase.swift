@@ -27,14 +27,14 @@ final class IntTestCase: XCTestCase {
     
     func testComputingPermofrmance() throws {
         let quantity = 1.million
-        try DebugLogger.default.measure(description: "Left Shift") {
+        try DebugLogger.default.measure(description: "Left Shift \(quantity) numbers") {
             var result = 0
             for i in 0..<quantity {
                 result = i << 1
             }
             print(result)
         }
-        try DebugLogger.default.measure(description: "Right Shift") {
+        try DebugLogger.default.measure(description: "Right Shift \(quantity) numbers") {
             var result = 0
             for i in 0..<quantity {
                 result = i >> 1
