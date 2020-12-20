@@ -27,10 +27,31 @@ final class IntTestCase: XCTestCase {
     
     func testComputingPermofrmance() throws {
         let quantity = 1.million
-        try DebugLogger.default.measure(description: "Left XOR \(quantity) numbers") {
+        try DebugLogger.default.measure(description: "XOR \(quantity) numbers") {
             var result = 0
             for i in 0..<quantity {
                 result = i ^ Int.max
+            }
+            print(result)
+        }
+        try DebugLogger.default.measure(description: "AND \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i & Int.max
+            }
+            print(result)
+        }
+        try DebugLogger.default.measure(description: "OR \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i | Int.max
+            }
+            print(result)
+        }
+        try DebugLogger.default.measure(description: "Negate \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = ~i
             }
             print(result)
         }
