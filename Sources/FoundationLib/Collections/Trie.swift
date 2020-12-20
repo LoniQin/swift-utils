@@ -56,7 +56,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
         if !sequence.isEmpty { try insert(0, &sequence, 0, content) }
     }
     
-    private func insert(_ index: Int, _  sequence: inout [Element], _ i: Int, _ content: Content? = nil) throws {
+    private func insert(_ index: Int, _ sequence: inout [Element], _ i: Int, _ content: Content? = nil) throws {
         let position: Int = try elementIndex.get(sequence[i])
         if nodes[index].positions[position] == 0 {
             nodes[index].positions[position] = UInt32(nodes.count)
@@ -71,7 +71,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
     }
     
     public func search<T: Sequence>(_ sequence: T) throws -> Bool where T.Element == Element {
-        let sequence = sequence.map({$0})
+        let sequence = sequence.map { $0 }
         var i = 0, index = 0, position = 0
         while true {
             position = try elementIndex.get(sequence[i])
@@ -86,7 +86,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
     }
     
     public func value<T: Sequence>(_ sequence: T) throws -> Content where T.Element == Element {
-        let sequence = sequence.map({$0})
+        let sequence = sequence.map { $0 }
         var i = 0, index = 0, position = 0
         while true {
             position = try elementIndex.get(sequence[i])
@@ -104,7 +104,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
     }
     
     public func startsWith<T: Sequence>(_ sequence: T) throws -> Bool where T.Element == Element {
-        let sequence = sequence.map({$0})
+        let sequence = sequence.map { $0 }
         var i = 0, index = 0, position = 0
         while true {
             position = try elementIndex.get(sequence[i])
@@ -145,7 +145,7 @@ public class Trie<Element: Hashable & Equatable, Content> {
         var node: Node = nodes[0]
         var i = 0
         while i < prefix.count {
-            node = nodes[Int(node.positions[elementIndex[prefix[i]] ?? 0])]
+            node = nodes[Int(node.positions[elementIndex[prefix[i]].unwrapped])]
             i += 1
         }
         visit(node, prefix, &keys)

@@ -25,4 +25,62 @@ final class IntTestCase: XCTestCase {
         
     }
     
+    func testComputingPermofrmance() throws {
+        let quantity = 1.million
+        try DebugLogger.default.measure(description: "Left Shift") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i << 1
+            }
+            print(result)
+        }
+        try DebugLogger.default.measure(description: "Right Shift") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i >> 1
+            }
+            print(result)
+        }
+        
+        try DebugLogger.default.measure(description: "Add \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i + 2
+            }
+            print(result)
+        }
+        
+        try DebugLogger.default.measure(description: "Minus \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i - 2
+            }
+            print(result)
+        }
+        
+        try DebugLogger.default.measure(description: "Multiply \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i * 2
+            }
+            print(result)
+        }
+        
+        try DebugLogger.default.measure(description: "Divide \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i / 2
+            }
+            print(result)
+        }
+        
+        try DebugLogger.default.measure(description: "Mod \(quantity) numbers") {
+            var result = 0
+            for i in 0..<quantity {
+                result = i % 2
+            }
+            print(result)
+        }
+    }
+    
 }

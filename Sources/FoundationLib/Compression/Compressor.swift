@@ -54,7 +54,7 @@ public struct Compressor {
         algorithm: Algorithm,
         sourcePath: String,
         destinationPath: String,
-        progress: @escaping (Int64) -> Void = {_ in }
+        progress: @escaping (Int64) -> Void = { _ in }
     ) throws {
         self.operation = operation
         self.algorithm = algorithm
