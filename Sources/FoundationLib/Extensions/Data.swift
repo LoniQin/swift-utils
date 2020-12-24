@@ -7,8 +7,8 @@
 
 import Foundation
 
-let charA = UInt8(UnicodeScalar("a").value)
-let char0 = UInt8(UnicodeScalar("0").value)
+fileprivate let charA = UInt8(UnicodeScalar("a").value)
+fileprivate let char0 = UInt8(UnicodeScalar("0").value)
 
 private func itoh(_ value: UInt8) -> UInt8 {
     (value > 9) ? (charA + value - 10) : (char0 + value)
@@ -30,7 +30,7 @@ public extension Data {
     init(hex: String) throws {
         self.init()
 
-        if hex.count % 2 != 0 || hex.count == 0 {
+        if hex.count & 1 != 0 || hex.count == 0 {
             throw CryptoError.codingError
         }
 

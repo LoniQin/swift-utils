@@ -19,4 +19,6 @@ public enum FoundationError: Error {
     
     case fileNotExist
     
+    case message(_ message: String)
+    
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public protocol StringConvertable {
+public protocol StringConvertable: ResponseConvertable {
     
     static func fromString(_ string: String) throws -> Self
     
@@ -23,6 +23,14 @@ extension String: StringConvertable {
     
     public func toString() -> String {
         self
+    }
+    
+}
+
+extension StringConvertable {
+    
+    public static func toResponse(with data: Data) throws -> Self  {
+        try fromString(data.string(.utf8))
     }
     
 }

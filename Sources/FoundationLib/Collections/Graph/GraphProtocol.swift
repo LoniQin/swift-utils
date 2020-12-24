@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public protocol GraphProtocol: StringConvertable, ResponseConvertable {
+public protocol GraphProtocol: StringConvertable {
     
     var vertexCount: Int { get }
     
@@ -83,10 +83,6 @@ public extension GraphProtocol {
         } else {
             self.init(0)
         }
-    }
-    
-    static func toResponse(with data: Data) throws -> Self {
-        try Self(String(data: data, encoding: .utf8).unwrapped)
     }
   
 }

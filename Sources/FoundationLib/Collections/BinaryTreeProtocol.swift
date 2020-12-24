@@ -65,7 +65,6 @@ public extension BinaryTreeProtocol {
     func middleOrder(_ block: @escaping (T) -> Void) {
         left?.middleOrder(block)
         block(value)
-        
         right?.middleOrder(block)
     }
     
