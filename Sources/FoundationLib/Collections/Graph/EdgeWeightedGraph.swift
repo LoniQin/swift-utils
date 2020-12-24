@@ -87,10 +87,8 @@ extension EdgeWeightedGraph: StringConvertable {
                 }
                 if index >= 2 && !line.isEmpty {
                     let components = line.components(separatedBy: " ")
-                    if components.count != 3 {
-                        throw FoundationError.invalidCoding
-                    }
                     guard
+                        components.count == 3,
                         let v = Int(components[0]),
                         let w = Int(components[1]),
                         let weight = Double(components[2])

@@ -30,9 +30,6 @@ public class Edge {
         throw FoundationError.invalidCoding
     }
     
-
-    
-    
 }
 
 extension Edge: Comparable {
