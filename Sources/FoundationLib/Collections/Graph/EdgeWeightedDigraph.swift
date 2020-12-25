@@ -55,6 +55,16 @@ public final class EdgeWeightedDigraph {
         return list
     }
     
+    public func toDigraph() -> DirectedGraph {
+        let graph = DirectedGraph(vertexCount)
+        for v in 0..<vertexCount {
+            for e in adj(v) {
+                graph.addEdge(v, e.to)
+            }
+        }
+        return graph
+    }
+    
 }
 
 extension EdgeWeightedDigraph: StringConvertable {
