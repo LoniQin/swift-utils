@@ -11,6 +11,8 @@ import XCTest
 
 class EdgeWeightedDigraphTestCase: XCTestCase {
     
+    private static let epsilon = 1e-3
+    
     func testEdgeWeightedDigraph() {
         self.expectation { (exp) in
             HttpClient.default.download("https://algs4.cs.princeton.edu/44sp/tinyEWD.txt") { (result: Result<EdgeWeightedDigraph, Error>) in
@@ -35,6 +37,7 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                     let graph = try result.get()
                     graph.vertexCount.assert.equal(8)
                     try self.testAcyclicShortestPath(graph)
+                    try self.testAcyclicLongestPath(graph)
                 } catch let error {
                     print(error)
                 }
@@ -48,26 +51,39 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
         let dijkstra = DijkstraShortestPath(graph, 0)
         dijkstra.start()
         dijkstra.distTo(0).assert.equal(0)
-        abs(dijkstra.distTo(1) - 1.05).assert.lessThan(1e-3)
-        abs(dijkstra.distTo(2) - 0.26).assert.lessThan(1e-3)
-        abs(dijkstra.distTo(3) - 0.99).assert.lessThan(1e-3)
-        abs(dijkstra.distTo(4) - 0.38).assert.lessThan(1e-3)
-        abs(dijkstra.distTo(5) - 0.73).assert.lessThan(1e-3)
-        abs(dijkstra.distTo(6) - 1.51).assert.lessThan(1e-3)
-        abs(dijkstra.distTo(7) - 0.60).assert.lessThan(1e-3)
+        abs(dijkstra.distTo(1) - 1.05).assert.lessThan(Self.epsilon)
+        abs(dijkstra.distTo(2) - 0.26).assert.lessThan(Self.epsilon)
+        abs(dijkstra.distTo(3) - 0.99).assert.lessThan(Self.epsilon)
+        abs(dijkstra.distTo(4) - 0.38).assert.lessThan(Self.epsilon)
+        abs(dijkstra.distTo(5) - 0.73).assert.lessThan(Self.epsilon)
+        abs(dijkstra.distTo(6) - 1.51).assert.lessThan(Self.epsilon)
+        abs(dijkstra.distTo(7) - 0.60).assert.lessThan(Self.epsilon)
     }
     
     func testAcyclicShortestPath(_ graph: EdgeWeightedDigraph) throws {
         let sp = try AcyclicShortestPath(graph, 5)
         try sp.start()
-        try abs(sp.distTo(0) - 0.73).assert.lessThan(1e-3)
-        try abs(sp.distTo(1) - 0.32).assert.lessThan(1e-3)
-        try abs(sp.distTo(2) - 0.62).assert.lessThan(1e-3)
-        try abs(sp.distTo(3) - 0.61).assert.lessThan(1e-3)
-        try abs(sp.distTo(4) - 0.35).assert.lessThan(1e-3)
-        try abs(sp.distTo(5) - 0.00).assert.lessThan(1e-3)
-        try abs(sp.distTo(6) - 1.13).assert.lessThan(1e-3)
-        try abs(sp.distTo(7) - 0.28).assert.lessThan(1e-3)
+        try abs(sp.distTo(0) - 0.73).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(1) - 0.32).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(2) - 0.62).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(3) - 0.61).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(4) - 0.35).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(5) - 0.00).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(6) - 1.13).assert.lessThan(Self.epsilon)
+        try abs(sp.distTo(7) - 0.28).assert.lessThan(Self.epsilon)
+    }
+    
+    func testAcyclicLongestPath(_ graph: EdgeWeightedDigraph) throws {
+        let lp = try AcyclicLongestPath(graph, 5)
+        try lp.start()
+        try abs(lp.distTo(0) - 2.44).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(1) - 0.32).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(2) - 2.77).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(3) - 0.61).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(4) - 2.06).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(5) - 0.00).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(6) - 1.13).assert.lessThan(Self.epsilon)
+        try abs(lp.distTo(7) - 2.43).assert.lessThan(Self.epsilon)
     }
   
 }
