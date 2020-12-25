@@ -117,7 +117,7 @@ extension EdgeWeightedGraph: StringConvertable {
         s.append("\(edgeCount)\n")
         for v in 0..<vertexCount {
             for edge in adj[v] {
-                if edge.v < edge.w {
+                if edge.v == v {
                     s.append("\(edge.v) \(edge.w) \(edge.weight)\n")
                 }
             }
