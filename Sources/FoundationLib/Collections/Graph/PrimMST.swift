@@ -71,12 +71,13 @@ public class PrimMST {
         return mst
     }
     
-    public func weight() -> Double {
+    var weight: Double {
         var weight = 0.0
         for e in edges() {
             weight += e.weight
         }
         return weight
     }
+
     
 }

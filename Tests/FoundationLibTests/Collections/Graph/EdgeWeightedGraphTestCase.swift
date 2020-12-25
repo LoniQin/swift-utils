@@ -25,6 +25,7 @@ class EdgeWeightedGraphTestCase: XCTestCase {
                     graph.adj[4].count.assert.equal(4)
                     self.testLazyPrim(graph, 1.81)
                     try self.testPrim(graph, 1.81)
+                    self.testKruskal(graph, 1.81)
                     exp.fulfill()
                 } catch let error {
                     print(error)
@@ -41,6 +42,7 @@ class EdgeWeightedGraphTestCase: XCTestCase {
                     let graph = try result.get()
                     self.testLazyPrim(graph, 10.46351)
                     try self.testPrim(graph, 10.46351)
+                    self.testKruskal(graph, 10.46351)
                     exp.fulfill()
                 } catch let error {
                     print(error)
@@ -59,6 +61,12 @@ class EdgeWeightedGraphTestCase: XCTestCase {
     func testPrim(_ graph: EdgeWeightedGraph, _ value: Double) throws {
         let prim = PrimMST(graph)
         try prim.start()
-        abs(prim.weight() - value).assert.lessThan(1e-3)
+        abs(prim.weight - value).assert.lessThan(1e-3)
+    }
+    
+    func testKruskal(_ graph: EdgeWeightedGraph, _ value: Double) {
+        let prim = KruskalMST(graph)
+        prim.start()
+        abs(prim.weight - value).assert.lessThan(1e-3)
     }
 }
