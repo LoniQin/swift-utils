@@ -69,7 +69,7 @@ extension EdgeWeightedDigraph: StringConvertable {
                     vertextCount = Int(line).unwrapped
                     graph = EdgeWeightedDigraph(vertextCount)
                 }
-                if index >= 2 && !line.isEmpty {
+                if index >= 2 {
                     let components = line.components(separatedBy: " ")
                     guard
                         components.count == 3,
