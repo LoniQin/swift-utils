@@ -85,5 +85,40 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
         try abs(lp.distTo(6) - 1.13).assert.lessThan(Self.epsilon)
         try abs(lp.distTo(7) - 2.43).assert.lessThan(Self.epsilon)
     }
+    
+    func testArbitrage() {
+        self.expectation { expectation in
+            HttpClient.default.download("https://algs4.cs.princeton.edu/44sp/rates.txt") { (result: Result<String, Error>) in
+                do {
+                    var res = try result.get().components(separatedBy: .newlines).filter { !$0.isEmpty }
+                    let graph = EdgeWeightedDigraph(res.removeFirst().int)
+                    var names: [String] = []
+                    for item in res.enumerated() {
+                        var components = item.element.components(separatedBy: .whitespaces).filter { !$0.isEmpty }
+                        names.append(components.removeFirst())
+                        for i in 0..<components.count {
+                            let rate = components[i].double
+                            let e = DirectedEdge(item.offset, i, -log(rate))
+                            graph.add(e)
+                        }
+                    }
+                    let spt = BellmanFordShortestPath(graph, 0)
+                    try spt.start()
+                    if let cycle = spt.negativeCycle {
+                        var stake: Double = 1000.0
+                        for e in cycle {
+                            var text = "\(stake) \(names[e.from])"
+                            stake *= exp(-e.weight)
+                            text.append("=\(stake) \(names[e.to])")
+                            print(text)
+                        }
+                    }
+                } catch let error {
+                    XCTFail("\(error)")
+                }
+                expectation.fulfill()
+            }
+        }
+    }
   
 }

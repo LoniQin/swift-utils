@@ -6,7 +6,7 @@
 //
 
 import Foundation
-public class GraphCycleFinder<G: GraphProtocol> {
+public class  GraphCycleFinder<G: GraphProtocol> {
     
     var marked: [Bool]
     
@@ -20,7 +20,7 @@ public class GraphCycleFinder<G: GraphProtocol> {
         onStack = [Bool](repeating: false, count: graph.vertexCount)
         edgeTo = [Int](repeating: 0, count: graph.vertexCount)
         marked = [Bool](repeating: false, count: graph.vertexCount)
-        for v in 0..<graph.vertexCount {
+          for v in 0..<graph.vertexCount {
             if !marked[v] && cycle == nil {
                 dfs(graph, v)
             }
