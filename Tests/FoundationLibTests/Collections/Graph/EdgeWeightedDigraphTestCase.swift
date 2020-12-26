@@ -102,7 +102,44 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                 exp.fulfill()
             }
         }
-        
+    }
+    
+    func testCPM() {
+        self.expectation { expectation in
+            HttpClient.default.download("https://algs4.cs.princeton.edu/44sp/jobsPC.txt") { (result: Result<String, Error>) in
+                do {
+                    var components = try result.get().components(separatedBy: .newlines).filter { !$0.isEmpty }
+                    let n = components.removeFirst().int
+                    let source = 2 * n
+                    let sink = 2 * n + 1
+                    let graph = EdgeWeightedDigraph(2 * n + 2)
+                    for i in 0..<n {
+                        var items = components[i].components(separatedBy: .whitespaces).filter { !$0.isEmpty
+                        }
+                        let duration = items.removeFirst().double
+                        graph.add(.init(source, i, 0.0))
+                        graph.add(.init(i + n, sink, 0.0))
+                        graph.add(.init(i, i + n, duration))
+                        let m = items.removeFirst().int
+                        for _ in 0..<m {
+                            let precedent = items.removeFirst().int
+                            graph.add(.init(n + i, precedent, 0.0))
+                        }
+                        let lp = try AcyclicLongestPath(graph, source)
+                        try lp.start()
+                        print("Job  start   finish")
+                        print("-------------------")
+                        for i in 0..<n {
+                            try print("\(i) \(lp.distTo(i)) \(lp.distTo(i + n))")
+                        }
+                        try print("Finish time: \(lp.distTo(sink))")
+                    }
+                } catch let error {
+                    XCTFail("\(error)")
+                }
+                expectation.fulfill()
+            }
+        }
     }
     
     func testArbitrage() {
