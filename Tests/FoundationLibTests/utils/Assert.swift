@@ -106,6 +106,15 @@ extension AssertProtocol where Element == Bool {
     
 }
 
+extension AssertProtocol where Element == Double {
+    
+    @discardableResult
+    func approximatelyEqualTo(_ value: Double) -> Self {
+        Assert.lessThan(abs(self.value - value), 1e-3)
+        return self
+    }
+}
+
 extension AssertProtocol where Element: Comparable {
     
     @discardableResult

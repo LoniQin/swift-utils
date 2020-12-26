@@ -24,7 +24,7 @@ public class BellmanFordShortestPath {
     
     private let graph: EdgeWeightedDigraph
     
-    public init(_ graph: EdgeWeightedDigraph, _ s: Int) {
+    public init(_ graph: EdgeWeightedDigraph, _ s: Int) throws {
         self.graph = graph
         self.cost = 0
         distTo = .init(repeating: .infinity, count: graph.vertexCount)
@@ -34,16 +34,13 @@ public class BellmanFordShortestPath {
         queue = Queue<Int>()
         queue.enqueue(s)
         onQueue[s] = true
-    }
-    
-    public func start() throws {
         while !queue.isEmpty &&  !hasNegativeCycle() {
             let v = try queue.dequeue()
             onQueue[v] = false
             relax(v)
         }
     }
-    
+
     private func relax(_ v: Int) {
         for e in graph.adj(v) {
             let w = e.to

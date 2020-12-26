@@ -86,6 +86,25 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
         try abs(lp.distTo(7) - 2.43).assert.lessThan(Self.epsilon)
     }
     
+    func testBellmanFordAlgorithm() {
+        self.expectation { (exp) in
+            HttpClient.default.download("https://algs4.cs.princeton.edu/44sp/tinyEWDn.txt") { (result: Result<EdgeWeightedDigraph, Error>) in
+                do {
+                    let graph = try result.get()
+                    let sp = try BellmanFordShortestPath(graph, 0)
+                    let items: [Double] = [0, 0.93, 0.26, 0.99, 0.26, 0.61, 1.51, 0.60]
+                    for item in items.enumerated() {
+                        sp.distTo(item.offset).assert.approximatelyEqualTo(item.element)
+                    }
+                } catch let error {
+                    print(error)
+                }
+                exp.fulfill()
+            }
+        }
+        
+    }
+    
     func testArbitrage() {
         self.expectation { expectation in
             HttpClient.default.download("https://algs4.cs.princeton.edu/44sp/rates.txt") { (result: Result<String, Error>) in
@@ -102,8 +121,7 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                             graph.add(e)
                         }
                     }
-                    let spt = BellmanFordShortestPath(graph, 0)
-                    try spt.start()
+                    let spt = try BellmanFordShortestPath(graph, 0)
                     if let cycle = spt.negativeCycle {
                         var stake: Double = 1000.0
                         for e in cycle {
