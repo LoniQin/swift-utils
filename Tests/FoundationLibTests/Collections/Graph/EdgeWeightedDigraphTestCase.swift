@@ -125,15 +125,17 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                             let precedent = items.removeFirst().int
                             graph.add(.init(n + i, precedent, 0.0))
                         }
-                        let lp = try AcyclicLongestPath(graph, source)
-                        try lp.start()
-                        print("Job  start   finish")
-                        print("-------------------")
-                        for i in 0..<n {
-                            try print("\(i) \(lp.distTo(i)) \(lp.distTo(i + n))")
-                        }
-                        try print("Finish time: \(lp.distTo(sink))")
+                        
                     }
+                    let lp = try AcyclicLongestPath(graph, source)
+                    try lp.start()
+                    print("Job  start   finish")
+                    print("-------------------")
+                    for i in 0..<n {
+                        try print("\(i) \(lp.distTo(i)) \(lp.distTo(i + n))")
+                    }
+                    try print("Finish time: \(lp.distTo(sink))")
+                    try lp.distTo(sink).assert.approximatelyEqualTo(173.0)
                 } catch let error {
                     XCTFail("\(error)")
                 }
