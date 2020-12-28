@@ -20,7 +20,6 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                     let graph = try result.get()
                     graph.vertexCount.assert.equal(8)
                     self.testDijkstraShortestPath(graph)
-                    
                 } catch let error {
                     print(error)
                 }
@@ -51,39 +50,55 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
         let dijkstra = DijkstraShortestPath(graph, 0)
         dijkstra.start()
         dijkstra.distTo(0).assert.equal(0)
-        abs(dijkstra.distTo(1) - 1.05).assert.lessThan(Self.epsilon)
-        abs(dijkstra.distTo(2) - 0.26).assert.lessThan(Self.epsilon)
-        abs(dijkstra.distTo(3) - 0.99).assert.lessThan(Self.epsilon)
-        abs(dijkstra.distTo(4) - 0.38).assert.lessThan(Self.epsilon)
-        abs(dijkstra.distTo(5) - 0.73).assert.lessThan(Self.epsilon)
-        abs(dijkstra.distTo(6) - 1.51).assert.lessThan(Self.epsilon)
-        abs(dijkstra.distTo(7) - 0.60).assert.lessThan(Self.epsilon)
+        let samples = Array {
+            0.00
+            1.05
+            0.26
+            0.99
+            0.38
+            0.73
+            1.51
+            0.60
+        }
+        for i in 0..<samples.count {
+            dijkstra.distTo(i).assert.approximatelyEqualTo(samples[i])
+        }
     }
     
     func testAcyclicShortestPath(_ graph: EdgeWeightedDigraph) throws {
         let sp = try AcyclicShortestPath(graph, 5)
         try sp.start()
-        try abs(sp.distTo(0) - 0.73).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(1) - 0.32).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(2) - 0.62).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(3) - 0.61).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(4) - 0.35).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(5) - 0.00).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(6) - 1.13).assert.lessThan(Self.epsilon)
-        try abs(sp.distTo(7) - 0.28).assert.lessThan(Self.epsilon)
+        let samples = Array {
+            0.73
+            0.32
+            0.62
+            0.61
+            0.35
+            0.00
+            1.13
+            0.28
+        }
+        for i in 0..<samples.count {
+            try sp.distTo(i).assert.approximatelyEqualTo(samples[i])
+        }
     }
     
     func testAcyclicLongestPath(_ graph: EdgeWeightedDigraph) throws {
         let lp = try AcyclicLongestPath(graph, 5)
         try lp.start()
-        try abs(lp.distTo(0) - 2.44).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(1) - 0.32).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(2) - 2.77).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(3) - 0.61).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(4) - 2.06).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(5) - 0.00).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(6) - 1.13).assert.lessThan(Self.epsilon)
-        try abs(lp.distTo(7) - 2.43).assert.lessThan(Self.epsilon)
+        let samples = Array {
+            2.44
+            0.32
+            2.77
+            0.61
+            2.06
+            0.00
+            1.13
+            2.43
+        }
+        for i in 0..<samples.count {
+            try lp.distTo(i).assert.approximatelyEqualTo(samples[i])
+        }
     }
     
     func testBellmanFordAlgorithm() {
@@ -92,8 +107,8 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                 do {
                     let graph = try result.get()
                     let sp = try BellmanFordShortestPath(graph, 0)
-                    let items: [Double] = [0, 0.93, 0.26, 0.99, 0.26, 0.61, 1.51, 0.60]
-                    for item in items.enumerated() {
+                    let samples: [Double] = [0, 0.93, 0.26, 0.99, 0.26, 0.61, 1.51, 0.60]
+                    for item in samples.enumerated() {
                         sp.distTo(item.offset).assert.approximatelyEqualTo(item.element)
                     }
                 } catch let error {
@@ -132,9 +147,10 @@ class EdgeWeightedDigraphTestCase: XCTestCase {
                     print("Job  start   finish")
                     print("-------------------")
                     for i in 0..<n {
-                        try print("\(i) \(lp.distTo(i)) \(lp.distTo(i + n))")
+                        try print("\(i)\t\(lp.distTo(i))\t\(lp.distTo(i + n))")
                     }
                     try print("Finish time: \(lp.distTo(sink))")
+                    print("-------------------")
                     try lp.distTo(sink).assert.approximatelyEqualTo(173.0)
                 } catch let error {
                     XCTFail("\(error)")
