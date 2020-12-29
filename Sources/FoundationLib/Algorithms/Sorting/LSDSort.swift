@@ -14,13 +14,13 @@ public class LSDSort {
     
     public func sort(_ a: inout [String], _ w: Int) {
         let n = a.count
-        let R = 256
-        var aux = [String].init(repeating: "", count: n)
+        let R = 128
+        var aux = [String](repeating: "", count: n)
         var d = w - 1
         while d >= 0 {
             var count = [Int](repeating: 0, count: R + 1)
             for i in 0..<n {
-                count[Int(a[i].charAt(d).asciiValue!) + 1] += 1
+                count[Int(a[i].charAt(d).asciiValue! + 1)] += 1
             }
             for r in 0..<R {
                 count[r + 1] += count[r]
