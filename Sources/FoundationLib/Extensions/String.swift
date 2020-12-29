@@ -48,6 +48,10 @@ public extension String {
         try NSRegularExpression(pattern: self, options: options)
     }
     
+    func charAt(_ index: Int) -> Character {
+        self[self.index(self.startIndex, offsetBy: index)]
+    }
+    
 }
 
 extension String: NumberConvertable {
