@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 @testable import FoundationLib
 
-final class MSDSortTestCaseTestCase: XCTestCase {
+final class MSDSortTestCase: XCTestCase {
     
     func testMSDStringSort() throws {
         var items = [String]()
@@ -46,6 +46,15 @@ final class MSDSortTestCaseTestCase: XCTestCase {
             items.sort()
         }
         items.assert.equal(result.sorted())
+    }
+    
+    func testIntegerSort() throws {
+        var items = [Int](0..<1000)
+        items.shuffle()
+        let sorter = MSDSort()
+        try sorter.sort(&items)
+        
+        items.assert.equal(Array(0..<1000))
     }
     
 }

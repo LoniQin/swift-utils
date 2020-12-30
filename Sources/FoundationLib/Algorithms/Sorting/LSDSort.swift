@@ -19,7 +19,7 @@ public class LSDSort {
             if item.count != w { throw FoundationError.message("Length of strings should be equal. ") }
         }
         let n = a.count
-        let R = 128
+        let R = 256
         var aux = [String](repeating: "", count: n)
         var d = w - 1
         while d >= 0 {
@@ -43,7 +43,7 @@ public class LSDSort {
     
     public func sort(_ a: inout [Int]) {
         let BITS_PER_BYTE = 8
-        let BITS = 64
+        let BITS = MemoryLayout<Int>.size * BITS_PER_BYTE
         let R = 1 << BITS_PER_BYTE
         let HALF_R = R >> 1
         let MASK = R - 1

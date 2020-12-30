@@ -64,6 +64,7 @@ public class MSDSort {
     }
     
     private func insertion(_ a: inout [String], _ lo: Int, _ hi: Int, _ d: Int) {
+        if hi < lo { return }
         for i in lo...hi {
             var j = i
             while j > lo && less(a[j], a[j - 1], d) {
@@ -82,6 +83,63 @@ public class MSDSort {
             }
         }
         return v.count < w.count
+    }
+    
+    public func sort(_ a: inout [Int]) throws {
+        let count = a.count
+        var aux = [Int](repeating: 0, count: count)
+        sort(&a, 0, count - 1, 0, &aux)
+    }
+    
+    private func sort(_ a: inout [Int], _ lo: Int, _ hi: Int, _ d: Int, _ aux: inout [Int]) {
+        guard
+            hi > lo + Self.CUTOFF
+        else {
+            insertion(&a, lo, hi, d)
+            return
+        }
+        var count = [Int](repeating: 0, count: Self.R + 1)
+        let mask = Self.R - 1
+        let shift = MemoryLayout<Int>.size * Self.BITS_PER_BYTE  - Self.BITS_PER_BYTE * d - Self.BITS_PER_BYTE
+        for i in lo...hi {
+            let c = (a[i] >> shift) & mask
+            count[c + 1] += 1
+        }
+        
+        for r in 0..<Self.R {
+            count[r + 1] += count[r]
+        }
+
+        for i in lo...hi {
+            let c = (a[i] >> shift) & mask
+            aux[count[c]] = a[i]
+            count[c] += 1
+        }
+        
+        for i in lo...hi {
+            a[i] = aux[i - lo]
+        }
+        if d == MemoryLayout<Int>.size { return }
+        if count[0] > 0 {
+            sort(&a, lo, lo + count[0] - 1, d + 1, &aux)
+        }
+        for r in 0..<Self.R {
+            if count[r + 1] > count[r] {
+                sort(&a, lo + count[r], lo + count[r + 1] - 1, d + 1, &aux)
+            }
+        }
+        
+    }
+    
+    private func insertion(_ a: inout [Int], _ lo: Int, _ hi: Int, _ d: Int) {
+        if hi < lo { return }
+        for i in lo...hi {
+            var j = i
+            while j > lo && a[j] < a[j - 1] {
+                a.swapAt(j, j - 1)
+                j -= 1
+            }
+        }
     }
     
 }
