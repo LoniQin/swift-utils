@@ -11,7 +11,7 @@ import XCTest
 
 final class LSDSortTestCaseTestCase: XCTestCase {
     
-    func testLSDStringSort() {
+    func testLSDStringSort() throws {
         var items = [String]()
         for _ in 0..<1000 {
             items.append(Int.random(in: 10000..<99999).description)
@@ -19,7 +19,7 @@ final class LSDSortTestCaseTestCase: XCTestCase {
         let result = items
         items.shuffle()
         let sorter = LSDSort()
-        sorter.sort(&items, 5)
+        try sorter.sort(&items)
         items.assert.equal(result.sorted())
     }
     
@@ -31,11 +31,11 @@ final class LSDSortTestCaseTestCase: XCTestCase {
         let result = items
         let sorter = LSDSort()
         try DebugLogger.default.measure {
-            sorter.sort(&items, 10)
+            try sorter.sort(&items)
         }
         items.assert.equal(result.sorted())
     }
-    
+     
     func testLSDLargeStringNativeSort() throws {
         var items = [String]()
         for _ in 0..<1.million {

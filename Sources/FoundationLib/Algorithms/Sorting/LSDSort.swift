@@ -12,7 +12,12 @@ public class LSDSort {
         
     }
     
-    public func sort(_ a: inout [String], _ w: Int) {
+    public func sort(_ a: inout [String]) throws {
+        if a.isEmpty { return }
+        let w = a[0].count
+        for item in a {
+            if item.count != w { throw FoundationError.message("Length of strings should be equal. ") }
+        }
         let n = a.count
         let R = 128
         var aux = [String](repeating: "", count: n)
