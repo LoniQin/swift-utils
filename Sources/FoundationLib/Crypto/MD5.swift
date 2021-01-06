@@ -7,53 +7,6 @@
 
 import Foundation
 
-fileprivate func ROTLEFT(_ a: UInt32, _ b: UInt32) -> UInt32 {
-    ((a << b) | (a >> (32 - b)))
-}
-
-fileprivate func F(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-    (x & y) | (~x & z)
-}
-
-fileprivate func G(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-    (x & z) | (y & ~z)
-}
-
-fileprivate func H(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-    x ^ y ^ z
-}
-
-fileprivate func I(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-    y ^ (x | ~z)
-}
-
-fileprivate func sum(_ items: UInt32...) -> UInt32 {
-    var total: UInt32 = 0
-    for item in items {
-        total = total.addingReportingOverflow(item).partialValue
-    }
-    return total
-}
-
-fileprivate func FF(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
-    a = sum(a, F(b, c, d), m, t)
-    a = sum(b, ROTLEFT(a, s))
-}
-
-fileprivate func GG(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
-    a = sum(a, G(b, c, d), m, t)
-    a = sum(b, ROTLEFT(a, s))
-}
-
-fileprivate func HH(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
-    a = sum(a, H(b, c, d), m, t)
-    a = sum(b, ROTLEFT(a, s))
-}
-
-fileprivate func II(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
-    a = sum(a, I(b, c, d), m, t)
-    a = sum(b, ROTLEFT(a, s))
-}
 
 fileprivate extension UInt32 {
     mutating func addSafely(_ b: UInt32) {
@@ -75,6 +28,54 @@ public struct MD5 {
     
     public init() {
 
+    }
+    
+    private func ROTLEFT(_ a: UInt32, _ b: UInt32) -> UInt32 {
+        ((a << b) | (a >> (32 - b)))
+    }
+
+    private func F(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+        (x & y) | (~x & z)
+    }
+
+    private func G(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+        (x & z) | (y & ~z)
+    }
+
+    private func H(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+        x ^ y ^ z
+    }
+
+    private func I(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+        y ^ (x | ~z)
+    }
+
+    private func sum(_ items: UInt32...) -> UInt32 {
+        var total: UInt32 = 0
+        for item in items {
+            total = total.addingReportingOverflow(item).partialValue
+        }
+        return total
+    }
+
+    fileprivate func FF(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
+        a = sum(a, F(b, c, d), m, t)
+        a = sum(b, ROTLEFT(a, s))
+    }
+
+    fileprivate func GG(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
+        a = sum(a, G(b, c, d), m, t)
+        a = sum(b, ROTLEFT(a, s))
+    }
+
+    fileprivate func HH(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
+        a = sum(a, H(b, c, d), m, t)
+        a = sum(b, ROTLEFT(a, s))
+    }
+
+    fileprivate func II(_ a: inout UInt32, _ b: UInt32, _ c: UInt32, _ d: UInt32, _ m: UInt32, _ s: UInt32, _ t: UInt32) {
+        a = sum(a, I(b, c, d), m, t)
+        a = sum(b, ROTLEFT(a, s))
     }
     
     private mutating func transform() {
