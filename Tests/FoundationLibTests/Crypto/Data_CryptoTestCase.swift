@@ -45,9 +45,34 @@ final class Data_CryptoTestCase: XCTestCase {
     }
     
     func testSHA1() throws {
-        let data = Data(random: 100)
+        for _ in 0..<10.thouthand {
+            let data = Data(random: 100)
+            var sha1 = SHA1()
+            sha1.update(data)
+            sha1.finalize().assert.equal(Digest.sha1.process(data))
+        }
+        let largeData = Data(random: 65536)
         var sha1 = SHA1()
-        sha1.update(data)
-        Array(sha1.finalize()).assert.equal(Array(Digest.sha1.process(data)))
+        sha1.update(largeData)
+        sha1.finalize().assert.equal(Digest.sha1.process(largeData))
     }
+    
+    func testSHA1Performance() throws {
+        try DebugLogger.default.measure {
+            for _ in 0..<10.thouthand {
+                let data = Data(random: 64)
+                var sha1 = SHA1()
+                sha1.update(data)
+                _ = sha1.finalize()
+            }
+        }
+        
+        try DebugLogger.default.measure {
+            for _ in 0..<10.thouthand {
+                let data = Data(random: 64)
+                _ = Digest.sha1.process(data)
+            }
+        }
+    }
+
 }

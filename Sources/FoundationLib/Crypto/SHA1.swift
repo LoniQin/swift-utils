@@ -51,17 +51,13 @@ public struct SHA1 {
                 i += 1
             }
             transform()
-            while i < 56 {
-                data[i] = 0
-                i += 1
-            }
+            memset(&data, 0, 56)
         } else {
             while i < 56 {
                 data[i] = 0
                 i += 1
             }
         }
-        //dataLength = i
         bitLength += dataLength * 8
 
         data[63] = UInt8(bitLength & 0xff)
@@ -79,7 +75,8 @@ public struct SHA1 {
             hash[i] = UInt8((state[0] >> shift) & 0xff)
             hash[i + 4] = UInt8((state[1] >> shift) & 0xff)
             hash[i + 8] = UInt8((state[2] >> shift) & 0xff)
-            hash[i + 16] = UInt8((state[3] >> shift) & 0xff)
+            hash[i + 12] = UInt8((state[3] >> shift) & 0xff)
+            hash[i + 16] = UInt8((state[4] >> shift) & 0xff)
         }
         return Data(hash)
     }
@@ -125,11 +122,11 @@ public struct SHA1 {
             b = a
             a = t
         }
-        state[0] = state[0] &+ a
-        state[1] = state[1] &+ b
-        state[2] = state[2] &+ c
-        state[3] = state[3] &+ d
-        state[4] = state[4] &+ e
+        state[0] &+= a
+        state[1] &+= b
+        state[2] &+= c
+        state[3] &+= d
+        state[4] &+= e
         
     }
 
