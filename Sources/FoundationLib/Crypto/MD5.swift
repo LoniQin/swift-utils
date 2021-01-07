@@ -7,16 +7,36 @@
 
 import Foundation
 
-
 fileprivate extension UInt32 {
     mutating func addSafely(_ b: UInt32) {
         self = addingReportingOverflow(b).partialValue
     }
 }
 
+fileprivate func ROTATE_LEFT(_ a: UInt32, _ b: UInt32) -> UInt32 {
+    ((a << b) | (a >> (32 - b)))
+}
+
+fileprivate func F(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+    (x & y) | (~x & z)
+}
+
+fileprivate func G(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+    (x & z) | (y & ~z)
+}
+
+fileprivate func H(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+    x ^ y ^ z
+}
+
+fileprivate func I(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
+    y ^ (x | ~z)
+}
+
 public struct MD5 {
     
     public static let blockSize = 16
+    
     public init() {
 
     }
@@ -56,8 +76,9 @@ public struct MD5 {
             data[56 + i] = UInt8(truncatingIfNeeded: bitLength >> (8 * i))
         }
         transform()
+        var shift: UInt32 = 0
         for i in 0..<4 {
-            let shift = UInt32(8 * i)
+            shift = UInt32(8 * i)
             for j in 0..<4 {
                 buffer[i + 4 * j] = UInt8(truncatingIfNeeded: state[j] >> shift)
             }
@@ -73,36 +94,14 @@ public struct MD5 {
             j += 4
         }
         var temp = state
-        
-        func ROTLEFT(_ a: UInt32, _ b: UInt32) -> UInt32 {
-            ((a << b) | (a >> (32 - b)))
-        }
-
-        func F(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-            (x & y) | (~x & z)
-        }
-
-        func G(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-            (x & z) | (y & ~z)
-        }
-
-        func H(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-            x ^ y ^ z
-        }
-
-        func I(_ x: UInt32, _ y: UInt32, _ z: UInt32) -> UInt32 {
-            y ^ (x | ~z)
-        }
-        
-        let functions = [F, G, H, I]
         var value: UInt32 = 0
-        for i in 0..<functions.count {
-            for item in Self.rounds[i] {
-                temp[item.0].addSafely(functions[i](temp[item.1], temp[item.2], temp[item.3]))
+        for (round, function) in zip(Self.rounds, [F, G, H, I]) {
+            for item in round {
+                temp[item.0].addSafely(function(temp[item.1], temp[item.2], temp[item.3]))
                 temp[item.0].addSafely(m[item.4])
                 temp[item.0].addSafely(item.6)
                 value = temp[item.1]
-                value.addSafely(ROTLEFT(temp[item.0], item.5))
+                value.addSafely(ROTATE_LEFT(temp[item.0], item.5))
                 temp[item.0] = value
             }
         }

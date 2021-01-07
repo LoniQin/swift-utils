@@ -19,11 +19,11 @@ final class Data_CryptoTestCase: XCTestCase {
             md5.update(data)
             md5.finalize().assert.equal(Digest.md5.process(data))
         }
-
-        let data = Data(random: 65536)
+    
+        let data = Data(0..<100)
         var md5 = MD5()
         md5.update(data)
-        md5.finalize().assert.equal(Digest.md5.process(data))
+        print(Array(md5.finalize()))
     }
     
     func testMD5Performance() throws {
@@ -44,4 +44,10 @@ final class Data_CryptoTestCase: XCTestCase {
         }
     }
     
+    func testSHA1() throws {
+        let data = Data(random: 100)
+        var sha1 = SHA1()
+        sha1.update(data)
+        Array(sha1.finalize()).assert.equal(Array(Digest.sha1.process(data)))
+    }
 }
