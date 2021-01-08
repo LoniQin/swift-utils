@@ -21,7 +21,7 @@ public struct SHA1 {
     
     public init() {}
     
-    private var data: [UInt8] = .init(repeating: 0, count: 64)
+    private var data = [UInt8](repeating: 0, count: 64)
     
     private var dataLength = 0
     
@@ -49,21 +49,11 @@ public struct SHA1 {
     }
     
     public mutating func finalize() -> Data {
-        var i = dataLength
-        data[i] = 0x80
-        i += 1
-        if dataLength > 55 {
-            while i < 64 {
-                data[i] = 0
-                i += 1
-            }
+        data[dataLength] = 0x80
+        data.resetBytes(in: (dataLength + 1)..<(56 + (dataLength >= 56 ? 8 : 0)))
+        if dataLength >= 56 {
             transform()
-            memset(&data, 0, 56)
-        } else {
-            while i < 56 {
-                data[i] = 0
-                i += 1
-            }
+            data.resetBytes(in: 0..<56)
         }
         bitLength += dataLength * 8
         for i in 0..<8 {
