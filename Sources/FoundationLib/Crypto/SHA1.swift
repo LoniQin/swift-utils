@@ -9,11 +9,11 @@ import Foundation
 
 fileprivate func ROTATE_LEFT(_ a: UInt32, _ b: UInt32) -> UInt32 { ((a << b) | (a >> (32 - b))) }
 
-fileprivate func A(_ b: UInt32, _ c: UInt32, _ d: UInt32) -> UInt32 { (b & c) | ((~b) & d) }
+fileprivate func F1(_ b: UInt32, _ c: UInt32, _ d: UInt32) -> UInt32 { (b & c) | ((~b) & d) }
 
-fileprivate func B(_ b: UInt32, _ c: UInt32, _ d: UInt32) -> UInt32 { b ^ c ^ d }
+fileprivate func F2(_ b: UInt32, _ c: UInt32, _ d: UInt32) -> UInt32 { b ^ c ^ d }
 
-fileprivate func C(_ b: UInt32, _ c: UInt32, _ d: UInt32) -> UInt32 { (b & c) | (b & d) | (c & d) }
+fileprivate func F3(_ b: UInt32, _ c: UInt32, _ d: UInt32) -> UInt32 { (b & c) | (b & d) | (c & d) }
 
 public struct SHA1 {
     
@@ -30,10 +30,10 @@ public struct SHA1 {
     private var state: [UInt32] = [0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xc3d2e1f0]
     
     private static let rounds = [
-        (0...19, UInt32(0x5a827999), A),
-        (20...39, UInt32(0x6ed9eba1), B),
-        (40...59, UInt32(0x8f1bbcdc), C),
-        (60...79, UInt32(0xca62c1d6), B)
+        (0...19, UInt32(0x5a827999), F1),
+        (20...39, UInt32(0x6ed9eba1), F2),
+        (40...59, UInt32(0x8f1bbcdc), F3),
+        (60...79, UInt32(0xca62c1d6), F2)
     ]
 
     public mutating func update(_ d: Data) {
