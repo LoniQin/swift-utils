@@ -8,6 +8,9 @@
 
 import Foundation
 import XCTest
+#if canImport(CryptoKit)
+import CryptoKit
+#endif
 @testable import FoundationLib
 
 final class Data_CryptoTestCase: XCTestCase {
@@ -42,6 +45,16 @@ final class Data_CryptoTestCase: XCTestCase {
                 _ = Digest.md5.process(data)
             }
         }
+        #if canImport(CryptoKit)
+        try DebugLogger.default.measure {
+            for _ in 0..<10.thouthand {
+                let data = Data(random: 64)
+                var md5 = Insecure.MD5()
+                md5.update(data: data)
+                _ = md5.finalize()
+            }
+        }
+        #endif
     }
     
     func testSHA1() throws {
@@ -73,6 +86,16 @@ final class Data_CryptoTestCase: XCTestCase {
                 _ = Digest.sha1.process(data)
             }
         }
+        #if canImport(CryptoKit)
+        try DebugLogger.default.measure {
+            for _ in 0..<10.thouthand {
+                let data = Data(random: 64)
+                var sha1 = Insecure.SHA1()
+                sha1.update(data: data)
+                _ = sha1.finalize()
+            }
+        }
+        #endif
     }
 
 }

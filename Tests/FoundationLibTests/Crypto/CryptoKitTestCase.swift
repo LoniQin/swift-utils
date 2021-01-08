@@ -6,8 +6,8 @@
 //
 #if canImport(CryptoKit)
 import CryptoKit
-import CommonCrypto
 #endif
+import CommonCrypto
 import Foundation
 import XCTest
 
