@@ -45,7 +45,7 @@ public extension HashTable {
 
 extension HashTable {
     
-    // Must be the
+    // Must be 2^n
     static func initialCapacity() -> Int {
         4
     }

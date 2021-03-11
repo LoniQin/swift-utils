@@ -16,6 +16,10 @@ public class Stack<T>: Sequence, Countable {
     
     fileprivate(set) public var count: Int = 0
     
+    public init() {
+        
+    }
+    
     public func push(_ item: T) {
         firstNode = ListNode(item, firstNode)
         count += 1

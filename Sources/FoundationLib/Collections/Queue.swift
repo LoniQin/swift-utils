@@ -19,6 +19,10 @@ public class Queue<T>: Sequence, Countable {
     
     fileprivate(set) public var count: Int = 0
     
+    public init() {
+        
+    }
+    
     public func enqueue(_ item: T) {
         let oldLast = last
         last = ListNode(item)
