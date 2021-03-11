@@ -16,6 +16,10 @@ public class Bag<T>: Countable, Sequence {
     
     fileprivate(set) public var count: Int = 0
     
+    public init() {
+        
+    }
+    
     public func add(_ value: T) {
         first = ListNode(value, first)
         count += 1
