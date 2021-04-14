@@ -8,7 +8,7 @@
 import Foundation
 
 public class FileStorage: DataStorage {
-    
+     
     fileprivate let jsonDecoder = JSONDecoder()
 
     fileprivate let jsonEncoder = JSONEncoder()
