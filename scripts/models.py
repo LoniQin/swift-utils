@@ -13,7 +13,7 @@ template = """
 
 import Foundation
 import XCTest
-@testable import FoundationLib
+@testable import SwiftUtils
 
 final class {name}TestCase: XCTestCase {
     func testSample() {

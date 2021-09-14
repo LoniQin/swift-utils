@@ -1,7 +1,7 @@
 import XCTest
 
-import FoundationLibTests
+import SwiftUtilsTests
 
 var tests = [XCTestCaseEntry]()
-tests += FoundationLibTests.allTests()
+tests += SwiftUtilsTests.allTests()
 XCTMain(tests)

@@ -3,7 +3,7 @@ import datetime
 from models import  *
 from utils import *
 if __name__ == "__main__":
-    lib_name = "FoundationLib"
+    lib_name = "SwiftUtils"
     date = datetime.date.today()
     date_str = "%d/%d/%d"%(date.year, date.month, date.day)
     items = __file__.split("/")
