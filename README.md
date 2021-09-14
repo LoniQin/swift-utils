@@ -1,7 +1,6 @@
 # SwiftUtils
 
-This Library provides many common tools to work with writing App.
-
+This Libraries contains some Swift tools that I create in daily life.
 ## Installation
 
 ### Swift Package Manager
