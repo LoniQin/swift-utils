@@ -1,6 +1,6 @@
 # SwiftUtils
 
-This Libraries contains some Swift tools that I create in daily life.
+This Library contains some Swift tools that I create in daily life.
 ## Installation
 
 ### Swift Package Manager
