@@ -9,7 +9,7 @@ Once you have your Swift Package set up, you add this code to your Package.swift
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/LoniQin/swift-utils", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/LoniQin/swift-utils", .upToNextMajor(from: "1.14.0"))
 ]
 ```
 
